@@ -1,0 +1,93 @@
+import { GeoLocation } from "./GeoLocation";
+
+export interface AWSDemResponse {
+    status:boolean
+    dem?:number
+    message?: string
+}
+
+export interface Point {
+    lat: number
+    lng: number
+}
+
+export enum AppSettingsKey {
+  MAPBOX_ACCESS_TOKEN = 'MAPBOX_ACCESS_TOKEN',
+  MAPBOX_STYLE = 'MAPBOX_STYLE',
+  HEART_RATE_PERIPHERAL_UUID = 'HEART_RATE_PERIPHERAL_UUID',
+  HEART_RATE_PERIPHERAL_NAME = 'HEART_RATE_PERIPHERAL_NAME',
+  AUTOMATIC_START_STOP = 'AUTOMATIC_START_STOP',
+  DISPLAY_ALWAYS_ON = 'DISPLAY_ALWAYS_ON',
+  VOICE_SUMMARY_TIME_INTERVAL_MIN = 'VOICE_SUMMARY_TIME_INTERVAL_MIN',
+  COUNTDOWN = 'COUNTDOWN',
+  DEBUG_TRACE = 'DEBUG_TRACE',
+  GPS_HIGH_ACCURACY = 'GPS_HIGH_ACCURACY',
+  GPS_UPDATE_DISTANCE_MT = 'GPS_UPDATE_DISTANCE_MT',
+  GPS_UPDATE_TIME_SEC = 'GPS_UPDATE_TIME_MS',
+  GPS_MINIMUM_UPDATE_TIME_SEC = 'GPS_MINIMUM_UPDATE_TIME_MS',
+  DEM_AWS_API_KEY = 'DEM_AWS_API_KEY'
+}
+ 
+export enum AppSettingsDefaultValue {
+  MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoiaGV5dGVhY2hlciIsImEiOiJja2FkeXNyZWYwYzRjMnRueHd0MzF2eDl4In0.KhuQSZVCbPk4ISBDsHTmrw',
+  MAPBOX_STYLE = 'mapbox://styles/heyteacher/ckbdh4k8v202j1inuccmi89j7',
+  //HEART_RATE_PERIPHERAL_UUID = '',
+  //HEART_RATE_PERIPHERAL_NAME = '',
+  AUTOMATIC_START_STOP = 'true',
+  DISPLAY_ALWAYS_ON = 'true',
+  VOICE_SUMMARY_TIME_INTERVAL_MIN = '15',
+  COUNTDOWN = 'true',
+  DEBUG_TRACE = 'true',
+  GPS_HIGH_ACCURACY = 'false',
+  GPS_UPDATE_DISTANCE_MT = '10',
+  GPS_UPDATE_TIME_SEC = '10',
+  GPS_MINIMUM_UPDATE_TIME_SEC = '5',
+  DEM_AWS_API_KEY = 'qswqKiQYLo2HiA71PVmAP9AB4b5CiwJraExSURih'
+}
+
+export interface Credits {
+    text: string
+    site: string
+    license: string
+}
+
+export interface CountryAmzLinks {
+    [Key: string]: AmzLink[]
+}
+
+
+export interface AmzLink {
+    text: string
+    image: string
+    url: string
+    heartrate?: boolean
+}
+
+export enum Tab {
+    TRACK,
+    MAP,
+    HISTORY,
+    SETTINGS
+}
+
+export enum AppStatus {
+    EXIT,
+    SUSPEND,
+    RESUME,
+    START,
+    LOW_MEMORY,
+    ERROR
+}
+
+export enum LiveStatus {
+    STARTED,
+    STOPPED,
+    PAUSED,
+    RESUMED
+}
+
+export interface ClimbDownHillAccumulator {
+    climb: number, 
+    downhill: number
+    lastDem: number
+}

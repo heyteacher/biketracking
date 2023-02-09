@@ -1,0 +1,6 @@
+<en-US>
+localized the application. Italian translation added
+</en-US>
+<it-IT>
+applicationcazione localizzata. Aggiunta traduzione in italiano
+</it-IT>

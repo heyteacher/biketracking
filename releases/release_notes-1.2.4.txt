@@ -1,0 +1,6 @@
+<en-US>
+fix climb and down hill calculation with smoothing algorithm.
+</en-US>
+<it-IT>
+corretto calcolo della salita e discesa con utilizzo di algoritmo di smoothing.
+</it-IT>

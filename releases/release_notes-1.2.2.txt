@@ -1,0 +1,6 @@
+<en-US>
+Fix automatic resume.
+</en-US>
+<it-IT>
+Risolto problema su riavvio automatico.
+</it-IT>

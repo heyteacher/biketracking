@@ -1,0 +1,6 @@
+<en-US>
+remove start-stop features.
+</en-US>
+<it-IT>
+rimossa funzionalità start-stop-
+</it-IT>

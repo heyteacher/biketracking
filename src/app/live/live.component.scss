@@ -1,0 +1,34 @@
+.value {
+    font-size: 45px;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+.label {
+    text-align: center;
+    vertical-align: top;
+}
+
+.restoreDialogOpen .content {
+    opacity: 0.2;
+}
+
+.restoreDialogOpen .restore-dialog-wrapper {
+    visibility: visible;
+}
+
+.restore-dialog-wrapper {
+    visibility: collapse;
+}
+
+.stopDialogOpen .content {
+    opacity: 0.2;
+}
+
+.stopDialogOpen .stop-dialog-wrapper {
+    visibility: visible;
+}
+
+.stop-dialog-wrapper {
+    visibility: collapse;
+}

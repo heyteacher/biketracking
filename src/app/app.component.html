@@ -1,0 +1,41 @@
+<Tabs #tabs swipeEnabled="false" tabsPosition="bottom" (selectedIndexChanged)="onSelectedIndexChanged($event)">
+    <TabStrip>
+        <TabStripItem>
+            <!--
+                Note TabStripItem will only accept single Label and/or single Image elements that it
+                will "adopt"; any other layout elements you try to specify will be ignored
+            -->
+            <Image src="font://&#xf206;" class="fas t-36"></Image>
+            <Label text="{{'Live' | L}}"></Label>
+        </TabStripItem>
+        <TabStripItem>
+            <Image src="font://&#xf59f;" class="fas t-36"></Image>
+            <Label text="{{'Map' | L}}"></Label>
+        </TabStripItem>
+        <TabStripItem>
+            <Image src="font://&#xf1da;" class="fas t-36"></Image>
+            <Label text="{{'History' | L}}"></Label>
+        </TabStripItem>
+        <TabStripItem>
+            <Image src="font://&#xf013;" class="fas t-36"></Image>
+            <Label text="{{'Settings' | L}}"></Label>
+        </TabStripItem>
+    </TabStrip>
+
+    <TabContentItem>
+        <page-router-outlet name="liveTab"></page-router-outlet>
+    </TabContentItem>
+
+    <TabContentItem>
+        <page-router-outlet name="mapTab"></page-router-outlet>
+    </TabContentItem>
+
+    <TabContentItem>
+        <page-router-outlet name="historyTab"></page-router-outlet>
+    </TabContentItem>
+
+    <TabContentItem>
+        <page-router-outlet name="settingsTab"></page-router-outlet>
+    </TabContentItem>
+
+</Tabs>

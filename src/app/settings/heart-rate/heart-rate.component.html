@@ -1,0 +1,89 @@
+<ActionBar>
+    <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label text="{{'HEART RATE DEVICE'|L}}"></Label>
+</ActionBar>
+
+<GridLayout rows="50,70,50,*" columns="*">
+    <Button row="0" text="{{'SCAN'|L}}" [nsRouterLink]="['../heart-rate/scanner']" (tap)="startScanning()"></Button>
+    <Label row="1" [text]="peripheral" textWrap="true" class="label"></Label>
+    <Button row="2" text="{{'DISCONNECT'|L}}" (tap)="disconnect()" [visibility]="visibleIfConnected()"></Button>
+    <GridLayout row="3" columns="*" rows="*,80" [visibility]="visibleIfConnected()">
+        <Label row="0" col="0" [text]="bpm" textWrap="false" class="value cyanColor"></Label>
+        <Label row="1" col="1" text="{{'HEART RATE BPM'|L}}" textWrap=false class="label cyanColor"></Label>
+    </GridLayout>
+    <!--
+    <Label row="2" class="label title" text="{{'Shop a supported device (Amazon Associates Links)'|L}}" [visibility]="visibleIfNotConnected()"></Label>
+    <TabView row="3" selectedIndex="0" [visibility]="visibleIfNotConnected()">
+        <StackLayout *tabItem="{title: 'IT'}">
+            <ListView height="300" [items]="countryAmzLinks['IT'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'DE'}">
+            <ListView height="300" [items]="countryAmzLinks['DE'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'FR'}">
+            <ListView height="300" [items]="countryAmzLinks['FR'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'ES'}">
+            <ListView height="300" [items]="countryAmzLinks['ES'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'UK'}">
+            <ListView height="300" [items]="countryAmzLinks['UK'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'US'}">
+            <ListView height="300" [items]="countryAmzLinks['US'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'CA'}">
+            <ListView height="300" [items]="countryAmzLinks['CA'] | heartRateFilter">
+                <ng-template let-item="item">
+                    <GridLayout rows="70" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="link-description" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </TabView>
+    -->
+</GridLayout>

@@ -1,0 +1,6 @@
+<en-US>
+heart rate, support us, auto start stop enhancements.
+</en-US>
+<it-IT>
+miglioramenti su cardiofrequenzimetro, supportaci e start/stop automatico.
+</it-IT>

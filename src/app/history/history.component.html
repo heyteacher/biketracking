@@ -1,0 +1,56 @@
+<ActionBar title="" android.icon="res://icon" android.iconVisibility="always">
+    <ActionItem (tap)="removeTracks()" icon="font://&#xf1f8;" class="fas blueColor" [visibility]="visibleIfSelected()"></ActionItem>
+</ActionBar>
+
+<GridLayout class="page" [class.removeDialogOpen]="removeDialogOpen">
+
+    <GridLayout rows="60,30,*" columns="*" class="content">
+
+        <ListPicker row="0" [items]="years" selectedIndex="0" (selectedIndexChange)="onSelectedIndexChanged($event)"></ListPicker>
+
+        <GridLayout row="1" rows="*" columns="*,*,*,*">
+            <Label col="0" text="{{'Total Tracks:'|L}}" textWrap="false" class="yellowColor"></Label>
+            <Label col="1" [text]="totalTracks" textWrap="false"></Label>
+            <Label col="2" text="{{'Total Distance:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label col="3" [text]="totalDistance" textWrap=false></Label> /
+        </GridLayout>
+
+        <ListView row="2" [items]="tracks">
+            <ng-template let-item="item">
+                <StackLayout [nsRouterLink]="['../track', item.key]" padding="0" orientation="horizontal" [class]="getTrackClass(item.key)" (longPress)="toggleTrackSelection(item.key)">
+                    <Image src="res://icon" stretch="none"></Image>
+                    <!-- <Label padding="0" width="50" [class]="'fas ' + getTrackClass(item.key)">
+                    <FormattedString>
+                        <Span text="&#xf206;" class="t-36"></Span>
+                    </FormattedString>
+                </Label> -->
+                    <Label [text]="item.startTime" [class]="getTrackClass(item.key)" textWrap="true">
+                    <FormattedString>
+                        <Span [text]="formatDateTimeValue(item.startTime)"></Span>
+                        <Span [text]="'\n'"></Span>
+                        <Span [text]="formatNumberValue(item.distance)" className="cyanColor"></Span>
+                        <Span text=" KM - " className="cyanColor"></Span>
+                        <Span [text]="formatNumberValue(item.average)" className="cyanColor"></Span>
+                        <Span text=" KM/H" className="cyanColor"></Span>
+                        <Span [text]="'\n'"></Span>
+                        <Span [text]="formatDurationValue(item.duration)"  className="orangeColor"></Span>
+                    </FormattedString>
+                </Label>
+                </StackLayout>
+            </ng-template>
+        </ListView>
+
+        <ActivityIndicator row="2" [busy]="loading"></ActivityIndicator>
+
+    </GridLayout>
+
+    <AbsoluteLayout class="remove-dialog-wrapper">
+        <StackLayout class="dialog">
+            <Label textWrap="true" text="{{'Are You Sure to Remove Selected Tracks?'|L}}"></Label>
+            <Button class="btn btn-primary" text="{{'YES: Remove Selected Tracks'|L}}" (tap)="removeTracks(true)"></Button>
+            <Button class="btn btn-danger" text="{{'NO: Don\'t Remove Selected Tracks'|L}}" (tap)="removeTracks(false)"></Button>
+            <Button class="btn" text="{{'CANCEL'|L}}" (tap)="closeRemoveDialogOpen()"></Button>
+        </StackLayout>
+    </AbsoluteLayout>
+
+</GridLayout>

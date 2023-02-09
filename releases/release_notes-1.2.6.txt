@@ -1,0 +1,6 @@
+<en-US>
+Fix Android 11 compatibility bugs
+</en-US>
+<it-IT>
+Corretti mafunzionamento di incompatibilità su Android 11
+</it-IT>

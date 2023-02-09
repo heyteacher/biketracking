@@ -1,0 +1,62 @@
+<ActionBar title="" android.icon="res://icon" android.iconVisibility="always">
+    <ActionItem (tap)="pause()" icon="font://&#xf28b;" class="fas blueColor" [visibility]="visibleIfStartedNotPaused()"></ActionItem>
+    <ActionItem (tap)="resume()" icon="font://&#xf144;" class="fas blueColor" [visibility]="visibleIfPaused()"></ActionItem>
+    <ActionItem (tap)="stop()" icon="font://&#xf28d;" class="fas blueColor" [visibility]="visibleIfStarted()"></ActionItem>
+</ActionBar>
+
+<GridLayout class="page" [class.restoreDialogOpen]="restoreDialogOpen" [class.stopDialogOpen]="stopDialogOpen">
+    <GridLayout class="content">
+
+        <GridLayout rows="*" columns="*" [visibility]="visibleIfStopped()">
+            <Label (tap)="start()" class="page__content-icon fas blueColor" text="&#xf144;"></Label>
+        </GridLayout>
+
+        <GridLayout rows="*" columns="*" [visibility]="visibleIfStarting()">
+            <Label #startingCountdownLabel class="page__content-icon fas blueColor" [text]="startingCountdown"></Label>
+        </GridLayout>
+
+        <GridLayout rows="*,*,*" columns="*" [visibility]="visibleIfStarted()">
+            <GridLayout row="0" columns="*,*,*" rows="*,*">
+                <Label row="0" col="0" [text]="distance" textWrap="false" class="value violetColor"></Label>
+                <Label row="1" col="0" text="{{'DISTANCE KM'|L}}" textWrap=false class="label violetColor"></Label>
+                <Label row="0" col="1" [text]="speed" textWrap="false" class="value violetColor"></Label>
+                <Label row="1" col="1" text="{{'SPEED KM/H'|L}}" textWrap=false class="label violetColor"></Label>
+                <Label row="0" col="2" [text]="average" textWrap="false" class="value violetColor"></Label>
+                <Label row="1" col="2" text="{{'AVERAGE KM/H'|L}}" textWrap=false class="label violetColor"></Label>
+            </GridLayout>
+            <GridLayout row="1" columns="*,*,*" rows="*,*">
+                <Label row="0" col="0" [text]="dem" textWrap="false" class="value cyanColor"></Label>
+                <Label row="1" col="0" text="{{'ALTITUDE M'|L}}" textWrap=false class="label cyanColor"></Label>
+                <Label row="0" col="1" [text]="gradient" textWrap="false" class="value cyanColor"></Label>
+                <Label row="1" col="1" text="{{'GRADIENT %'|L}}" textWrap=false class="label cyanColor"></Label>
+                <Label row="0" col="2" [text]="bpm" textWrap="false" class="value cyanColor" (tap)="restartHeartRate()"></Label>
+                <Label row="1" col="2" text="{{'HEART RATE BPM'|L}}" textWrap=false class="label cyanColor"></Label>
+            </GridLayout>
+            <GridLayout row="2" columns="*,*" rows="*,*">
+                <Label #durationLabel row="0" col="0" [text]="duration" textWrap="false" class="value orangeColor"></Label>
+                <Label row="1" col="0" text="{{'DURATION'|L}}" textWrap=false class="label  orangeColor"></Label>
+                <Label row="0" col="1" [text]="time" textWrap="false" class="value orangeColor"></Label>
+                <Label row="1" col="1" text="{{'TIME'|L}}" textWrap=false class="label orangeColor"></Label>
+            </GridLayout>
+        </GridLayout>
+    </GridLayout>
+
+    <AbsoluteLayout class="restore-dialog-wrapper">
+        <StackLayout class="dialog">
+            <Label textWrap="true" text="{{'Do You Want Restore Pending Track?'|L}}"></Label>
+            <Button class="btn btn-primary" text="{{'YES: Restore'|L}}" (tap)="restorePendingTrack()"></Button>
+            <Button class="btn btn-danger" text="{{'NO: Remove Pending Track'|L}}" (tap)="removePendingTrack()"></Button>
+            <Button class="btn" text="{{'CANCEL'|L}}" (tap)="closeRestoreDialogOpen()"></Button>
+        </StackLayout>
+    </AbsoluteLayout>
+
+    <AbsoluteLayout class="stop-dialog-wrapper">
+        <StackLayout class="dialog">
+            <Label textWrap="true" text="{{'Are You Sure to Stop Tracking?'|L}}"></Label>
+            <Button class="btn btn-primary" text="{{'YES, STOP and Save the Track'|L}}" (tap)="stop(true)"></Button>
+            <Button class="btn btn-danger" text="{{'YES, STOP but Don\'t Save the Track'|L}}" (tap)="stop(false)"></Button>
+            <Button class="btn" text="{{'NO'|L}}" (tap)="closeStopDialogOpen()"></Button>
+        </StackLayout>
+    </AbsoluteLayout>
+
+</GridLayout>

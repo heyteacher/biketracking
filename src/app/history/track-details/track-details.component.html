@@ -1,0 +1,67 @@
+<ActionBar>
+    <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label [text]="trackTitle"></Label>
+</ActionBar>
+
+<ScrollView>
+    <StackLayout orientation="vertical">
+        <GridLayout rows="20,20,20,20,20,20" columns="*,auto,*,auto">
+            <Label row="0" col="0" text="{{'Start Time:'|L}}" textWrap="false" class="orangeColor"></Label>
+            <Label row="0" col="1" [text]="startTime" textWrap="false"></Label>
+            <Label row="0" col="2" text="{{'Stop Time:'|L}}" textWrap="false" class="orangeColor"></Label>
+            <Label row="0" col="3" [text]="stopTime" textWrap=false></Label>
+
+            <Label row="1" col="0" text="{{'Distance:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label row="1" col="1" [text]="distance" textWrap="false"></Label>
+            <Label row="1" col="2" text="{{'Duration:'|L}}" textWrap="false" class="orangeColor"></Label>
+            <Label row="1" col="3" [text]="duration" textWrap=false></Label>
+
+            <Label row="2" col="0" text="{{'Average:'|L}}" textWrap="false" class="greenColor"></Label>
+            <Label row="2" col="1" [text]="average" textWrap="false"></Label>
+            <Label row="2" col="2" text="{{'Max Speed:'|L}}" textWrap="false" class="greenColor"></Label>
+            <Label row="2" col="3" [text]="maxSpeed" textWrap=false></Label>
+
+            <Label row="3" col="0" text="{{'Climb:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label row="3" col="1" [text]="climb" textWrap="false"></Label>
+            <Label row="3" col="2" text="{{'Downhill:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label row="3" col="3" [text]="downhill" textWrap="false"></Label>
+
+            <Label row="4" col="0" text="{{'Min Altitude:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label row="4" col="1" [text]="minAltitude" textWrap=false></Label>
+            <Label row="4" col="2" text="{{'Max Altitude:'|L}}" textWrap="false" class="cyanColor"></Label>
+            <Label row="4" col="3" [text]="maxAltitude" textWrap=false></Label>
+
+            <Label row="5" col="0" text="{{'Max BPM:'|L}}" textWrap="false" class="violetColor"></Label>
+            <Label row="5" col="1" [text]="maxBpm" textWrap=false></Label>
+        </GridLayout>
+
+        <GridLayout rows="*" columns="*">
+            <ContentView height="350" width="100%">
+                <Mapbox #map [accessToken]="mapboxAccessToken" [mapStyle]="mapboxStyle" hideCompass="false" zoomLevel="12" showUserLocation="false" disableZoom="true" disableRotation="true" disableScroll="true" disableTilt="true" (mapReady)="onMapReady($event)">
+                </Mapbox>
+            </ContentView>
+        </GridLayout>
+
+        <Label text="{{'Heart Rate BPM'|L}}" class="title"></Label>
+
+        <GridLayout rows="*" columns="*">
+            <RadCartesianChart height="180">
+                <DateTimeContinuousAxis tkCartesianHorizontalAxis [minimum]="bpmMinimum" [maximum]="bpmMaximum" majorStep="15" majorStepUnit="Minute" dateFormat="HH:mm" labelFitMode="Rotate" labelRotationAngle="1.5708">
+                </DateTimeContinuousAxis>
+                <LinearAxis tkCartesianVerticalAxis labelFormat='%.0f' minimum="50" maximum="200"></LinearAxis>
+                <LineSeries tkCartesianSeries strokeColor="#ffaddf" [items]="bpmDateTimeSource" categoryProperty="category" valueProperty="value"></LineSeries>
+            </RadCartesianChart>
+        </GridLayout>
+
+        <Label text="{{'Altitude'|L}}" class="title"></Label>
+
+        <GridLayout rows="*" columns="*">
+            <RadCartesianChart height="180">
+                <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.5708" majorTickInterval="2"></CategoricalAxis>
+                <LinearAxis tkCartesianVerticalAxis labelFormat='%.0f'></LinearAxis>
+                <LineSeries tkCartesianSeries strokeColor="#6dffe7" [items]="altitudeDistanceSource" categoryProperty="category" valueProperty="value"></LineSeries>
+            </RadCartesianChart>
+        </GridLayout>
+
+    </StackLayout>
+</ScrollView>

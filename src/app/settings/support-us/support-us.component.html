@@ -1,0 +1,93 @@
+<ActionBar>
+    <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label text="{{'SUPPORT US'|L}}"></Label>
+</ActionBar>
+
+<GridLayout rows="90,30,*" columns="*">
+    <GridLayout row="0" rows="30,30,30" columns="*,160">
+        <Label row="0" column="0" class="label" text="{{'Subscribe a tier'|L}}"></Label>
+        <Button row="0" column="1" class="btn btn-primary" text="Github Sponsors" (ontap)="openUrl('https://github.com/sponsors/heyteacher')"></Button>
+
+        <Label row="1" column="0" class="label" text="{{'Make a donation'|L}}"></Label>
+        <Button row="1" column="1" class="btn liberapay" text="Liberapay" (ontap)="openUrl('https://liberapay.com/heyteacher')"></Button>
+
+        <Label row="2" column="0" class="label" text="{{'Reporting bugs'|L}}"></Label>
+        <Button row="2" column="1" class="btn btn-primary" text="Github Issues" (ontap)="openUrl('https://github.com/heyteacher/biketracking/issues')"></Button>
+    </GridLayout>
+
+    <!--
+    <Label row="1" class="label title" text="{{'Shop on Amazon (Associates Links)'|L}}"></Label>
+    <TabView row="2" selectedIndex="0">
+        <StackLayout *tabItem="{title: 'IT'}">
+            <ListView height="300" [items]="countryAmzLinks['IT']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'DE'}">
+            <ListView height="300" [items]="countryAmzLinks['DE']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'FR'}">
+            <ListView height="300" [items]="countryAmzLinks['FR']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'ES'}">
+            <ListView height="300" [items]="countryAmzLinks['ES']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'UK'}">
+            <ListView height="300" [items]="countryAmzLinks['UK']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'US'}">
+            <ListView height="300" [items]="countryAmzLinks['US']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+        <StackLayout *tabItem="{title: 'CA'}">
+            <ListView height="300" [items]="countryAmzLinks['CA']">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="auto,*" (tap)="openUrl(item.url)">
+                        <Image column="0" [src]="item.image" class="m-t-5" width="150"></Image>
+                        <Label column="1" class="label" [text]="item.text"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </StackLayout>
+    </TabView>
+    -->
+</GridLayout>

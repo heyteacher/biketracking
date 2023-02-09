@@ -1,0 +1,6 @@
+<en-US>
+added contry localized Amazon associated links in Support Us section
+</en-US>
+<it-IT>
+aggiunti link di affiliazione Amazon localizzati per country nella sezione Support Us
+</it-IT>

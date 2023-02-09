@@ -1,0 +1,6 @@
+<en-US>
+new targetSdkVersion 30 (Android 11)
+</en-US>
+<it-IT>
+nuova targetSdkVersion 30 (Android 11)
+</it-IT>

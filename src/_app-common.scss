@@ -1,0 +1,154 @@
+@import "~@nativescript/theme/core";
+@import "~@nativescript/theme/blue";
+// grey scale
+$white: #bbb;
+$grey: #444;
+$darkGrey: #222;
+$black: #000;
+//olympic colors
+$blue: adjust-color(#0085C7, $lightness: 35%);
+$yellow: adjust-color(#F4C300, $lightness: 35%);
+$green: adjust-color(#009F3D, $lightness: 35%);
+$red: adjust-color(#DF0024, $lightness: 35%);
+// olimpic inverted colors 
+$orange: adjust-color(#ff7a38, $lightness: 15%);
+$cyan: adjust-color(#20ffdb, $lightness: 15%);
+$violet: adjust-color(#ff60c2, $lightness: 15%);
+// @debug "$white: #{$white}";
+// @debug "$grey: #{$grey}";
+// @debug "$darkGrey: #{$darkGrey}";
+// @debug "$black: #{$black}";
+// @debug "$blue: #{$blue}";
+// @debug "$yellow: #{$yellow}";
+// @debug "$red: #{$red}";
+// @debug "$orange: #{$orange}";
+// @debug "$cyan: #{$cyan}";
+// @debug "$violet: #{$violet}";
+// $white: #bbb
+// $grey: #444
+// $darkGrey: #222
+// $black: #000
+// $blue: #7bd3ff
+// $yellow: #ffeda8
+// $red: #ff93a4
+// $orange: #ffad85
+// $cyan: #6dffe7
+// $violet: #ffaddf
+.fab {
+    font-family: "Font Awesome 5 Brands", "fa-brands-400";
+    font-weight: 400;
+}
+
+.fas {
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
+    font-weight: 900;
+}
+
+.far {
+    font-family: "Font Awesome 5 Free", "fa-regular-400";
+    font-weight: 400;
+}
+
+TabStrip {
+    background-color: $darkGrey;
+    selected-item-color: $white;
+    un-selected-item-color: $white;
+    highlight-color: $blue;
+}
+
+TabStripItem Label {
+    font-size: 8;
+}
+
+ActionBar {
+    background-color: $darkGrey;
+    color: $white;
+}
+
+Button {
+    color: $blue;
+    font-size: 20;
+    background-color: $darkGrey;
+}
+
+TextField {
+    background-color: $darkGrey;
+    color: $white;
+    text-align: center;
+}
+
+TabView {
+    tab-background-color: $darkGrey;
+}
+
+// Common page class
+.page__content {
+    &-icon,
+    &-placeholder {
+        color: $white;
+        font-size: 20;
+        vertical-align: center;
+        text-align: center;
+    }
+    &-icon {
+        font-size: 120;
+        vertical-align: middle;
+    }
+}
+
+* {
+    background-color: $black;
+    color: $white;
+}
+
+.trackSelected {
+    background-color: $grey;
+}
+
+.blueColor {
+    color: $blue
+}
+
+.yellowColor {
+    color: $yellow
+}
+
+.redColor {
+    color: $red
+}
+
+.greenColor {
+    color: $green
+}
+
+.cyanColor {
+    color: $cyan
+}
+
+.orangeColor {
+    color: $orange
+}
+
+.violetColor {
+    color: $violet
+}
+
+.btn-primary {
+    color: $black;
+    background-color: $blue;
+}
+
+.btn-danger {
+    color: $black;
+    background-color: $red;
+}
+
+.dialog {
+    border-width: 1;
+    border-radius: 15px;
+    font-size: 17;
+    border-color: $darkGrey;
+    width: 100%;
+    padding: 5px;
+    margin-top: 100;
+}

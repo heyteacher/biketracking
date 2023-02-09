@@ -1,0 +1,28 @@
+<ActionBar title="" android.icon="res://icon" android.iconVisibility="always">
+    <ActionItem (tap)="centerUser()" icon="font://&#xf05b;" class="fas blueColor"></ActionItem>
+</ActionBar>
+
+<GridLayout [rows]="gridRows" columns="*">
+    <ContentView row="0" height="100%" width="100%">
+        <Mapbox [accessToken]="mapboxAccessToken" [mapStyle]="mapboxStyle" hideCompass="true" zoomLevel="17" showUserLocation="true" disableZoom="false" disableRotation="false" disableScroll="false" disableTilt="false" (mapReady)="onMapReady($event)">
+        </Mapbox>
+    </ContentView>
+
+    <GridLayout [visibility]="visibleIfStarted()" row="1" columns="*,*,*" rows="*,*">
+        <Label row="0" col="0" [text]="distance" textWrap="false" class="value violetColor"></Label>
+        <Label row="1" col="0" text="{{'DISTANCE KM'|L}}" textWrap=false class="label violetColor"></Label>
+        <Label row="0" col="1" [text]="speed" textWrap="false" class="value violetColor"></Label>
+        <Label row="1" col="1" text="{{'SPEED KM/H'|L}}" textWrap=false class="label violetColor"></Label>
+        <Label row="0" col="2" [text]="dem" textWrap="false" class="value cyanColor"></Label>
+        <Label row="1" col="2" text="{{'ALTITUDE M'|L}}" textWrap=false class="label cyanColor"></Label>
+    </GridLayout>
+
+    <GridLayout [visibility]="visibleIfStarted()" row="2" columns="*,*,*" rows="*,*">
+        <Label row="0" col="0" [text]="bpm" textWrap="false" class="value cyanColor" (tap)="restartHeartRate()"></Label>
+        <Label row="1" col="0" text="{{'HEART RATE BPM'|L}}" textWrap=false class="label cyanColor"></Label>
+        <Label #durationLabel row="0" col="1" [text]="duration" textWrap="false" class="value orangeColor"></Label>
+        <Label row="1" col="1" text="{{'DURATION'|L}}" textWrap=false class="label  orangeColor"></Label>
+        <Label row="0" col="2" [text]="time" textWrap="false" class="value orangeColor"></Label>
+        <Label row="1" col="2" text="{{'TIME'|L}}" textWrap=false class="label orangeColor"></Label>
+    </GridLayout>
+</GridLayout>

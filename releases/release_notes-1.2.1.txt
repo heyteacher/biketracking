@@ -1,0 +1,8 @@
+<en-US>
+Fix automatic start stop.
+Fix heartreate stop on change tab
+</en-US>
+<it-IT>
+Risolto problema su start stop automatico
+Risolto problema su stop del cardiofequenzimetro in caso di cambio tab
+</it-IT>

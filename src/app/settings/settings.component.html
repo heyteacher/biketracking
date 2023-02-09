@@ -1,0 +1,57 @@
+<ActionBar android.icon="res://icon" android.iconVisibility="always">
+    <Label text="{{'SETTINGS'|L}}"></Label>
+</ActionBar>
+
+<ScrollView>
+    <GridLayout rows="40,40,40,40,40,40,40,40,40,40,40,40,40,40" columns="*,78">
+        <Label row="0" column="0" text="{{'Support Us'|L}}" class="label" [nsRouterLink]="[ '../support-us']"></Label>
+        <Label row="0" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../support-us']"></Label>
+
+        <Label row="1" column="0" text="{{'Heart Rate Device'|L}}" class="label" [nsRouterLink]="[ '../heart-rate']" (tap)="startHeartRate()"></Label>
+        <Label row="1" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../heart-rate']" (tap)="startHeartRate() "></Label>
+
+        <Label row="2" column="0" text="{{'Credits'|L}}" class="label" [nsRouterLink]="[ '../credits']"></Label>
+        <Label row="2" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../credits']"></Label>
+
+        <!--
+        <Label row="3" column="0" text="{{'Auto Start Stop'|L}}" class="label"></Label>
+        <Switch row="3" column="1" checked="{{automaticStartStop}}" (checkedChange)="onStartStopCheckedChange($event)" class="action"></Switch>
+        -->
+
+        <Label row="4" column="0" text="{{'Display Always On'|L}}" class="label"></Label>
+        <Switch row="4" column="1" checked="{{displayAlwaysOn}}" (checkedChange)="onDisplayAlwaysOnCheckedChange($event)" class="action"></Switch>
+
+        <Label row="5" column="0" text="{{'Debug Trace'|L}}" class="label"></Label>
+        <Switch row="5" column="1" checked="{{debugTrace}}" (checkedChange)="onDebugTraceCheckedChange($event)" class="action"></Switch>
+
+        <Label row="6" column="0" text="{{'Countdown'|L}}" class="label"></Label>
+        <Switch row="6" column="1" checked="{{countdown}}" (checkedChange)="onCountdownCheckedChange($event)" class="action"></Switch>
+
+        <Label row="7" column="0" text="{{'GPS High Accuracy'|L}}" class="label"></Label>
+        <Switch row="7" column="1" checked="{{highGPSAccuracy}}" (checkedChange)="onHighGPSAccuracyCheckedChange($event)" class="action"></Switch>
+
+        <Label row="8" column="0" text="{{'GPS Update Distance [mt]'|L}}" class="label"></Label>
+        <TextField row="8" column="1" [text]="gpsUpdateDistanceMt" keyboardType="number" returnKeyType="done" (returnPress)="onGPSUpdateDistanceMtReturnPress($event)" (blur)="onGPSUpdateDistanceMtReturnPress($event)" maxLength="2">
+        </TextField>
+
+        <Label row="9" column="0" text="{{'GPS Update Time [sec]'|L}}" class="label"></Label>
+        <TextField row="9" column="1" [text]="gpsUpdateTimeSec" keyboardType="number" returnKeyType="done" (returnPress)="onGPSUpdateTimeSecReturnPress($event)" (blur)="onGPSUpdateTimeSecReturnPress($event)" maxLength="2">
+        </TextField>
+
+        <Label row="10" column="0" text="{{'GPS Minimum Update Time [sec]'|L}}" class="label"></Label>
+        <TextField row="10" column="1" [text]="gpsMinimumUpdateTimeSec" keyboardType="number" returnKeyType="done" (returnPress)="onGPSMinimumUpdateTimeSecReturnPress($event)" (blur)="onGPSMinimumUpdateTimeSecReturnPress($event)" maxLength="2">
+        </TextField>
+
+        <Label row="11" column="0" text="{{'Voice Summary Interval [min]'|L}}" class="label"></Label>
+        <TextField row="11" column="1" [text]="voiceSummaryTimeIntervalMin" keyboardType="number" returnKeyType="done" (returnPress)="onVoiceSummaryTimeIntervalMinReturnPress($event)" (blur)="onVoiceSummaryTimeIntervalMinReturnPress($event)" maxLength="2">
+        </TextField>
+
+        <Label row="12" column="0" text="{{'Application Version Name'|L}}" class="label"></Label>
+        <Label row="12" column="1" class="label" [text]="appVersionName"></Label>
+
+        <Label row="13" column="0" text="{{'Application Version Code'|L}}" class="label"></Label>
+        <Label row="13" column="1" class="label" [text]="appVersionCode"></Label>
+
+
+    </GridLayout>
+</ScrollView>
