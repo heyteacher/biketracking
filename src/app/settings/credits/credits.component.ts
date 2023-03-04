@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Credits } from "~/app/models/types";
-import { RouterExtensions } from "nativescript-angular";
+import { RouterExtensions } from "@nativescript/angular";
 const utilsModule = require("tns-core-modules/utils/utils");
 
 @Component({

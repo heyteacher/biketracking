@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
-import * as appSettings from 'tns-core-modules/application-settings'
+import * as appSettings from '@nativescript/core/application-settings';
+
 import { AppSettingsKey, AppSettingsDefaultValue } from './models/types'
 import { TabsService } from './tabs.service'
 import { ExternalStorageStore } from './store/external-estorage-store';
 import { Router } from '@angular/router';
-import { Tabs } from "tns-core-modules/ui/tabs";
+import { Tabs } from '@nativescript/core';
 
 
 const trace = require("trace");

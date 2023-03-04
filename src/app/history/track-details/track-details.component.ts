@@ -1,22 +1,23 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { RouterExtensions } from "nativescript-angular/router";
+import { RouterExtensions, registerElement } from "@nativescript/angular";
 import { StoreService } from "../../store.service";
-import { registerElement } from "nativescript-angular/element-registry";
+
 import { Track } from "~/app/models/Track";
 import { Tab, AppSettingsDefaultValue } from "~/app/models/types";
 import { formatNumberValue, formatDurationValue, formatDateValue, formatTimeValue } from "~/app/utils/format";
-import * as appSettings from "tns-core-modules/application-settings";
+import * as appSettings from '@nativescript/core/application-settings';
+
 import { AppSettingsKey } from "~/app/models/types"
 import { MapboxApi, SetViewportOptions } from "nativescript-mapbox";
 import { getBounds, getDistance } from "geolib";
 import { TabsService } from "~/app/tabs.service";
-import { ObservableArray } from "tns-core-modules/data/observable-array";
+import { ObservableArray } from '@nativescript/core';
 import { Series } from "~/app/models/Series";
 import { GeoLocation } from "~/app/models/GeoLocation";
 import * as moment from 'moment'
-import { View } from "tns-core-modules/ui/page";
-import {ImageSource} from "tns-core-modules/image-source"
+
+
 import { ExternalStorageStore } from "~/app/store/external-estorage-store";
 import { LiveTrack } from "~/app/models/LiveTrack";
 

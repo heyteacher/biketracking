@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 //import { CountryAmzLinks, AmzLink } from "~/app/models/types";
-import { RouterExtensions } from "nativescript-angular";
+import { RouterExtensions } from "@nativescript/angular";
 //import { AmzLinksService } from "~/app/amz-links.service";
 const utilsModule = require("tns-core-modules/utils/utils");
 

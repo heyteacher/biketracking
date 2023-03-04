@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NativeScriptRouterModule } from "@nativescript/angular";
 
 import { HistoryComponent } from "./history.component";
 import { TrackDetailsComponent } from "./track-details/track-details.component";

@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { GeolocationService } from "../geolocation.service";
-import { registerElement } from "nativescript-angular/element-registry";
+import { registerElement } from "@nativescript/angular";
 import { Point, Tab, LiveStatus, AppSettingsDefaultValue } from "../models/types";
 import { MapboxApi } from "nativescript-mapbox"
 registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView);
-import * as appSettings from "tns-core-modules/application-settings";
+import * as appSettings from '@nativescript/core/application-settings';
+
 import { AppSettingsKey } from "~/app/models/types"
 import { TabsService } from "../tabs.service";
 import { GeoLocation } from "../models/GeoLocation";

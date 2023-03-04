@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Tab, AppStatus } from './models/types';
 import { BehaviorSubject, Observable } from 'rxjs';
-import * as application from 'tns-core-modules/application'
+import * as application from '@nativescript/core/application';
 const trace = require("trace");
 
 @Injectable({

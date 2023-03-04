@@ -3,7 +3,7 @@ import { Bluetooth, Peripheral, Service } from 'nativescript-bluetooth';
 import * as permissions from 'nativescript-permissions'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
-import * as appSettings from 'tns-core-modules/application-settings'
+import * as appSettings from '@nativescript/core/application-settings';
 import { AppSettingsKey } from './models/types';
 
 const trace = require("trace");

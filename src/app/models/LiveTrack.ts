@@ -3,7 +3,7 @@ import { Track } from "./Track";
 import * as moment from 'moment'
 import { GeoLocation } from "./GeoLocation";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as appSettings from "tns-core-modules/application-settings";
+import * as appSettings from '@nativescript/core/application-settings';
 import { AppSettingsKey, LiveStatus, AWSDemResponse, AppSettingsDefaultValue, ClimbDownHillAccumulator } from "~/app/models/types"
 import { BehaviorSubject } from 'rxjs';
 const timeseries = require("timeseries-analysis");

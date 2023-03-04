@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { RouterExtensions } from "nativescript-angular/router";
-import { registerElement } from "nativescript-angular/element-registry";
+import { RouterExtensions, registerElement } from "@nativescript/angular";
+
 import { HeartrateService } from "~/app/heartrate.service";
 import { TabsService } from "~/app/tabs.service";
 import { Tab, AmzLink, CountryAmzLinks } from "~/app/models/types";

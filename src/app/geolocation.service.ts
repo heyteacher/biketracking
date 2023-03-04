@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core'
 import * as geolocation from 'nativescript-geolocation'
-import { Accuracy } from 'tns-core-modules/ui/enums'
+import { Enums } from '@nativescript/core';
 import { keepAwake, allowSleepAgain } from 'nativescript-insomnia';
 import { StoreService } from './store.service'
 import { Track } from './models/Track'
@@ -14,7 +14,7 @@ import { HeartrateService } from './heartrate.service';
 import { humanizeTime, formatNumberValue, humanizeDuration } from './utils/format';
 import * as moment from 'moment'
 import { TextToSpeechService } from "./text-to-speech.service";
-import * as appSettings from 'tns-core-modules/application-settings'
+import * as appSettings from '@nativescript/core/application-settings';
 import { localize } from 'nativescript-localize/angular';
 
 const trace = require("trace");
@@ -261,8 +261,8 @@ export class GeolocationService implements OnDestroy {
   private static _locationOptions: geolocation.Options = {
     desiredAccuracy: appSettings.getBoolean(
       AppSettingsKey.GPS_HIGH_ACCURACY,JSON.parse(AppSettingsDefaultValue.GPS_HIGH_ACCURACY)) ? 
-      Accuracy.high : 
-      Accuracy.any,
+      Enums.Accuracy.high : 
+      Enums.Accuracy.any,
     updateDistance: appSettings.getNumber(
       AppSettingsKey.GPS_UPDATE_DISTANCE_MT, 
       parseInt(AppSettingsDefaultValue.GPS_UPDATE_DISTANCE_MT)),

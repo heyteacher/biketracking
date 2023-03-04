@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { HeartrateService } from "../heartrate.service";
-import { Switch } from "tns-core-modules/ui/switch";
-import { TextField } from "tns-core-modules/ui/text-field";
+import { Switch, TextField } from '@nativescript/core';
+
 import { AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
-import * as appSettings from 'tns-core-modules/application-settings'
+import * as appSettings from '@nativescript/core/application-settings';
+
 import { GeolocationService } from "../geolocation.service";
 import * as appversion from "nativescript-appversion";
 @Component({

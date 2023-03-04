@@ -1,5 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptCommonModule } from "nativescript-angular/common";
+import { NativeScriptCommonModule } from "@nativescript/angular";
 
 import { MapRoutingModule } from "./map-routing.module";
 import { MapComponent } from "./map.component";

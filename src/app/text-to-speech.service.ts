@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TNSTextToSpeech, SpeakOptions } from 'nativescript-texttospeech';
 const trace = require("trace");
-import * as platform from "tns-core-modules/platform"
+import * as platform from '@nativescript/core/platform';
 
 
 @Injectable({

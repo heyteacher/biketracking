@@ -1,0 +1,709 @@
+  325  npm install
+  326  sudo apt install npm
+  327  sudo apt update
+  328  sudo apt upgrade
+  329  sudo apt install npm
+  330  node -v
+  331  npm install
+  332  git status
+  333  git branch migrateNS8
+  334  git status
+  335  git branch 
+  336  git checkout migrateNS8 
+  337  git branch
+  338  ns
+  339  npm install -g nativescript
+  340  sudo npm install -g nativescript
+  341  sudo apt remove npm
+  342  sudo apt remove node
+  343  sudo apt upgrade
+  344  sudo apt autoremove
+  345  cd biketracking/
+  346  rm -fr node_modules/
+  347  curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+  348  curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+  349  sudo apt-get install -y nodejs
+  350  npm -v
+  351  node -v
+  352  npm 
+  353  npm install -g nativescript
+  354  sudo npm install -g nativescript
+  355  git branche
+  356  git branch
+  357  ns migrate
+  358  git status
+  359  npm install
+  360  git revert package-lock.json
+  361  git checkout package-lock.json
+  362  git status
+  363  ns migrate
+  364  npm install
+  365  npm update
+  366  npm install
+  367  npm audot fix
+  368  npm audit fix
+  369  git branch
+  370  git status
+  371  diff  src/app/geolocation.service.ts 
+  372  git diff  src/app/geolocation.service.ts 
+  373  apt search openjdk
+  374  sudo add-apt-repository ppa:openjdk/ppa
+  375  sudo apt-get update
+  376  sudo apt install openjdk-14-jdk
+  377  cat /etc/lsb-release 
+  378  apt install openjdk-17-jdk
+  379  sudo apt install openjdk-17-jdk
+  380  ns doctor android
+  381  java -version
+  382  ls
+  383  unzip
+  384  ls
+  385  rm commandlinetools-linux-9477386_latest.zip
+  387  cd commandlinetools-linux-9477386_latest/
+  388  ls
+  389  cd cmdline-tools/
+  390  ls
+  391  ls -R *:Zone
+  395  ls
+  396  cd bin/
+  397  ls
+  399  ls
+  400  ls -la
+  401  cd ..
+  402  ls
+  403  lib
+  404  cd lib/
+  405  ls
+  406  ls -lR
+  407  ls -R  
+  410  cd ../bin
+  411  ls
+  412  ls -la
+  413  chmod u+x *
+  414  ls
+  415  ./sdkmanager 
+  416  cd ...
+  417  cd ..
+  418  rm -fr commandlinetools-linux-9477386_latest/
+  419  ls
+  421  ls
+  422  tar zxvf android-studio-2022.1.1.20-linux.tar.gz android-studio/
+  423  cd android-studio/
+  424  ls
+  425  cd bin/
+  426  ls
+  427  cd ..
+  428  ls
+  429  cd lib/
+  430  ls
+  431  locate Android
+  432  sudo apt install plocate
+  433  ls -ltra
+  434  rm -fr android-studio-2022.1.1.20-linux.tar.gz 
+  435  ls
+  436  rm -fr android-studio/
+  438  ls
+  439  sudo apt install zip
+  440  rm /var/lib/dpkg/lock-frontend 
+  441  sudo rm /var/lib/dpkg/lock-frontend 
+  442  sudo apt install zip
+  443  sudo rm /var/lib/dpkg/lock
+  444  sudo apt install zip
+  445  sudo dpkg --configure -a
+  446  sudo apt install zip
+  447  sudo dpkg --configure -a
+  448  sudo apt update
+  449  sudo apt upgrade
+  450  sudo dpkg --configure -a
+  451  vi /var/lib/dpkg/updates/0001 
+  452  vi /var/lib/dpkg/updates/0002
+  453  vi /var/lib/dpkg/updates/0001 
+  454  sudo echo "" >  /var/lib/dpkg/updates/0001 
+  455  sudo vi /var/lib/dpkg/updates/0001 
+  456  vi /var/lib/dpkg/updates/0001 
+  457  sudo dpkg --configure -a
+  458  sudo apt upgrade
+  459  sudo apt install zip
+  460  ls
+  461  unzip commandlinetools-linux-9477386_latest.zip 
+  462  cd cmdline-tools/
+  463  ls
+  464  cd bin/
+  465  ls
+  466  ./sdkmanager 
+  467  ./sdkmanager --list
+  468  ls
+  469  cd
+  470  ./cmdline-tools/bin/sdkmanager list sdk --all --extended
+  471  ./cmdline-tools/bin/sdkmanager --list
+  472  pwd
+  473  ./cmdline-tools/bin/sdkmanager --list --sdk_root /home/syd/cmdline-tools/latest
+  474  ./cmdline-tools/bin/sdkmanager  --sdk_root /home/syd/cmdline-tools/latest
+  475  ./cmdline-tools/bin/sdkmanager  --sdk_root=/home/syd/cmdline-tools/latest
+  476  ./cmdline-tools/bin/sdkmanager --list 
+  477  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest
+  478  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep platform
+  479  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30
+  480  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | more
+  481  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep sdk | more
+  482  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep platform
+  483  ls cmdline-tools/latest/
+  484  ls
+  485  ls cmdline-tools/latest/
+  486  ls cmdline-tools/
+  487  ./cmdline-tools/bin/sdkmanager  --install="platforms;android-30" --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep platform
+  488  ./cmdline-tools/bin/sdkmanager  --install=platforms;android-30 --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep platform
+  489  ./cmdline-tools/bin/sdkmanager  --install "platforms;android-30" --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep platform
+  490  ./cmdline-tools/bin/sdkmanager  --install "platforms;android-30" --sdk_root=/home/syd/cmdline-tools/latest 
+  491  cd cmdline-tools/latest/
+  492  ls
+  493  cd platforms/
+  494  ls
+  495  cd android-30/
+  496  ls
+  497  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30
+  498  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest 
+  499  cd 
+  500  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30
+  501  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest |
+  502  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep tools
+  503  ./cmdline-tools/bin/sdkmanager  --install "platforms;android-30" --sdk_root=/home/syd/cmdline-tools/latest 
+  504  ls cmdline-tools/latest/
+  505  cd cmdline-tools/latest/
+  506  ls
+  507  cd licenses/
+  508  ls
+  509  cd ..
+  510  ./cmdline-tools/bin/sdkmanager  --uninstall "platforms;android-30" --sdk_root=/home/syd/cmdline-tools/latest 
+  511  cd
+  512  ./cmdline-tools/bin/sdkmanager  --install-installed --sdk_root=/home/syd/cmdline-tools/latest 
+  513  ./cmdline-tools/bin/sdkmanager  --list-installed --sdk_root=/home/syd/cmdline-tools/latest 
+  514  ./cmdline-tools/bin/sdkmanager  --list_installed --sdk_root=/home/syd/cmdline-tools/latest 
+  515  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/cmdline-tools/latest | grep 30 | grep to
+  516  ./cmdline-tools/bin/sdkmanager "build-tools;android-30" --sdk_root=/home/syd/cmdline-tools/latest 
+  517  ./cmdline-tools/bin/sdkmanager "build-tools;30,0.3" --sdk_root=/home/syd/cmdline-tools/latest 
+  518  ./cmdline-tools/bin/sdkmanager --install "build-tools;30,0.3" --sdk_root=/home/syd/cmdline-tools/latest 
+  519  ./cmdline-tools/bin/sdkmanager  "build-tools;30.0.3" --sdk_root=/home/syd/cmdline-tools/latest 
+  520  ./cmdline-tools/bin/sdkmanager  "platform-tools" --sdk_root=/home/syd/cmdline-tools/latest 
+  521  ls
+  522  cd cmdline-tools/latest/
+  523  ls
+  524  cd tools/
+  525  ls
+  526  cd ..
+  527  cd build-tools/
+  528  ls
+  529  cd 30.0.3/
+  530  ls
+  531  cd ..
+  532  ls
+  533  cd ..
+  534  ls
+  535  cd tools/
+  536  ls
+  537  cd bin/
+  538  ls
+  539  cd ..
+  540  locate adb
+  541  locate adb | grep latest
+  542  locate abd | grep latest
+  543  cd ..
+  544  ls latest/
+  545  cd ..
+  546  mkdir -p Android
+  547  mv cmdline-tools/latest/ Android/Sdk
+  548  ./cmdline-tools/bin/sdkmanager  --list_installed --sdk_root=/home/syd/Android/Sdk
+  549  vi .bashrc 
+  550  exit
+  551  env
+  552  env | grep ANDROID
+  553  vi .bashrc 
+  554  ls ./Android/Sdk/platform-tools/
+  555  df -h .
+  556  du --max-depth=1 -h
+  557  cd biketracking/
+  558  ls
+  559  history | grep ns
+  560  ns doctor android
+  561  npm install @nativescript/android
+  562  ns doctor android
+  563  npm install 
+  564  npm audit fix
+  565  ns doctor android
+  566  git diff package.json
+  567  ns doctor android
+  568  tns platform add android
+  569  ns doctor android
+  570  npm uninstall @nativescript/android
+  571  npm install @nativescript/android
+  572  npm uninstall @nativescript/android
+  573  npm install @nativescript/android
+  574  ns doctor android
+  575  npm uninstall @nativescript/android
+  576  npm install 
+  577  ns doctor android
+  578  ns run android
+  579  cd ..
+  580  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk
+  581  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk | grep 30
+  582  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk | grep 30 | grep images
+  583  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk | grep 30 | grep images | more
+  584  ns device android --device-available
+  585  ns device android --available-devices
+  586  ifconfig
+  587  sudo apt install net-tools
+  588  ifconfig
+  589  ls
+  590  ./cmdline-tools/bin/avdmanager 
+  591  ./cmdline-tools/bin/avdmanager list 
+  592  ./cmdline-tools/bin/avdmanager 
+  593  ./cmdline-tools/bin/avdmanager device
+  594  ./cmdline-tools/bin/avdmanager list device
+  595  ./cmdline-tools/bin/avdmanager list target
+  596  avdmanager create avd -n test -k "android-30" -p Android/Avd
+  597  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30" -p Android/Avd
+  598  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30" 
+  599  env | grep ANDROID
+  600  ls
+  601  Android/Sdk/tools/bin/avdmanager  create avd -n test -k "android-30" 
+  602  avdmanager list
+  603  cd Android/Sdk/tools/bin/avdmanager  create avd -n test -k "android-30" 
+  604  cd Android/Sdk/tools/bin/
+  605  ls
+  606  cat avdmanager 
+  607  ls
+  608  cd ..
+  609  ls
+  610  ./bin/avdmanager 
+  611  cd bin/
+  612  ./avdmanager 
+  613  vi avdmanager 
+  614  ls
+  615  cd ..
+  616  ls
+  617  cd lib/
+  618  ls
+  619  env | grep APP_HOME
+  620  export APP_HOME=~/Android/Sdk/tools/lib
+  621  cd ../bin/
+  622  ./avdmanager 
+  623  cd
+  624  ls
+  625  vi .bashrc 
+  626  history | grep sdkma
+  627  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk | grep 3
+  628  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sd
+  629  ./cmdline-tools/bin/sdkmanager  --list --sdk_root=/home/syd/Android/Sdk
+  630  ./cmdline-tools/bin/avdmanager 
+  631  ./cmdline-tools/bin/avdmanager | mor
+  632  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30" 
+  633  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30"  -p Android/Sdk/emulator/
+  634  ls
+  635  cd Android/
+  636  ls
+  637  cd Sd
+  638  ls
+  639  cd ..
+  640  rmdir Sd
+  641  cd ..
+  642  mkdir Android/Avd
+  643  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30"  -p Android/Avd/
+  644  ./cmdline-tools/bin/sdkmanager 
+  645  ./cmdline-tools/bin/sdkmanager  --uninstall "build-tools"  --sdk_root=/home/syd/Android/Sdk
+  646  ./cmdline-tools/bin/sdkmanager  --list_installed  --sdk_root=/home/syd/Android/Sdk
+  647  ./cmdline-tools/bin/sdkmanager  --uninstall "build-tools;30.0.3"  --sdk_root=/home/syd/Android/Sdk
+  648  ./cmdline-tools/bin/sdkmanager  --list_installed  --sdk_root=/home/syd/Android/Sdk
+  649  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30"  -p Android/Avd/
+  650  vi cmdline-tools/bin/avdmanager 
+  651  env | grep APP_HOME
+  652  export APP_HOME=
+  653  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30"  -p Android/Avd/
+  654  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30" 
+  655  ./cmdline-tools/bin/avdmanager create avd -n test -k "android-30" -p Android/Sdk/platforms/
+  656  ls
+  657  rm -fr commandlinetools-linux-9477386_latest.zip 
+  658  rm -fr cmdline-tools/
+  659  rm -fr Android/
+  660  sudo mkdir /dev/kvm
+  661  ls /dev/kvm
+  662  dc /dev/kvm 
+  663  cd /dev/kvm 
+  664  ls/dev/kvm 
+  665  ls /dev/kvm 
+  666  ls -la /dev/kvm 
+  667  sudo chmod 666 /dev/kvm 
+  668  ls -la /dev/kvm 
+  669  ns doctor android
+  670  ns device
+  671  ns device android
+  672  ls
+  674  tar zxvf android-studio-2022.1.1.20-linux.tar.gz android-studio/
+  675  cd android-studio/
+  676  ls
+  677  cd bin/
+  678  ls
+  679  ./studio.sh 
+  680  ns device
+  681  ns doctor android
+  682  ./studio.sh 
+  683  history | grep adb
+  684  adb 
+  685  cd
+  686  cd Android/Sdk/platforms/
+  687  ls
+  688  cd 
+  689  ls
+  690  cd android-studio/bin/
+  691  ls
+  692  ./studio.sh 
+  693  sudo chmod 666 /dev/kvm
+  694  sudo chmod 777 /dev/kvm
+  695  ./studio.sh 
+  696  ls
+  697  android-studio/bin/studio.sh 
+  698  sudo android-studio/bin/studio.sh 
+  699  cd android-studio/bin/
+  700  ./studio.sh 
+  701  sudo -i
+  702  df -h
+  703  ./studio.sh 
+  704  apt install libncurses5 ia32-libs
+  705  sudo apt install libncurses5 ia32-libs
+  706  sudo apt install libncurses5
+  707  ./studio.sh 
+  708  cd ..
+  709  cd ,,
+  710  cd ..
+  711  ls
+  712  rm -fr android-studio
+  713  rm -fr Android/
+  714  rm android-studio-2022.1.1.20-linux.tar.gz 
+  715  git pull
+  716  cd fantacitorio/
+  717  git pull
+  718  source venv/bin/activate
+  719  python manager startmigration
+  720  python manager makemigrations
+  721  python manage.py makemigrations
+  722  pip uninstall -r requirements-devel.txt 
+  723  pip install -r requirements-devel.txt 
+  724  python manage.py makemigrations
+  725  cd fantacitorio/
+  726  source venv/bin/activate
+  727  python manage.py makemigrations
+  728  git status
+  729  python manage.py schemamigrations --auto
+  730  python manage.py makemigrations --auto
+  731  python manage.py schemamigrations --auto
+  732  python manage.py schemamigrations 
+  733  python manage.py makemigrations
+  734  python manage.py 
+  735  git status
+  736  git diff
+  737  python manage.py makemigrations
+  738  python manage.py 
+  739  python manage.py | more
+  740  python manage.py 
+  741  python manage.py runsever
+  742  python manage.py runserver
+  743  python manage.py migrate fc_classifiche_all --database db_classifiche
+  744  python manage.py migrate fc_classifiche_app --database db_classifiche
+  745  python manage.py migrate 
+  746  python manage.py runserver
+  747  python manage.py makemigrations
+  748  python manage.py runserver
+  749  python manage.py makemigrations
+  750  python manage.py migrate
+  751  python manage.py migrate fc_gestione_app
+  752  python manage.py migrate fc_gestione_app --database default
+  753  git diff
+  754  python manage.py migrate
+  755  python manage.py migrate fc_gestione_app 
+  756  python manage.py makemigrations
+  757  python manage.py migrate fc_gestione_app 
+  758  python manage.py runserver
+  759  python manage.py migrate fc_gestione_app 0020
+  760  python manage.py makemigrations
+  761  python manage.py migrate fc_gestione_app 
+  762  python manage.py runserver
+  763  cd fantacitorio/
+  764  source venv/bin/activate
+  765  python manage.py runserver
+  766  git status
+  767  rm *fier
+  768  git status
+  769  git diff
+  770  git status
+  771  git diff
+  772  git status
+  773  git add fc_project/settings.py 
+  774  git commit -m "utilizzo dell'orario locale anzichè GMT"
+  775  git status
+  776  git add fc_classifiche_app/management/commands/delete_classifiche_views.py 
+  777  git commit -m "fix "
+  778  git status
+  779  git add .
+  780  python manage.py runserver
+  781  git status
+  782  git add fc_gestione_app/admin.py 
+  783  git status
+  784  git commit -m "corretto bug calcolo punteggi, aggiungendo l'ora 21:14 alla data puntata, in questo modo vengono inclusi i punteggi delle squadre create il venerdi prima delle 21:15 (prima i punteggi non venivano considerati)
+  785  "
+  786  git status
+  787  git push
+  788  deactivate 
+  789  source venvstage/bin/activate
+  790  zappa update stage
+  791  git add TODO.md 
+  792  git commit -m "aggiornato TODO"
+  793  git push
+  794  exit
+  795  git pull
+  796  ls
+  797  cd fantacitorio/
+  798  git pull
+  799  source venv/bin/activate
+  800  python manage.py create_classifiche_views
+  801  cd fantacitorio/
+  802  python manage.py create_classifiche_views
+  803  source venv/bin/activate
+  804  python manage.py create_classifiche_views
+  805  python manage.py delete_classifiche_views
+  806  python manage.py create_classifiche_views
+  807  python manage.py delete_classifiche_views
+  808  python manage.py create_classifiche_views
+  809  python manage.py makemigrations
+  810  python manage.py migrate fc_classifiche_app --database db_classifiche
+  811  python manage.py migrate 
+  812  python manage.py create_classifiche_views
+  813  exit
+  814  cd fantacitorio/
+  815  source venv/bin/activate
+  816  python manage.py runserver
+  817  python manage.py sqlite_refresh_classifiche
+  818  python manage.py m
+  819  python manage.py create_classifiche_views
+  820  python manage.py sqlite_refresh_classifiche
+  821  python manage.py create_classifiche_views
+  822  python manage.py sqlite_refresh_classifiche
+  823  python manage.py create_classifiche_views
+  824  python manage.py sqlite_refresh_classifiche
+  825  python manage.py create_classifiche_views
+  826  python manage.py sqlite_refresh_classifiche
+  827  python manage.py create_classifiche_views
+  828  python manage.py sqlite_refresh_classifiche
+  829  python manage.py runserver
+  830  git status
+  831  deactivate 
+  832  source venvstage/
+  833  source venvstage/bin/activate
+  834  zappa  update stage
+  835  zappa manage stage migrate "--database db-classifiche"
+  836  zappa manage stage migrate "--database db_classifiche"
+  837  zappa manage stage migrate 
+  838  zappa manage stage create_classifiche_views
+  839  zappa manage stage sqlite_refresh_classifiche
+  840  zappa manage stage sqlite_refresh_classifiche "--force"
+  841  zappa manage stage "sqlite_refresh_classifiche --force"
+  842  zappa  update stage
+  843  git status
+  844  git add .
+  845  git commit -m "aggiunto il punteggio di ogni politico nella formazione del dettaglio squadra"
+  846  git push
+  847  ls
+  848  unzip commandlinetools-linux-9477386_latest.zip 
+  849  ls
+  850  rm commandlinetools-linux-9477386_latest.zip 
+  851  mv cmdline-tools/ Android/
+  852  mkdir Android/cmdline-tools/latest
+  853  vi .bashrc 
+  854  source .bash
+  855  source .bashrc 
+  856  cat .bashrc 
+  857  source .bashrc 
+  858  vi .bashrc 
+  859  source .bashrc 
+  860  history | grep sdkmanager
+  861  sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+  862  vi .bashrc 
+  863  cd Android/cmdline-tools/bin/
+  864  ./sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
+  865  ./sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" --skd_root=/home/syd/Android/cmdline-tools/latest/
+  866  ./sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3" --sdk_root=/home/syd/Android/cmdline-tools/latest/
+  867  ls
+  868  cd ..
+  869  ls
+  870  cd latest/
+  871  ls
+  872  cd emulator/
+  873  ls
+  874  cd ..
+  875  cd 
+  876  ns doctor android
+  877  /home/syd/Android/cmdline-tools/latest/
+  878  cd /home/syd/Android/cmdline-tools/latest/
+  879  ls
+  880  adb
+  881  ls
+  882  cd platform-tools/
+  883  ls
+  884  adb
+  885  ./adb
+  886  cd
+  887  cat .bashrc 
+  888  cd -
+  889  ls
+  890  cd ..
+  891  ls
+  892  cd ..
+  893  mv latest/ ../Sdk
+  894  cd ..
+  895  ls
+  896  cd Sdk/
+  897  ls
+  898  cd ..
+  899  vi .bashrc 
+  900  cd Android/
+  901  ls
+  902  ls Sdk/
+  903  mv Sdk/* .
+  904  rmdir Sdk/
+  905  ls
+  906  cd Sdk/
+  907  ls
+  908  ls -la
+  909  mv .temp/ ..
+  910  cd ..
+  911  rmdir Sdk/
+  912  ls
+  913  cd ..
+  914  source .bashrc 
+  915  adb
+  916  ns doctor android
+  917  sdkmanager --list
+  918  exit
+  919  exit
+  920  env | grep ANDR
+  921  env | grep PATH
+  922  adb
+  923  adb devices
+  924  adb start
+  925  sdkmanager --list
+  926  cat .bashrc 
+  927  vi .bashrc 
+  928  sdkmanager --list
+  929  ls
+  930  cd Android/
+  931  ls
+  932  cd tools/
+  933  ls
+  934  cd bin/
+  935  ls
+  936  cd ..
+  937  ls
+  938  vi .bashrc 
+  939  source  .bashrc 
+  940  env | grep PATH
+  941  exit
+  942  env | grep PATH
+  943  sdkmanager 
+  944  sdkmanager --list
+  945  env | grep JAVA
+  946  java
+  947  java -v
+  948  java -vers
+  949  sdkmanager --list
+  950  which java
+  951  ls -la /usr/bin/java
+  952  ls -la /etc/alternatives/java
+  953  export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+  954  sdkmanager --list
+  955  vi .bashrc 
+  956  cd Android/cmdline-tools/bin/
+  957  ls
+  958  cat sdkmanager 
+  959  vi sdkmanager
+  960  cd ..
+  961  ls
+  962  cd lib/
+  963  ls
+  964  cd ..
+  965  ls
+  966  cd ..
+  967  ls
+  968  cd cmdline-tools/
+  969  ls
+  970  cd bin/
+  971  ls
+  972  cd ..
+  973  ls
+  974  cd .
+  975  cd ..
+  976  cd tools/
+  977  ls
+  978  cd bin/
+  979  ls
+  980  cat sdkmanager 
+  981  cd 
+  982  exit
+  983  sdkmanager 
+  984  sdkmanager --list
+  985  ls
+  986  cd Android/
+  987  ls
+  988  cd cmdline-tools/bin/
+  989  sdkmanager 
+  990  env | grep JAVA_HOME
+  991  d
+  992  cd
+  993  vi .bashrc 
+  994  exit
+  995  cd Android/cmdline-tools/bin/
+  996  ./sdkmanager --list
+  997  cd ..
+  998  ls
+  999  ln -s ../ latest
+ 1000  cd latest
+ 1001  ls
+ 1002  cd -
+ 1003  ./sdkmanager --list
+ 1004  dc bin/
+ 1005  cd bin/
+ 1006  ./sdkmanager --list
+ 1007  cd ../
+ 1008  ls
+ 1009  rm latest
+ 1010  ls
+ 1011  cd bin/
+ 1012  history | grep ./sdkmanager
+ 1013  cd ..
+ 1014  mkdir Sdk
+ 1015  ls
+ 1016  mv build-tools/ emulator/ licenses/ patcher/ platform platform-tools/ tools/ Sdk/
+ 1017  mv platforms/ Sdk/
+ 1018  cd
+ 1019  vi .bashrc 
+ 1020  exit
+ 1021  cd ls
+ 1022  cd Android/
+ 1023  ls
+ 1024  cd cmdline-tools/bin/
+ 1025  ls
+ 1026  ./sdkmanager --list --sdk-root=/home/syd/Android/Sdk/
+ 1027  ./sdkmanager --list 
+ 1028  ./sdkmanager --list --sdk_root=/home/syd/Android/Sdk/
+ 1029  ./sdkmanager --list_installed --sdk_root=/home/syd/Android/Sdk/
+ 1030  history | less
+ 1031  ns doctor androis
+ 1032  ns doctor android
+ 1033  sudo apt install linux-tools-5.4.0-77-generic hwdata
+ 1034  sudo apt install linux-tools hwdata
+ 1035  sudo apt install linux-tools-generic hwdata
+ 1036  sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/5.15.0-60-generic/usbip 20
+ 1037  usbipd wsl list
+ 1038  sudo apt install linux-tools-standard-WSL2
+ 1039  sudo apt install linux-tools-5.15.79.1-microsoft-standard-WSL2 linux-cloud-tools-5.15.79.1-microsoft-standard-WSL2
+ 1040  sudo apt update
+ 1041  sudo apt install linux-tools-5.15.79.1-microsoft-standard-WSL2 linux-cloud-tools-5.15.79.1-microsoft-standard-WSL2
+ 1042  export WSL_HOST=$(tail -1 /etc/resolv.conf | cut -d' ' -f2)
+ 1043  export ADB_SERVER_SOCKET=tcp:$WSL_HOST:5037

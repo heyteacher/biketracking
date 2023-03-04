@@ -6,7 +6,8 @@ import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from "../mod
 import { HeartrateService } from "../heartrate.service";
 import { TextToSpeechService } from '../text-to-speech.service'
 import * as moment from 'moment'
-import * as appSettings from 'tns-core-modules/application-settings'
+import * as appSettings from '@nativescript/core/application-settings';
+
 import { localize } from "nativescript-localize/angular";
 
 const trace = require("trace");

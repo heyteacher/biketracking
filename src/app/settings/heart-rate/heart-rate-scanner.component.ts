@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HeartrateService } from "~/app/heartrate.service";
 import { Peripheral } from 'nativescript-bluetooth';
-import { RouterExtensions } from "nativescript-angular";
+import { RouterExtensions } from "@nativescript/angular";
 
 @Component({
     selector: "HeartRateScanner",

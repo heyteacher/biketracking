@@ -1,8 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 import { Store } from "./store";
 import * as permissions from 'nativescript-permissions'
-import * as fs from 'tns-core-modules/file-system';
-import { android as AndroidApplication } from "tns-core-modules/application";
+import * as fs from '@nativescript/core/file-system';
 import * as moment from 'moment'
 const trace = require("trace");
 

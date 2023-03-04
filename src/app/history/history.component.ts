@@ -4,9 +4,9 @@ import { BaseTrack } from "../models/BaseTrack";
 import { formatDateTimeValue, formatDurationValue, formatNumberValue } from "../utils/format";
 import { TabsService } from "../tabs.service";
 import { Tab } from "../models/types";
-import { EventData } from "tns-core-modules/data/observable";
-import { ListPicker } from "tns-core-modules/ui/list-picker";
-import { Observable } from "tns-core-modules/data/observable";
+import { EventData, ListPicker, Observable } from '@nativescript/core';
+
+
 
 
 @Component({
