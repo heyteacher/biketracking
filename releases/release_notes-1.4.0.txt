@@ -1,0 +1,6 @@
+<en-US>
+add cadence sensor functionality
+</en-US>
+<it-IT>
+aggiunta funzionalità del sensore di candenza
+</it-IT>
