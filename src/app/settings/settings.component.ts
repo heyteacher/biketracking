@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HeartrateService } from "../heartrate.service";
+import { CadenceService } from "../cadence.service";
 import { Switch } from "tns-core-modules/ui/switch";
 import { TextField } from "tns-core-modules/ui/text-field";
 import { AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
@@ -17,11 +18,17 @@ export class SettingsComponent implements OnInit {
 
     constructor(
         private heartrateService: HeartrateService,
+        private cadenceService: CadenceService,
         private geolocationService: GeolocationService) {
     }
 
     startHeartRate() {
         this.heartrateService.start()
+    }
+
+    
+    startCadence() {
+        this.cadenceService.start()
     }
 
     ngOnInit() {

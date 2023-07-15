@@ -1,0 +1,18 @@
+<ActionBar>
+    <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label text="{{'SCAN CADENCE DEVICES'|L}}"></Label>
+</ActionBar>
+
+<GridLayout rows="*,50,50" columns="*">
+
+    <ListView [items]="peripherals">
+        <ng-template let-item="item">
+            <StackLayout (tap)="connect(item)">
+                <Label [text]="getPeripheralLabel(item)"></Label>
+            </StackLayout>
+        </ng-template>
+    </ListView>
+    <ActivityIndicator row="1" [busy]="scanning"></ActivityIndicator>
+    <Button row="2" text="{{'STOP SCAN'|L}}" (tap)="stopScanning()" [visibility]="visibleIfStartedScanning()"></Button>
+    <Button row="2" text="{{'START SCAN'|L}}" (tap)="startScanning()" [visibility]="visibleIfStoppedScanning()"></Button>
+</GridLayout>

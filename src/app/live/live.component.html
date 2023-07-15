@@ -27,8 +27,10 @@
             <GridLayout row="1" columns="*,*,*" rows="*,*">
                 <Label row="0" col="0" [text]="dem" textWrap="false" class="value cyanColor"></Label>
                 <Label row="1" col="0" text="{{'ALTITUDE M'|L}}" textWrap=false class="label cyanColor"></Label>
-                <Label row="0" col="1" [text]="gradient" textWrap="false" class="value cyanColor"></Label>
-                <Label row="1" col="1" text="{{'GRADIENT %'|L}}" textWrap=false class="label cyanColor"></Label>
+                <!--Label row="0" col="1" [text]="gradient" textWrap="false" class="value cyanColor"></Label>
+                <Label row="1" col="1" text="{{'GRADIENT %'|L}}" textWrap=false class="label cyanColor"></Label-->
+                <Label row="0" col="1" [text]="rpm" textWrap="false" class="value cyanColor" (tap)="restartCedence()"></Label>
+                <Label row="1" col="1" text="{{'CADENCE RPM'|L}}" textWrap=false class="label cyanColor"></Label>
                 <Label row="0" col="2" [text]="bpm" textWrap="false" class="value cyanColor" (tap)="restartHeartRate()"></Label>
                 <Label row="1" col="2" text="{{'HEART RATE BPM'|L}}" textWrap=false class="label cyanColor"></Label>
             </GridLayout>

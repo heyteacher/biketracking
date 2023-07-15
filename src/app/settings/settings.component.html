@@ -10,8 +10,11 @@
         <Label row="1" column="0" text="{{'Heart Rate Device'|L}}" class="label" [nsRouterLink]="[ '../heart-rate']" (tap)="startHeartRate()"></Label>
         <Label row="1" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../heart-rate']" (tap)="startHeartRate() "></Label>
 
-        <Label row="2" column="0" text="{{'Credits'|L}}" class="label" [nsRouterLink]="[ '../credits']"></Label>
-        <Label row="2" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../credits']"></Label>
+        <Label row="2" column="0" text="{{'Cadence Device'|L}}" class="label" [nsRouterLink]="[ '../cadence']" (tap)="startCadence()"></Label>
+        <Label row="2" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../cadence']" (tap)="startCadence() "></Label>
+
+        <Label row="3" column="0" text="{{'Credits'|L}}" class="label" [nsRouterLink]="[ '../credits']"></Label>
+        <Label row="3" column="1" class="fas action" text="&#xf054; " [nsRouterLink]="[ '../credits']"></Label>
 
         <!--
         <Label row="3" column="0" text="{{'Auto Start Stop'|L}}" class="label"></Label>

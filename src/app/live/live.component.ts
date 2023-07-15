@@ -4,6 +4,7 @@ import { formatNumberValue, formatDurationValue, formatTimeValue } from "../util
 import { TabsService } from "../tabs.service";
 import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
 import { HeartrateService } from "../heartrate.service";
+import { CadenceService } from "../cadence.service";
 import { TextToSpeechService } from '../text-to-speech.service'
 import * as moment from 'moment'
 import * as appSettings from 'tns-core-modules/application-settings'
@@ -30,7 +31,8 @@ export class LiveComponent implements OnInit {
     gradient: string
     duration: string
     time: string
-    bpm: string;
+    bpm: string
+    rpm: string
     startingCountdown: number;
 
     restoreDialogOpen: boolean = false
@@ -42,6 +44,7 @@ export class LiveComponent implements OnInit {
         private geolocationService: GeolocationService,
         private tabsService: TabsService,
         private heartrateService: HeartrateService,
+        private cadenceService: CadenceService,
         private textToSpeechService: TextToSpeechService) {
     }
 
@@ -58,6 +61,8 @@ export class LiveComponent implements OnInit {
     ngOnInit() {
  
         this.heartrateService.getBpmObservable().subscribe(bpm => this._updateBpm(bpm))
+        this.cadenceService.getRpmObservable().subscribe(rpm => this._updateRpm(rpm))
+
         this.geolocationService.getLocationObservable().subscribe(location => this._updateLocation(location))
         this.geolocationService.getTimeObservable().subscribe(() => this._updateTime())
         this.geolocationService.getDemObservable().subscribe((demInfo: [number, number]) => this._updateDem(demInfo))
@@ -84,6 +89,11 @@ export class LiveComponent implements OnInit {
     restartHeartRate() {
         this.heartrateService.restart()
     }
+
+    restartCadence() {
+        this.cadenceService.restart()
+    }
+
 
     pause() {
         this.geolocationService.pause()
@@ -188,6 +198,10 @@ export class LiveComponent implements OnInit {
 
     private _updateBpm(bpm: number) {
         this.bpm = bpm != null ? formatNumberValue(bpm, '1.0-0') : "-"
+    }
+
+    private _updateRpm(rpm: number) {
+        this.rpm = rpm != null ? formatNumberValue(rpm, '1.0-0') : "-"
     }
 
     private _updateLocation(location) {

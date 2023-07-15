@@ -5,6 +5,8 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { SettingsComponent } from "./settings.component";
 import { HeartRateComponent } from "./heart-rate/heart-rate.component";
 import { HeartRateScannerComponent } from "./heart-rate/heart-rate-scanner.component";
+import { CadenceComponent } from "./cadence/cadence.component";
+import { CadenceScannerComponent } from "./cadence/cadence-scanner.component";
 import { CreditsComponent } from "./credits/credits.component";
 import { SupportUsComponent } from "./support-us/support-us.component";
 
@@ -12,6 +14,8 @@ const routes: Routes = [
     { path: "default", component: SettingsComponent },
     { path: "heart-rate", component: HeartRateComponent },
     { path: "heart-rate/scanner", component: HeartRateScannerComponent },
+    { path: "cadence", component: CadenceComponent },
+    { path: "cadence/scanner", component: CadenceScannerComponent },
     { path: "credits", component: CreditsComponent },
     { path: "support-us", component: SupportUsComponent }
 ]

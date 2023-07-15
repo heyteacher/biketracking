@@ -5,4 +5,5 @@ export interface GeoLocation extends geolocation.Location{
     dem?:number
     bpm?:number
     distance?:number
+    rpm?:number
 }

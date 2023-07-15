@@ -7,7 +7,7 @@ describe('GeolocationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = new GeolocationService(null, null, null, null, null)
+    service = new GeolocationService(null, null, null, null, null, null)
   });
 
   it('should be created', () => {

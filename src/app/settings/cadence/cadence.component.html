@@ -1,0 +1,14 @@
+<ActionBar>
+    <NavigationButton (tap)="onBackTap()" android.systemIcon="ic_menu_back"></NavigationButton>
+    <Label text="{{'CADENCE DEVICE'|L}}"></Label>
+</ActionBar>
+
+<GridLayout rows="50,70,50,*" columns="*">
+    <Button row="0" text="{{'SCAN'|L}}" [nsRouterLink]="['../cadence/scanner']" (tap)="startScanning()"></Button>
+    <Label row="1" [text]="peripheral" textWrap="true" class="label"></Label>
+    <Button row="2" text="{{'DISCONNECT'|L}}" (tap)="disconnect()" [visibility]="visibleIfConnected()"></Button>
+    <GridLayout row="3" columns="*" rows="*,80" [visibility]="visibleIfConnected()">
+        <Label row="0" col="0" [text]="rpm" textWrap="false" class="value cyanColor"></Label>
+        <Label row="1" col="1" text="{{'CADENCE RPM'|L}}" textWrap=false class="label cyanColor"></Label>
+    </GridLayout>
+</GridLayout>

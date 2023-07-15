@@ -67,7 +67,9 @@ export class TrackDetailsComponent implements OnInit {
         private tabsService: TabsService,
         private _route: ActivatedRoute,
         private _routerExtensions: RouterExtensions
-    ) { }
+    ) { 
+
+    }
 
     private _buildSeries(categoryField:string, valueField:string, locations): ObservableArray<Series> {
         const timeSeries: Series[] = locations

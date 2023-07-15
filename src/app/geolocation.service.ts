@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http'
 import { GeoLocation } from './models/GeoLocation';
 import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from './models/types';
 import { HeartrateService } from './heartrate.service';
+import { CadenceService } from './cadence.service';
 import { humanizeTime, formatNumberValue, humanizeDuration } from './utils/format';
 import * as moment from 'moment'
 import { TextToSpeechService } from "./text-to-speech.service";
@@ -49,6 +50,7 @@ export class GeolocationService implements OnDestroy {
     private storeService: StoreService,
     private tabsService: TabsService,
     private heartrateService: HeartrateService,
+    private cadenceService: CadenceService,
     private textToSpeechService: TextToSpeechService,
     private httpClient: HttpClient) {
     this.tabsService.getAppStatusObserver().subscribe(() => {
@@ -69,6 +71,7 @@ export class GeolocationService implements OnDestroy {
       }
     })
     this.heartrateService.getBpmObservable().subscribe(bpm => this.liveTrack.updateBpm(bpm))
+    this.cadenceService.getRpmObservable().subscribe(rpm => this.liveTrack.updateRpm(rpm))
     this.timeObservable.subscribe(() => this._updateTime());
   }
 

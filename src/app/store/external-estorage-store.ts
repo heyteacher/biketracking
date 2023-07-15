@@ -11,6 +11,7 @@ declare var android: any
 export class ExternalStorageStore extends Store {
 
   private static readonly TRACKS_FOLDER: string = 'tracks'
+  private static readonly LOGS_FOLDER: string = 'logs'
 
   static FileTraceWriter = (function () {
     function FileTraceWriter() { }
@@ -115,7 +116,7 @@ export class ExternalStorageStore extends Store {
   //   }
   // }
 
-  private static async _getFile(key: string, extension: string = 'json') {
+  private static async _getFile(key: string, extension: string = 'json', folderName = ExternalStorageStore.TRACKS_FOLDER) {
     let folderPath,folder:fs.Folder, fileName, file: fs.File
     try {
       trace.write('ExternalStorageStore._getFile key ' + key + ' extension '+ extension + ' subpath ' + ExternalStorageStore.TRACKS_FOLDER, trace.categories.Debug)        
@@ -129,7 +130,7 @@ export class ExternalStorageStore extends Store {
       //folder = fs.Folder.fromPath(`${folderPath}/${AndroidApplication.packageName}/${subpath}`)
 
       const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
-      const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
+      const folder: fs.Folder = <fs.Folder>documents.getFolder(folderName);
 
       fileName = `${key}.${extension}`
       file = folder.getFile(fileName)

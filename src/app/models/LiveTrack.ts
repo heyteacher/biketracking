@@ -195,6 +195,15 @@ export class LiveTrack {
         }
     }
 
+    updateRpm(rpm: number) {
+        if (this.isStarted()) {
+            const lastLocation = this.getLastLocation()
+            if (lastLocation && !lastLocation.rpm) {
+                lastLocation.rpm = rpm
+            }
+        }
+    }
+
     getTrack(isToStop: boolean = false): Track {
         return {
             key: this.getStartTime().format('YYYYMMDD_HHmmss'),
