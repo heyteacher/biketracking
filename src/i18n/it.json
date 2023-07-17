@@ -32,6 +32,7 @@
     "ALTITUDE M": "ALTITUDINE M",
     "GRADIENT %": "PENDENZA %",
     "HEART RATE BPM": "BATTITI AL MINUTO",
+    "CADENCE RPM": "PEDALATE AL MINUTO",
     "DURATION": "DURATA",
     "TIME": "ORARIO",
     "Do You Want Restore Pending Track?": "Vuoi Ripristinare Sessione Pendente?",
@@ -66,10 +67,12 @@
     "LICENSE": "LICENZA",
 
     "SCAN HEART RATE DEVICES": "CERCA CARDIOFREQUENZIMETRI",
+    "SCAN CADENCE DEVICES": "CERCA CADENZIMETRI",
     "START SCAN": "AVVIO RICERCA",
     "STOP SCAN": "TERMINA RICERCA",
 
     "HEART RATE DEVICE": "CARDIOFREQUENZIMETRO",
+    "CADENCE DEVICE": "CADENZIMETRO",
     "SCAN": "RICERCA",
     "DISCONNECT": "DISCONNETTI",
     "Shop a supported device (Amazon Associates Links)": "Acquista Dispositivo (Affiliazione Amazon)",

@@ -17,9 +17,11 @@
   <string name="_Shop_a_supported_device__Amazon_Associates_Links__ZBtTL0">"Shop a supported device (Amazon Associates Links)"</string>
   <string name="DISCONNECT">"DISCONNECT"</string>
   <string name="SCAN">"SCAN"</string>
+  <string name="_CADENCE_DEVICE_OKuYj">"CADENCE DEVICE"</string>
   <string name="_HEART_RATE_DEVICE_1CbL8z">"HEART RATE DEVICE"</string>
   <string name="_STOP_SCAN_6I6ip">"STOP SCAN"</string>
   <string name="_START_SCAN_Z1jDRnq">"START SCAN"</string>
+  <string name="_SCAN_CADENCE_DEVICES_Z1Bpx7y">"SCAN CADENCE DEVICES"</string>
   <string name="_SCAN_HEART_RATE_DEVICES_Z1Jl2Xi">"SCAN HEART RATE DEVICES"</string>
   <string name="LICENSE">"LICENSE"</string>
   <string name="SITE">"SITE"</string>
@@ -51,6 +53,7 @@
   <string name="_Do_You_Want_Restore_Pending_Track__Z2jmo1n">"Do You Want Restore Pending Track?"</string>
   <string name="TIME">"TIME"</string>
   <string name="DURATION">"DURATION"</string>
+  <string name="_CADENCE_RPM_ZdFqO2">"CADENCE RPM"</string>
   <string name="_HEART_RATE_BPM_2aENmS">"HEART RATE BPM"</string>
   <string name="_GRADIENT___RsINH">"GRADIENT %%"</string>
   <string name="_ALTITUDE_M_Z13DHD0">"ALTITUDE M"</string>
