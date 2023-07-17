@@ -1,6 +1,6 @@
 {
     "name": "org.biketracking",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "nativescript": {
         "id": "org.biketracking",
         "tns-android": {

@@ -1,0 +1,8 @@
+<en-US>
+- new targetSdkVersion 31 (Android 12)
+- i18n italian translation new functionality cadence sensor
+</en-US>
+<it-IT>
+- nupva targetSdkVersion 31 (Android 12)
+- i18n traduzione in italiano nuova funzionalità sensore di cadenza
+</it-IT>
