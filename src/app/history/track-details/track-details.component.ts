@@ -15,15 +15,12 @@ import { ObservableArray } from "tns-core-modules/data/observable-array";
 import { Series } from "~/app/models/Series";
 import { GeoLocation } from "~/app/models/GeoLocation";
 import * as moment from 'moment'
-import { View } from "tns-core-modules/ui/page";
-import {ImageSource} from "tns-core-modules/image-source"
-import { ExternalStorageStore } from "~/app/store/external-estorage-store";
 import { LiveTrack } from "~/app/models/LiveTrack";
 
 const mapbox = require("nativescript-mapbox")
 registerElement("Mapbox", () => mapbox.MapboxView);
 
-@Component({
+@Component({ 
     selector: "TrackDetails",
     templateUrl: "./track-details.component.html",
     styleUrls: ["./track-details.component.scss"]

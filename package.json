@@ -28,6 +28,7 @@
         "@angular/router": "~8.2.0",
         "@nativescript/schematics": "^1.0.0",
         "@nativescript/theme": "^2.3.4",
+        "aws-sdk": "^2.1415.0",
         "geolib": "^3.3.3",
         "moment": "^2.29.3",
         "nativescript-angular": "~8.21.0",

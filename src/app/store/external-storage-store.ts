@@ -10,9 +10,6 @@ declare var android: any
 
 export class ExternalStorageStore extends Store {
 
-  private static readonly TRACKS_FOLDER: string = 'tracks'
-  private static readonly LOGS_FOLDER: string = 'logs'
-
   static FileTraceWriter = (function () {
     function FileTraceWriter() { }
     FileTraceWriter.prototype.write = async (message, category, type) => {

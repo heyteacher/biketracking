@@ -41,3 +41,4 @@ keys/
 releases/*.aab
 gimp/gplay_background.png
 GDRIVE_KEYS.md
+.vscode/settings.json

@@ -3,7 +3,7 @@ import { Track } from './models/Track';
 import { BaseTrack } from "./models/BaseTrack";
 import { LiveTrack } from "./models/LiveTrack";
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ExternalStorageStore } from './store/external-estorage-store'
+import { ExternalStorageStore } from './store/external-storage-store'
 import * as moment from 'moment'
 const trace = require("trace");
 
