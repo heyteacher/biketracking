@@ -14,7 +14,7 @@
 		
 		<service android:name="org.nativescript.geolocation.ForegroundService" android:enabled="true" android:stopWithTask="true" android:exported="false" />
 
-		<activity android:name="com.tns.NativeScriptActivity" android:label="@string/title_activity_kimera" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode" android:screenOrientation="portrait" android:theme="@style/LaunchScreenTheme">
+		<activity android:name="com.tns.NativeScriptActivity" android:label="@string/title_activity_kimera" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode" android:screenOrientation="portrait" android:theme="@style/LaunchScreenTheme" android:exported="true">
             
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
 

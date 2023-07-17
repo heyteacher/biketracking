@@ -123,10 +123,18 @@ publish via __Microsoft Visual Studio App Center__, after release the first appl
 ## Gulp commands
 
 1. update version depending semantic version:
-   ```
-   gulp patch # bug fix
-   gulp minor # new features 
-   ```
+   * bug fix
+     ```
+     gulp patch 
+     ```
+   * new features (minor release)
+     ```     
+     gulp minor  
+     ```
+   * new mayor release
+     ```     
+     gulp mayor  
+     ```
 
 1. create release notes for new version in `releases/release-notes-X.Y.X.txt`
 
@@ -134,4 +142,3 @@ publish via __Microsoft Visual Studio App Center__, after release the first appl
    ```
    gulp publish
    ```
-vi 

@@ -1,21 +1,9 @@
 TODO
 ====
 
+* [ ] store tracks and logs in AWS
 * [ ] map: mapbox offline
-* [ ] settings:
-    * [X] heart rate
-    * [X] automatic start stop   
-    * [X] keep awake
-    * [X] speech summary period
-    * [X] trace debug 
-    * [X] countdown
-    * [X] credits
-    * [X] gps accuracy
-    * [X] gps options
-    * [X] support (Github Sponsors, LiberaPay, afflink form heartrate, phone bike mount, mobile phone)
-    * [X] language
-    * [ ] mile/km
-    * [ ] map style
+* [ ] settings mile/km
 
 UNDONE
 
@@ -27,6 +15,19 @@ UNDONE
 DONE
 ====
 
+* [X] settings:
+    * [X] heart rate
+    * [X] automatic start stop   
+    * [X] keep awake
+    * [X] speech summary period
+    * [X] trace debug 
+    * [X] countdown
+    * [X] credits
+    * [X] gps accuracy
+    * [X] gps options
+    * [X] support (Github Sponsors, LiberaPay, afflink form heartrate, phone bike mount, mobile phone)
+    * [X] language
+* [X] cadence sensor 
 * [X] main: logo
 * [X] history: ActivityIndicator when loading track
 * [X] main: get altitude from teotiff instead mapbox api
@@ -42,6 +43,7 @@ DONE
 * [X] map: more zoom, more contrast contours (should be visible)
 * [X] live: gradient. add one decimal, update 30 secs, fix calculation
 * [X] map: new mapbox style terrain dark
+
 * [X] map: mapbox DEM 
 * [X] live: show gradient
 * [X] history: fix pass track details to map, 2 maps remain opened
