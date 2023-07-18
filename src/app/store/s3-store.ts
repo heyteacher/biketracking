@@ -1,106 +1,77 @@
 import { BehaviorSubject } from "rxjs";
-import { Store } from "./store";
+import { ExternalStorageStore } from "./external-storage-store";
 import * as fs from 'tns-core-modules/file-system';
 import * as moment from 'moment'
 const trace = require("trace");
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
+i
 
-export class S3Store extends Store {
+export class S3Store extends ExternalStorageStore{
 
-  protected async getValue<Type>(key: string, defaultValue: any = null): Promise<Type> {
-    if (this.existsValue(key)) {
-      const file: fs.File = await ExternalStorageStore._getFile(key)
-      if (file) {
-        const json = await file.readText()
-        return json ? JSON.parse(json) : defaultValue
-      }
-    }
-    return defaultValue
-  }
-
-  protected async existsValue(key: string): Promise<boolean> {
-    const filename = await ExternalStorageStore._getFileName(key)
-    const exists =  filename && fs.File.exists(filename)
-    trace.write('ExternalStorageStore._getFileName: filename ' + filename +' exists ' + exists, trace.categories.Debug)
-    return exists
-  }
-
-  protected async unsetValue<Type>(key: string, subject: BehaviorSubject<Type> = null): Promise<Boolean> {
-    if (this.existsValue(key)) {
-      const file: fs.File = await ExternalStorageStore._getFile(key);
-      if (file) {
-        trace.write('ExternalStorageStore.unsetValue: file to remove ' + file.path, trace.categories.Debug)
-        await file.remove()
-        if (subject) {
-          subject.next(null)
-        }
-        return true
-      }
-    }
-    return false
-  }
-
-  protected async setValue<Type>(key: string, value: Type, subject: BehaviorSubject<Type> = null): Promise<boolean> {
-
-    const contentType = file.type;
-    const bucket = new S3(
-          {
-              accessKeyId: 'YOUR-ACCESS-KEY-ID',
-              secretAccessKey: 'YOUR-SECRET-ACCESS-KEY',
-              region: 'YOUR-REGION'
-          }
-      );
-      const params = {
-          Bucket: 'YOUR-BUCKET-NAME',
-          Key: this.FOLDER + file.name,
-          Body: file,
-          ACL: 'public-read',
-          ContentType: contentType
-      };
-      bucket.upload(params, function (err, data) {
-          if (err) {
-              console.log('There was an error uploading your file: ', err);
-              return false;
-          }
-          console.log('Successfully uploaded file.', data);
-          return true;
+  protected static readonly AWS-ACCESS-KEY-ID: string = ''
+  protected static readonly AWS-SECRET-ACCESS-KEY: string = ''
+  protected static readonly AWS-REGION: string = 'eu-west-1'
+  protected static readonly AWS-BUCKET-NAME: string = 'biketracking-tracks'
+  
+  private async uploadFile<Type>(key: string, value: Type, subject: BehaviorSubject<Type> = null): Promise<boolean> {
+    try {
+      const bucket = new S3({
+        accessKeyId: S3Store.AWS-ACCESS-KEY-ID,
+        secretAccessKey: S3Store.AWS-SECRET-ACCESS-KEY,
+        region: S3Store.AWS-REGION
       });
-
-    const file: fs.File = await ExternalStorageStore._getFile(key);
-    if (file) {
-      trace.write('ExternalStorageStore.setValue: file to write ' + file.path, trace.categories.Debug)
-      await file.writeText(JSON.stringify(value))
+      const params = {
+            Bucket: S3Store.AWS-BUCKET-NAME,
+            Key: `${key}.json`,
+            Body: value,
+            ContentType: 'application/json'
+      };
+      const data = await bucket.upload(params).promise()
+      console.log('Successfully uploaded file.', data)
       if (subject) {
         subject.next(value)
       }
       return true
+    } catch (err) {
+      console.log('There was an error uploading your file: ', err)
+      return false
     }
-    return false
   }
 
-  async getYears(): Promise<string[]> {
+  async backup(): Promise<boolean> {
     const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
-    const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
-    //const folderPath = fs.path.join(android.os.Environment.getExternalStorageDirectory().getAbsolutePath().toString());
-    //const folder: fs.Folder = fs.Folder.fromPath(`${folderPath}/${AndroidApplication.packageName}`);
-
+    const folder: fs.Folder = <fs.Folder>documents.getFolder(this.TRACKS_FOLDER);
     const entities: fs.FileSystemEntity[] = await folder.getEntities()
-    const years: string[] = entities
-      .filter((entity: fs.FileSystemEntity) => {
-        return entity.name.length == 9 && entity.name.endsWith('.json')
-      })
-      .map((entity: fs.FileSystemEntity) => {
-        return entity.name.substr(0, 4)
-      })
-      .sort()
-      .reverse()
-    // if no year tracks found, return array with current year as single year
-    if (years && years.length > 0) {
-      return years
+
+    for (let index = 0; index < entities.length; index++) {
+      const entity = entities[index];
+      const ret = this.uploadFile(entity.name, folder.getFile(entity.name))
+      trace.write(`S3Store.backup(): ${entity.name} upload response ${ret}`, trace.categories.Debug)   
     }
-    else {
-      return [moment().format('YYYY')]
+  }
+
+  async restore(): Promise<boolean> {
+    try {
+      const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
+      const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
+  
+      const bucket = new S3({
+        accessKeyId: S3Store.AWS-ACCESS-KEY-ID,
+        secretAccessKey: S3Store.AWS-SECRET-ACCESS-KEY,
+        region: S3Store.AWS-REGION
+      });
+
+      const listObjectsResp = await bucket.listObjects({Bucket: S3Store.AWS-BUCKET-NAME}).promise()
+      for (let content in listObjectsResp.Contents) {
+        const getObjectsResp = await bucket.getObject({Bucket: S3Store.AWS-BUCKET-NAME, Key: content.Key}).promise()
+        this.setValue(getObjectsResp.Key, getObjectsResp.Body)
+        trace.write(`S3Store.restore(): ${getObjectsResp.Key} downloaded`, trace.categories.Debug)  
+      }
+      return true 
+    } catch (err) {
+      console.log('There was an error uploading your file: ', err)
+      return false
     }
   }
 }
