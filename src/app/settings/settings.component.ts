@@ -6,6 +6,7 @@ import { TextField } from "tns-core-modules/ui/text-field";
 import { AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
 import * as appSettings from 'tns-core-modules/application-settings'
 import { GeolocationService } from "../geolocation.service";
+import { BackupRestoreService } from "../backup-restore.service";
 import * as appversion from "nativescript-appversion";
 @Component({
     selector: "Settings",
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
     constructor(
         private heartrateService: HeartrateService,
         private cadenceService: CadenceService,
-        private geolocationService: GeolocationService) {
+        private geolocationService: GeolocationService,
+        private backupRestoreService: BackupRestoreService) {
     }
 
     startHeartRate() {
@@ -145,5 +147,45 @@ export class SettingsComponent implements OnInit {
             AppSettingsKey.VOICE_SUMMARY_TIME_INTERVAL_MIN,
             textField.text? parseInt(textField.text): 0);
             this.geolocationService.startVoiceSummaryTimer()
+    }
+
+    get AWS_ACCESS_KEY_ID(): string {
+        return appSettings.getString(AppSettingsKey.AWS_ACCESS_KEY_ID, AppSettingsDefaultValue.AWS_ACCESS_KEY_ID);
+    }
+    onAWS_ACCESS_KEY_IDReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_ACCESS_KEY_ID,textField.text);
+    }
+
+    get AWS_SECRET_ACCESS_KEY(): string {
+        return appSettings.getString(AppSettingsKey.AWS_SECRET_ACCESS_KEY, AppSettingsDefaultValue.AWS_SECRET_ACCESS_KEY);
+    }
+    onAWS_SECRET_ACCESS_KEYReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_SECRET_ACCESS_KEY,textField.text);
+    }
+
+    get AWS_REGION(): string {
+        return appSettings.getString(AppSettingsKey.AWS_REGION, AppSettingsDefaultValue.AWS_REGION);
+    }
+    onAWS_REGIONReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_REGION,textField.text);
+    }
+
+    get AWS_BUCKET_NAME(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BUCKET_NAME,AppSettingsDefaultValue.AWS_BUCKET_NAME);
+    }
+    onAWS_BUCKET_NAMEReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_BUCKET_NAME,textField.text);
+    }
+    
+    backup() {
+        this.backupRestoreService.backup()
+    }
+
+    restore() {
+        this.backupRestoreService.restore()
     }
 }
