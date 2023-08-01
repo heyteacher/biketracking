@@ -3,27 +3,44 @@ import * as fs from 'tns-core-modules/file-system';
 const trace = require("trace");
 import { Injectable } from "@angular/core";
 import { HttpClient,HttpHeaders } from '@angular/common/http'
-
+import * as appSettings from 'tns-core-modules/application-settings'
 import { AWSDemResponse } from "~/app/models/types"
+import { AppSettingsKey, AppSettingsDefaultValue } from "./models/types";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackupRestoreService extends ExternalStorageStore{
 
+  private headers: HttpHeaders
+  private endpoint: string
+
   constructor(
     private httpClient: HttpClient) {
       super()
+      const endpointPrefix:string =  appSettings.getString(
+        AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX, 
+        AppSettingsDefaultValue.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX
+      );
+      const apiKey:string = appSettings.getString(
+        AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY, 
+        AppSettingsDefaultValue.AWS_BACKUP_RESTORE_API_KEY
+      );
+      const region:string = appSettings.getString(
+        AppSettingsKey.AWS_BACKUP_RESTORE_REGION, 
+        AppSettingsDefaultValue.AWS_BACKUP_RESTORE_REGION
+      );
+      this.headers = new HttpHeaders({ 'X-API-Key': apiKey })
+      this.endpoint = `https://${endpointPrefix}.execute-api.${region}.amazonaws.com/Prod/`
   }
 
   async backup(): Promise<void> {
     try {
-      const httpHeaders = new HttpHeaders({ 'X-API-Key': 'aGoDQ6OFsZ9bBdDzkUWcSaB1cDN6nFwF36DxDCIs' })
-      const url: string = `https://zf9khqu3y9.execute-api.eu-west-1.amazonaws.com/Prod/backup`
 
       const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
       const folder: fs.Folder = <fs.Folder>documents.getFolder(BackupRestoreService.TRACKS_FOLDER);
       const entities: fs.FileSystemEntity[] = await folder.getEntities()
+      const backupEndpoint: string = `${this.endpoint}\backup` 
 
       let body = []
       for (let index = 0; index < entities.length; index++) {
@@ -35,37 +52,33 @@ export class BackupRestoreService extends ExternalStorageStore{
         })
       }
       trace.write(`BackupRestoreService.backup: body ${JSON.stringify(body)}`, trace.categories.Error)
-      this.httpClient.post(url, body, { headers: httpHeaders }).subscribe((data: AWSDemResponse) => {
-            trace.write(`BackupRestoreService.backup: response ${data.message}`, trace.categories.Error)
+      this.httpClient.post(backupEndpoint, body, { headers: this.headers }).subscribe((data: AWSDemResponse) => {
+            trace.write(`BackupRestoreService.backup: response ${data.message}`, trace.categories.Debug)
       }) 
     } catch (err) {
-      trace.write(`S3Store.backup(): There was an error o ${err.nessage}`, trace.categories.Debug)   
+      trace.write(`BackupRestoreService.backup: There was an error o ${err.nessage}`, trace.categories.Error)   
       throw err
      }
   }
   
   async restore(): Promise<void> {
     try {
-/*      const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
+      const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
       const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
+      const restoreEndpoint: string = `${this.endpoint}\restore` 
+ 
+      this.httpClient.get(restoreEndpoint, { headers: this.headers }).subscribe((data: AWSDemResponse) => {
+        trace.write(`BackupRestoreService.restore: response ${data.message}`, trace.categories.Debug)
       
-      const bucket = new S3({
-        accessKeyId: appSettings.getString(AppSettingsKey.AWS_ACCESS_KEY_ID),
-        secretAccessKey: appSettings.getString(AppSettingsKey.AWS_SECRET_ACCESS_KEY),
-        region: appSettings.getString(AppSettingsKey.AWS_REGION)
-      });
+        for (let index = 0; index < data.tracks.length; index++) {
+          const track = data.tracks[index];
+          this.setValue(track.name, JSON.stringify(track.content))
+          trace.write(`BackupRestoreService.restore: ${track.name} restored`, trace.categories.Debug)  
+        }
+      }) 
       
-      const listObjectsResp = await bucket.listObjects({Bucket: appSettings.getString(AppSettingsKey.AWS_BUCKET_NAME)}).promise()
-      
-      for (let index = 0; index < listObjectsResp.Contents.length; index++) {
-        const content:S3.Object = listObjectsResp.Contents[index];
-        const getObjectsResp = await bucket.getObject({Bucket: appSettings.getString(AppSettingsKey.AWS_BUCKET_NAME), Key: content.Key}).promise()
-        this.setValue(content.Key, getObjectsResp.Body)
-        trace.write(`S3Store.restore(): ${content.Key} downloaded`, trace.categories.Debug)  
-      }
-  */
     } catch (err) {
-      console.log('There was an error restoring tracks: ', err)
+      trace.write(`BackupRestoreService.restore: There was an error o ${err.nessage}`, trace.categories.Error)   
       throw err
     }
   }

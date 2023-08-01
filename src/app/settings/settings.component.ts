@@ -149,28 +149,28 @@ export class SettingsComponent implements OnInit {
             this.geolocationService.startVoiceSummaryTimer()
     }
 
-    get AWS_ACCESS_KEY_ID(): string {
-        return appSettings.getString(AppSettingsKey.AWS_ACCESS_KEY_ID, AppSettingsDefaultValue.AWS_ACCESS_KEY_ID);
+    get AWS_BACKUP_RESTORE_ENDPOINT_PREFIX(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX);
     }
-    onAWS_ACCESS_KEY_IDReturnPress(args) {
+    onAWS_BACKUP_RESTORE_ENDPOINT_PREFIXReturnPress(args) {
         let textField = <TextField>args.object; 
-        appSettings.setString(AppSettingsKey.AWS_ACCESS_KEY_ID,textField.text);
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX,textField.text);
     }
 
-    get AWS_SECRET_ACCESS_KEY(): string {
-        return appSettings.getString(AppSettingsKey.AWS_SECRET_ACCESS_KEY, AppSettingsDefaultValue.AWS_SECRET_ACCESS_KEY);
+    get AWS_BACKUP_RESTORE_API_KEY(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_API_KEY);
     }
-    onAWS_SECRET_ACCESS_KEYReturnPress(args) {
+    onAWS_BACKUP_RESTORE_API_KEYReturnPress(args) {
         let textField = <TextField>args.object; 
-        appSettings.setString(AppSettingsKey.AWS_SECRET_ACCESS_KEY,textField.text);
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY,textField.text);
     }
 
-    get AWS_REGION(): string {
-        return appSettings.getString(AppSettingsKey.AWS_REGION, AppSettingsDefaultValue.AWS_REGION);
+    get AWS_BACKUP_RESTORE_REGION(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_REGION, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_REGION);
     }
-    onAWS_REGIONReturnPress(args) {
+    onAWS_BACKUP_RESTORE_REGIONReturnPress(args) {
         let textField = <TextField>args.object; 
-        appSettings.setString(AppSettingsKey.AWS_REGION,textField.text);
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_REGION,textField.text);
     }
 
     get AWS_BUCKET_NAME(): string {

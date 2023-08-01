@@ -56,19 +56,19 @@
         <TextField row="13" column="1" [text]="voiceSummaryTimeIntervalMin" keyboardType="number" returnKeyType="done" (returnPress)="onVoiceSummaryTimeIntervalMinReturnPress($event)" (blur)="onVoiceSummaryTimeIntervalMinReturnPress($event)">
         </TextField>
 
-        <Label row="14" column="0" colSpan="2" text="{{'AWS_ACCESS_KEY_ID'|L}}" class="label"></Label>
+        <Label row="14" column="0" colSpan="2" text="{{'AWS_BACKUP_RESTORE_ENDPOINT_PREFIX'|L}}" class="label"></Label>
         
-        <TextField row="15" column="0" colSpan="2" [text]="AWS_ACCESS_KEY_ID" returnKeyType="done" (returnPress)="onAWS_ACCESS_KEY_IDReturnPress($event)" (blur)="onAWS_ACCESS_KEY_IDReturnPress($event)" maxLength="2">
+        <TextField row="15" column="0" colSpan="2" [text]="AWS_BACKUP_RESTORE_ENDPOINT_PREFIX" returnKeyType="done" (returnPress)="onAWS_BACKUP_RESTORE_ENDPOINT_PREFIXReturnPress($event)" (blur)="onAWS_BACKUP_RESTORE_ENDPOINT_PREFIXReturnPress($event)" maxLength="2">
         </TextField>
 
-        <Label row="16" column="0" colSpan="2" text="{{'AWS_SECRET_ACCESS_KEY'|L}}" class="label"></Label>
+        <Label row="16" column="0" colSpan="2" text="{{'AWS_BACKUP_RESTORE_API_KEY'|L}}" class="label"></Label>
         
-        <TextField row="17" column="0" colSpan="2" [text]="AWS_SECRET_ACCESS_KEY" returnKeyType="done" (returnPress)="onAWS_SECRET_ACCESS_KEYReturnPress($event)" (blur)="onAWS_SECRET_ACCESS_KEYReturnPress($event)">
+        <TextField row="17" column="0" colSpan="2" [text]="AWS_BACKUP_RESTORE_API_KEY" returnKeyType="done" (returnPress)="onAWS_BACKUP_RESTORE_API_KEYReturnPress($event)" (blur)="onAWS_BACKUP_RESTORE_API_KEYReturnPress($event)">
         </TextField>
 
-        <Label row="18" column="0" colSpan="2" text="{{'AWS_REGION'|L}}" class="label"></Label>
+        <Label row="18" column="0" colSpan="2" text="{{'AWS_BACKUP_RESTORE_REGION'|L}}" class="label"></Label>
         
-        <TextField row="19" column="0" colSpan="2" [text]="AWS_REGION" returnKeyType="done" (returnPress)="onAWS_REGIONReturnPress($event)" (blur)="onAWS_REGIONReturnPress($event)">
+        <TextField row="19" column="0" colSpan="2" [text]="AWS_BACKUP_RESTORE_REGION" returnKeyType="done" (returnPress)="onAWS_BACKUP_RESTORE_REGIONReturnPress($event)" (blur)="onAWS_BACKUP_RESTORE_REGIONReturnPress($event)">
         </TextField>
 
         <Label row="20" column="0" colSpan="2" text="{{'AWS_BUCKET_NAME'|L}}" class="label"></Label>
@@ -76,7 +76,7 @@
         <TextField row="21" column="0" colSpan="2" [text]="AWS_BUCKET_NAME" returnKeyType="done" (returnPress)="onAWS_BUCKET_NAMEReturnPress($event)" (blur)="onAWS_BUCKET_NAMEReturnPress($event)">
         </TextField>
 
-        <Button row="21" column="0" text="{{'BACKUP'|L}}" (tap)="backup()"></Button>
+        <Button row="22" column="0" text="{{'BACKUP'|L}}" (tap)="backup()"></Button>
         <Button row="22" column="0" text="{{'RESTORE'|L}}" (tap)="restore()"></Button>
 
     </GridLayout>
