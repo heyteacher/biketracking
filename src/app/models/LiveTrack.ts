@@ -4,8 +4,10 @@ import * as moment from 'moment'
 import { GeoLocation } from "./GeoLocation";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as appSettings from "tns-core-modules/application-settings";
-import { AppSettingsKey, LiveStatus, AWSDemResponse, AppSettingsDefaultValue, ClimbDownHillAccumulator } from "~/app/models/types"
+import { AppSettingsKey, LiveStatus, AWSDemResponse, AppSettingsDefaultValue, ClimbDownHillAccumulator,OpenMeteoResponse } from "~/app/models/types"
 import { BehaviorSubject } from 'rxjs';
+import * as geolocation from "nativescript-geolocation"
+
 const timeseries = require("timeseries-analysis");
 const trace = require("trace");
 
@@ -185,6 +187,23 @@ export class LiveTrack {
             }
         }
     }
+
+    updateMeteo(httpClient: HttpClient, location: geolocation.Location, meteoSubject: BehaviorSubject<[number, number]>) {
+        const url: string = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&hourly=temperature_2m,weathercode&forecast_days=1`
+
+        httpClient.get(url).subscribe((data: OpenMeteoResponse) => {
+            if (data && data.hourly) {
+                const hour:number = (moment().format("HH") + 1) % 24
+                if (data.hourly[hour]) {
+                    const temperature:number = data.hourly[hour].temperature_2m
+                    const weathercode:number = data.hourly[hour].weathercode
+                    trace.write(`liveTrack._fetchMeteo: temperature ${temperature}, weathercode ${weathercode}`, trace.categories.Debug)
+                    meteoSubject.next([temperature, weathercode])
+                            } 
+            }
+        })
+    }
+
 
     updateBpm(bpm: number) {
         if (this.isStarted()) {

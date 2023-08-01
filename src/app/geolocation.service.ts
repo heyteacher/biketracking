@@ -32,12 +32,16 @@ export class GeolocationService implements OnDestroy {
 
   private timeObservable: Observable<number> = interval(15000)
 
+  //update meteo every 10 minutes 
+  private meteoIntervalObservable: Observable<number> = interval(60 * 1 * 1000)
+
   private autoSaveObservable: Observable<number> = interval(60000)
   private autoSaveSubscription: Subscription = null
 
   private demIntervalObservable: Observable<number> = interval(30000)
   private demIntervalSubscription: Subscription = null
   private demSubject = new BehaviorSubject<[number, number]>(null)
+  private meteoSubject = new BehaviorSubject<[number, number]>(null)
 
   private liveStatusSubject = new BehaviorSubject<LiveStatus>(null)
   //private startStopSubject = new BehaviorSubject<LiveStatus>(null)
@@ -100,6 +104,10 @@ export class GeolocationService implements OnDestroy {
 
   getTimeObservable(): Observable<number> {
     return this.timeObservable
+  }
+
+  getMeteoObservable(): Observable<number> {
+    return this.meteoSubject.asObservable();
   }
 
   getLocationObservable(): Observable<GeoLocation> {
@@ -247,6 +255,13 @@ export class GeolocationService implements OnDestroy {
     this.demIntervalSubscription = this.demIntervalObservable.subscribe(
       () => {
         this.liveTrack.updateDem(this.httpClient, this.demSubject)
+      }
+    )
+    this.meteoIntervalObservable.subscribe(
+      () => {
+        const currentLocation: GeoLocation = this.getCurrentLocation().then(location =>{
+          this.liveTrack.updateMeteo(this.httpClient, location, this.meteoSubject)
+        })
       }
     )
   }

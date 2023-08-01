@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { GeolocationService } from "../geolocation.service";
+import { GeoLocation } from "../models/GeoLocation";
 import { formatNumberValue, formatDurationValue, formatTimeValue } from "../utils/format";
 import { TabsService } from "../tabs.service";
 import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
@@ -34,6 +35,8 @@ export class LiveComponent implements OnInit {
     bpm: string
     rpm: string
     startingCountdown: number;
+    temperature: string;
+    weather: string;
 
     restoreDialogOpen: boolean = false
     stopDialogOpen: boolean = false
@@ -67,6 +70,7 @@ export class LiveComponent implements OnInit {
         this.geolocationService.getTimeObservable().subscribe(() => this._updateTime())
         this.geolocationService.getDemObservable().subscribe((demInfo: [number, number]) => this._updateDem(demInfo))
         //this.geolocationService.getStartStopObservable().subscribe((liveStatus: LiveStatus) => this._startStop(liveStatus))
+        this.geolocationService.getMeteoObservable().subscribe((meteoInfo: [number, number]) => this._updateMeteo(meteoInfo))
         this.tabsService.getAppStatusObserver().subscribe(async () => {
             if (this.tabsService.isStarted() && await this.geolocationService.existsLiveTrack()) {
                 this.showRestoreDialogOpen()
@@ -183,6 +187,16 @@ export class LiveComponent implements OnInit {
             this.time = formatTimeValue(moment())
             this.duration = formatDurationValue(this.geolocationService.getLiveTrack().duration)
             trace.write('live._updateTime: time ' + this.time + ',duration ' + this.duration, trace.categories.Debug)
+        }
+    }
+
+    private _updateMeteo(meteoInfo: [number, number]) {
+        if (this.tabsService.isAppOpen()) {
+            this.temperature = formatNumberValue(meteoInfo[0], '1.0-0')
+            const weatherCode = meteoInfo[1]
+            if (weatherCode > 0)
+                this.weather = 'cloudly'
+            trace.write('live._updateMeteo: temperature ' + this.temperature + ',weather ' + this.weather, trace.categories.Debug)
         }
     }
 
