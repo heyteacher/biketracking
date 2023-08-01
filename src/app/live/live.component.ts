@@ -193,6 +193,7 @@ export class LiveComponent implements OnInit {
     private _updateMeteo(meteoInfo: [number, number]) {
         if (this.tabsService.isAppOpen()) {
             this.temperature = formatNumberValue(meteoInfo[0], '1.0-0')
+
             const weatherCode = meteoInfo[1]
             if (weatherCode > 0)
                 this.weather = 'cloudly'
