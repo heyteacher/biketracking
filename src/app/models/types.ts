@@ -6,10 +6,34 @@ export interface AWSDemResponse {
     message?: string
 }
 
+export interface AWSResponse {
+    status:boolean
+    message?: string
+}
+
+export interface AWSListResponse {
+    status:boolean
+    tracks: any[]
+    message?: string
+}
+
+export interface AWSRestoreResponse {
+    status:boolean
+    track: any
+    message?: string
+}
+
 export interface Point {
     lat: number
     lng: number
 }
+
+export interface InfoMeteo {
+    temperature_2m: number
+    weathercode: number
+
+}
+
 
 export interface OpenMeteoHourly {
     time: string[],
@@ -62,10 +86,10 @@ export enum AppSettingsDefaultValue {
     GPS_UPDATE_TIME_SEC = '10',
     GPS_MINIMUM_UPDATE_TIME_SEC = '5',
     DEM_AWS_API_KEY = 'qswqKiQYLo2HiA71PVmAP9AB4b5CiwJraExSURih',
-    AWS_BACKUP_RESTORE_ENDPOINT_PREFIX = "zf9khqu3y9",
-    AWS_BACKUP_RESTORE_API_KEY = "aGoDQ6OFsZ9bBdDzkUWcSaB1cDN6nFwF36DxDCIs",
-    AWS_BACKUP_RESTORE_REGION = "eu-west-1",
-    AWS_BUCKET_NAME = "biketracking-tracks"
+    AWS_BACKUP_RESTORE_ENDPOINT_PREFIX = "",
+    AWS_BACKUP_RESTORE_API_KEY = "",
+    AWS_BACKUP_RESTORE_REGION = "",
+    AWS_BUCKET_NAME = ""
 }
 
 

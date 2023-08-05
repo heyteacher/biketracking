@@ -144,7 +144,7 @@ export class ExternalStorageStore extends Store {
       const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
       const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
       const filename = `${folder.path}/${key}.json`
-      trace.write('ExternalStorageStore._getFileName:' + filename, trace.categories.Debug)
+      //trace.write('ExternalStorageStore._getFileName:' + filename, trace.categories.Debug)
       return filename
     } catch (error) {
       trace.write('ExternalStorageStore._getFileName: error' + error, trace.categories.Debug)

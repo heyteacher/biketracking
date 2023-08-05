@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, interval, Subscription, timer } from 'rxjs
 import { TabsService } from './tabs.service'
 import { HttpClient } from '@angular/common/http'
 import { GeoLocation } from './models/GeoLocation';
-import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from './models/types';
+import { InfoMeteo, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from './models/types';
 import { HeartrateService } from './heartrate.service';
 import { CadenceService } from './cadence.service';
 import { humanizeTime, formatNumberValue, humanizeDuration } from './utils/format';
@@ -32,8 +32,6 @@ export class GeolocationService implements OnDestroy {
 
   private timeObservable: Observable<number> = interval(15000)
 
-  //update meteo every 10 minutes 
-  private meteoIntervalObservable: Observable<number> = interval(60 * 1 * 1000)
 
   private autoSaveObservable: Observable<number> = interval(60000)
   private autoSaveSubscription: Subscription = null
@@ -41,7 +39,6 @@ export class GeolocationService implements OnDestroy {
   private demIntervalObservable: Observable<number> = interval(30000)
   private demIntervalSubscription: Subscription = null
   private demSubject = new BehaviorSubject<[number, number]>(null)
-  private meteoSubject = new BehaviorSubject<[number, number]>(null)
 
   private liveStatusSubject = new BehaviorSubject<LiveStatus>(null)
   //private startStopSubject = new BehaviorSubject<LiveStatus>(null)
@@ -79,10 +76,6 @@ export class GeolocationService implements OnDestroy {
     this.timeObservable.subscribe(() => this._updateTime());
   }
 
-  getDemObservable(): Observable<[number, number]> {
-    return this.demSubject.asObservable()
-  }
-
   async existsLiveTrack(): Promise<boolean> {
     return this.storeService.existsLiveTrack()
   }
@@ -106,8 +99,8 @@ export class GeolocationService implements OnDestroy {
     return this.timeObservable
   }
 
-  getMeteoObservable(): Observable<number> {
-    return this.meteoSubject.asObservable();
+  getDemObservable(): Observable<[number, number]> {
+    return this.demSubject.asObservable()
   }
 
   getLocationObservable(): Observable<GeoLocation> {
@@ -257,13 +250,14 @@ export class GeolocationService implements OnDestroy {
         this.liveTrack.updateDem(this.httpClient, this.demSubject)
       }
     )
-    this.meteoIntervalObservable.subscribe(
-      () => {
-        const currentLocation: GeoLocation = this.getCurrentLocation().then(location =>{
-          this.liveTrack.updateMeteo(this.httpClient, location, this.meteoSubject)
-        })
-      }
-    )
+
+    //this.getMeteoObservable().subscribe((infoMeteo:InfoMeteo) => {
+    //  trace.write('geolocation.getMeteoObservable().subscribe: InfoMeteo ' + infoMeteo, trace.categories.Debug)
+    //})
+  }
+
+  async updateMeteo(callback) {
+    this.liveTrack.updateMeteo(this.httpClient, await this.getCurrentLocation(), callback)
   }
 
   private _stopWatch() {

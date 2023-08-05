@@ -2,7 +2,7 @@ import { BehaviorSubject } from "rxjs";
 
 export abstract class Store {
 
-    protected static readonly TRACKS_FOLDER: string = 'tracks'
+    public static readonly TRACKS_FOLDER: string = 'tracks'
     protected static readonly LOGS_FOLDER: string = 'logs'
   
     protected abstract getValue<Type>(key: string, defaultValue: any): Promise<Type>     

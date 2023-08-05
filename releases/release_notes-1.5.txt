@@ -1,0 +1,8 @@
+<en-US>
+- add meteo forecast
+- backup and restore tracks on AWS S3
+</en-US>
+<it-IT>
+- aggiunte previsioni meteo
+- salvataggio e riprino tracce su AWS S3
+</it-IT>

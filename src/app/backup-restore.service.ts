@@ -1,28 +1,29 @@
-import { ExternalStorageStore } from "./store/external-storage-store";
 import * as fs from 'tns-core-modules/file-system';
 const trace = require("trace");
 import { Injectable } from "@angular/core";
 import { HttpClient,HttpHeaders } from '@angular/common/http'
 import * as appSettings from 'tns-core-modules/application-settings'
-import { AWSDemResponse } from "~/app/models/types"
-import { AppSettingsKey, AppSettingsDefaultValue } from "./models/types";
+import { AppSettingsKey, AppSettingsDefaultValue, AWSListResponse } from "./models/types";
+import { StoreService } from './store.service'
+import { forkJoin} from 'rxjs';
+import * as moment from 'moment'
 
 @Injectable({
   providedIn: 'root'
 })
-export class BackupRestoreService extends ExternalStorageStore{
+export class BackupRestoreService{
 
-  private headers: HttpHeaders
   private endpoint: string
+  private apiKey: string
 
   constructor(
-    private httpClient: HttpClient) {
-      super()
+    private httpClient: HttpClient,
+    private storeService: StoreService) {
       const endpointPrefix:string =  appSettings.getString(
         AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX, 
         AppSettingsDefaultValue.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX
       );
-      const apiKey:string = appSettings.getString(
+      this.apiKey = appSettings.getString(
         AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY, 
         AppSettingsDefaultValue.AWS_BACKUP_RESTORE_API_KEY
       );
@@ -30,55 +31,93 @@ export class BackupRestoreService extends ExternalStorageStore{
         AppSettingsKey.AWS_BACKUP_RESTORE_REGION, 
         AppSettingsDefaultValue.AWS_BACKUP_RESTORE_REGION
       );
-      this.headers = new HttpHeaders({ 'X-API-Key': apiKey })
       this.endpoint = `https://${endpointPrefix}.execute-api.${region}.amazonaws.com/Prod/`
   }
 
-  async backup(): Promise<void> {
+  async backup(callback): Promise<void> {
     try {
 
       const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
-      const folder: fs.Folder = <fs.Folder>documents.getFolder(BackupRestoreService.TRACKS_FOLDER);
+      const folder: fs.Folder = <fs.Folder>documents.getFolder(StoreService.TRACKS_FOLDER);
       const entities: fs.FileSystemEntity[] = await folder.getEntities()
-      const backupEndpoint: string = `${this.endpoint}\backup` 
+      const backupEndpoint: string = `${this.endpoint}backup` 
 
-      let body = []
+      const observables: any[] = [] 
       for (let index = 0; index < entities.length; index++) {
         const entity = entities[index];
-        if (entity.name.length == 9) continue;
-        body.push({
+        trace.write(`BackupRestoreService.backup: track ${entity.name}`, trace.categories.Error)
+        if (entity.name.length != 20) continue;
+        const body = {
           name: entity.name,
           content: await folder.getFile(entity.name).readText()
-        })
+        }
+        observables.push(this.httpClient.post(backupEndpoint, [body], { headers: new HttpHeaders({ 'X-API-Key': this.apiKey }) }))
       }
-      trace.write(`BackupRestoreService.backup: body ${JSON.stringify(body)}`, trace.categories.Error)
-      this.httpClient.post(backupEndpoint, body, { headers: this.headers }).subscribe((data: AWSDemResponse) => {
-            trace.write(`BackupRestoreService.backup: response ${data.message}`, trace.categories.Debug)
-      }) 
+
+      if (observables.length == 0)   {
+        callback(`no tracks backuped`)
+        return
+      }
+
+      forkJoin(observables).subscribe({
+        next: async data => {
+          callback(`${data.length} tracks backuped`)
+        },
+        complete: () => {
+          trace.write(`BackupRestoreService.backup: backups queued`, trace.categories.Debug)
+        },
+      })
+
     } catch (err) {
       trace.write(`BackupRestoreService.backup: There was an error o ${err.nessage}`, trace.categories.Error)   
+      callback(`error on tracks backup:${err.nessage}`)
       throw err
      }
   }
   
-  async restore(): Promise<void> {
+  async restore(callback): Promise<void> {
     try {
-      const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
-      const folder: fs.Folder = <fs.Folder>documents.getFolder(ExternalStorageStore.TRACKS_FOLDER);
-      const restoreEndpoint: string = `${this.endpoint}\restore` 
+      const listEndpoint: string = `${this.endpoint}list` 
+      const restoreEndpoint: string = `${this.endpoint}restore` 
  
-      this.httpClient.get(restoreEndpoint, { headers: this.headers }).subscribe((data: AWSDemResponse) => {
-        trace.write(`BackupRestoreService.restore: response ${data.message}`, trace.categories.Debug)
-      
+      this.httpClient.get(listEndpoint, { headers: new HttpHeaders({ 'X-API-Key': this.apiKey }) }).subscribe((data: AWSListResponse) => {
+        trace.write(`BackupRestoreService.restore: list response ${data.tracks.length} tracks`, trace.categories.Debug)
+ 
+        const observables: any[] = [] 
         for (let index = 0; index < data.tracks.length; index++) {
-          const track = data.tracks[index];
-          this.setValue(track.name, JSON.stringify(track.content))
-          trace.write(`BackupRestoreService.restore: ${track.name} restored`, trace.categories.Debug)  
+          const key = data.tracks[index].key;
+          trace.write(`BackupRestoreService.restore: track ${key}`, trace.categories.Debug)
+          observables.push(this.httpClient.get(`${restoreEndpoint}?key=${key}`, { headers: new HttpHeaders({ 'X-API-Key': this.apiKey }) }))        
         }
-      }) 
-      
+        
+        if (observables.length == 0)   {
+          callback(`no tracks restored`)
+          return
+        }
+  
+        forkJoin(observables).subscribe({
+            next: async data => {
+              for (let index = 0; index < data.length; index++) {
+                if (data[index]['status']) {
+                  const track = data[index]['track']
+                  trace.write(`BackupRestoreService.restore: restore  ${track['name']}`, trace.categories.Debug)
+                  const trackObj = JSON.parse(track['content'])
+                  if (trackObj['key'].indexOf(':') >= 0) {
+                    trackObj['key'] =  moment(trackObj['key']).format('YYYYMMDD_HHmmss')
+                  } 
+                  await this.storeService.addTrack(trackObj)
+                }
+              }
+              callback(`${data.length} tracks restored`)
+            },
+            complete: () => {
+              trace.write(`BackupRestoreService.restore: restores queued`, trace.categories.Debug)
+            },
+        })
+      })
     } catch (err) {
       trace.write(`BackupRestoreService.restore: There was an error o ${err.nessage}`, trace.categories.Error)   
+      callback(`errore on tracks restore:${err.nessage}`)
       throw err
     }
   }

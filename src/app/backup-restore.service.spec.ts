@@ -7,7 +7,7 @@ describe('BackupRestoreService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = new BackupRestoreService(null);
+    service = new BackupRestoreService(null,null);
   });
 
   it('should be created', () => {

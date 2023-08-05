@@ -24,6 +24,18 @@ export class SettingsComponent implements OnInit {
         private backupRestoreService: BackupRestoreService) {
     }
 
+    busy:boolean = false
+    message:String = ""    
+    backupRestoreTracksDialogOpen = false 
+
+    showBackupRestoreTracksDialogOpen() {
+        this.backupRestoreTracksDialogOpen = true;
+    }
+
+    closeBackupRestoreTracksDialogOpen() {
+        this.backupRestoreTracksDialogOpen = false;
+    }
+ 
     startHeartRate() {
         this.heartrateService.start()
     }
@@ -182,10 +194,30 @@ export class SettingsComponent implements OnInit {
     }
     
     backup() {
-        this.backupRestoreService.backup()
+        this.busy = true; 
+        this.backupRestoreService.backup((message:string) => {
+            try {
+                this.message = message; 
+                this.busy = false; 
+                this.showBackupRestoreTracksDialogOpen()                    
+            } catch (error) {
+                this.message = error.message; 
+                this.busy = false;                 
+            }
+        })
     }
 
     restore() {
-        this.backupRestoreService.restore()
+        this.busy = true; 
+        this.backupRestoreService.restore((message:string) => {
+            try {
+                this.message = message;
+                this.busy = false;             
+                this.showBackupRestoreTracksDialogOpen()                    
+            } catch (error) {
+                this.message = error.message; 
+                this.busy = false;                                 
+            }
+        })
     }
 }
