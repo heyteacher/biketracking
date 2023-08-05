@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, interval, Subscription, timer } from 'rxjs
 import { TabsService } from './tabs.service'
 import { HttpClient } from '@angular/common/http'
 import { GeoLocation } from './models/GeoLocation';
-import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from './models/types';
+import { InfoMeteo, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from './models/types';
 import { HeartrateService } from './heartrate.service';
 import { CadenceService } from './cadence.service';
 import { humanizeTime, formatNumberValue, humanizeDuration } from './utils/format';
@@ -31,6 +31,7 @@ export class GeolocationService implements OnDestroy {
   private watchLocation: number = null
 
   private timeObservable: Observable<number> = interval(15000)
+
 
   private autoSaveObservable: Observable<number> = interval(60000)
   private autoSaveSubscription: Subscription = null
@@ -75,10 +76,6 @@ export class GeolocationService implements OnDestroy {
     this.timeObservable.subscribe(() => this._updateTime());
   }
 
-  getDemObservable(): Observable<[number, number]> {
-    return this.demSubject.asObservable()
-  }
-
   async existsLiveTrack(): Promise<boolean> {
     return this.storeService.existsLiveTrack()
   }
@@ -100,6 +97,10 @@ export class GeolocationService implements OnDestroy {
 
   getTimeObservable(): Observable<number> {
     return this.timeObservable
+  }
+
+  getDemObservable(): Observable<[number, number]> {
+    return this.demSubject.asObservable()
   }
 
   getLocationObservable(): Observable<GeoLocation> {
@@ -249,6 +250,14 @@ export class GeolocationService implements OnDestroy {
         this.liveTrack.updateDem(this.httpClient, this.demSubject)
       }
     )
+
+    //this.getMeteoObservable().subscribe((infoMeteo:InfoMeteo) => {
+    //  trace.write('geolocation.getMeteoObservable().subscribe: InfoMeteo ' + infoMeteo, trace.categories.Debug)
+    //})
+  }
+
+  async updateMeteo(callback) {
+    this.liveTrack.updateMeteo(this.httpClient, await this.getCurrentLocation(), callback)
   }
 
   private _stopWatch() {

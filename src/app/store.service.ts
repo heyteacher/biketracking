@@ -3,7 +3,7 @@ import { Track } from './models/Track';
 import { BaseTrack } from "./models/BaseTrack";
 import { LiveTrack } from "./models/LiveTrack";
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ExternalStorageStore } from './store/external-estorage-store'
+import { ExternalStorageStore } from './store/external-storage-store'
 import * as moment from 'moment'
 const trace = require("trace");
 
@@ -18,18 +18,25 @@ export class StoreService extends ExternalStorageStore {
 
   private tracksSubject = new BehaviorSubject<BaseTrack[]>(null)
 
-  async addTrack(track: Track): Promise<boolean> {
+  private async _addTrackToYear(track: Track): Promise<boolean> {
     const year = this._getYear(track.key)
-    await this.setValue<Track>(track.key, track)
     const tracks: BaseTrack[] = await this.getTracks(year)
-    tracks.unshift({
-      key: track.key,
-      startTime: track.startTime,
-      distance: track.distance,
-      duration: track.duration,
-      average: track.average
-    })
+    var index = tracks.findIndex(item => item.key == track.key)
+    if (index < 0) {
+      tracks.unshift({
+        key: track.key,
+        startTime: track.startTime,
+        distance: track.distance,
+        duration: track.duration,
+        average: track.average
+      })
+    }
     return this.setValue<BaseTrack[]>(year, tracks, this.tracksSubject)
+  }
+
+  async addTrack(track: Track): Promise<boolean> {
+    await this.setValue<Track>(track.key, track)
+    return this._addTrackToYear(track)
   }
 
   async updateTrack(track: Track): Promise<boolean> {

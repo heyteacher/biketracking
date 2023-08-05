@@ -50,7 +50,7 @@ export class HistoryComponent extends Observable implements OnInit {
             }
         )
         this.tabService.getSelectedTabObserver().subscribe(async (tab: Tab) => {
-            if (tab == Tab.HISTORY && !this.tracks) {
+            if (tab == Tab.HISTORY) {
                 this.years = await this.storeService.getYears()
                 this._loadYear(this.years[0])
             }

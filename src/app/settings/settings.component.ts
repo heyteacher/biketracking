@@ -6,6 +6,7 @@ import { TextField } from "tns-core-modules/ui/text-field";
 import { AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
 import * as appSettings from 'tns-core-modules/application-settings'
 import { GeolocationService } from "../geolocation.service";
+import { BackupRestoreService } from "../backup-restore.service";
 import * as appversion from "nativescript-appversion";
 @Component({
     selector: "Settings",
@@ -19,9 +20,22 @@ export class SettingsComponent implements OnInit {
     constructor(
         private heartrateService: HeartrateService,
         private cadenceService: CadenceService,
-        private geolocationService: GeolocationService) {
+        private geolocationService: GeolocationService,
+        private backupRestoreService: BackupRestoreService) {
     }
 
+    busy:boolean = false
+    message:String = ""    
+    backupRestoreTracksDialogOpen = false 
+
+    showBackupRestoreTracksDialogOpen() {
+        this.backupRestoreTracksDialogOpen = true;
+    }
+
+    closeBackupRestoreTracksDialogOpen() {
+        this.backupRestoreTracksDialogOpen = false;
+    }
+ 
     startHeartRate() {
         this.heartrateService.start()
     }
@@ -145,5 +159,65 @@ export class SettingsComponent implements OnInit {
             AppSettingsKey.VOICE_SUMMARY_TIME_INTERVAL_MIN,
             textField.text? parseInt(textField.text): 0);
             this.geolocationService.startVoiceSummaryTimer()
+    }
+
+    get AWS_BACKUP_RESTORE_ENDPOINT_PREFIX(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX);
+    }
+    onAWS_BACKUP_RESTORE_ENDPOINT_PREFIXReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_ENDPOINT_PREFIX,textField.text);
+    }
+
+    get AWS_BACKUP_RESTORE_API_KEY(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_API_KEY);
+    }
+    onAWS_BACKUP_RESTORE_API_KEYReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_API_KEY,textField.text);
+    }
+
+    get AWS_BACKUP_RESTORE_REGION(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BACKUP_RESTORE_REGION, AppSettingsDefaultValue.AWS_BACKUP_RESTORE_REGION);
+    }
+    onAWS_BACKUP_RESTORE_REGIONReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_REGION,textField.text);
+    }
+
+    get AWS_BUCKET_NAME(): string {
+        return appSettings.getString(AppSettingsKey.AWS_BUCKET_NAME,AppSettingsDefaultValue.AWS_BUCKET_NAME);
+    }
+    onAWS_BUCKET_NAMEReturnPress(args) {
+        let textField = <TextField>args.object; 
+        appSettings.setString(AppSettingsKey.AWS_BUCKET_NAME,textField.text);
+    }
+    
+    backup() {
+        this.busy = true; 
+        this.backupRestoreService.backup((message:string) => {
+            try {
+                this.message = message; 
+                this.busy = false; 
+                this.showBackupRestoreTracksDialogOpen()                    
+            } catch (error) {
+                this.message = error.message; 
+                this.busy = false;                 
+            }
+        })
+    }
+
+    restore() {
+        this.busy = true; 
+        this.backupRestoreService.restore((message:string) => {
+            try {
+                this.message = message;
+                this.busy = false;             
+                this.showBackupRestoreTracksDialogOpen()                    
+            } catch (error) {
+                this.message = error.message; 
+                this.busy = false;                                 
+            }
+        })
     }
 }

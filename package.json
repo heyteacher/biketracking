@@ -29,7 +29,7 @@
         "@nativescript/schematics": "^1.0.0",
         "@nativescript/theme": "^2.3.4",
         "geolib": "^3.3.3",
-        "moment": "^2.29.3",
+        "moment": "^2.29.4",
         "nativescript-angular": "~8.21.0",
         "nativescript-appversion": "^1.4.4",
         "nativescript-bluetooth": "^3.0.0",

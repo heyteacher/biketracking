@@ -11,3 +11,15 @@
     //padding-top: 5px;
     font-size: 25;
 }
+
+.backupRestoreTracksDialogOpen .content {
+    opacity: 0.2;
+}
+
+.backupRestoreTracksDialogOpen .backup-restore-tracks-dialog-wrapper {
+    visibility: visible;
+}
+
+.backup-restore-tracks-dialog-wrapper {
+    visibility: collapse;
+}

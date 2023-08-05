@@ -34,11 +34,16 @@
                 <Label row="0" col="2" [text]="bpm" textWrap="false" class="value cyanColor" (tap)="restartHeartRate()"></Label>
                 <Label row="1" col="2" text="{{'HEART RATE BPM'|L}}" textWrap=false class="label cyanColor"></Label>
             </GridLayout>
-            <GridLayout row="2" columns="*,*" rows="*,*">
+            <GridLayout row="2" columns="*,*,*" rows="*,*">
                 <Label #durationLabel row="0" col="0" [text]="duration" textWrap="false" class="value orangeColor"></Label>
                 <Label row="1" col="0" text="{{'DURATION'|L}}" textWrap=false class="label  orangeColor"></Label>
-                <Label row="0" col="1" [text]="time" textWrap="false" class="value orangeColor"></Label>
-                <Label row="1" col="1" text="{{'TIME'|L}}" textWrap=false class="label orangeColor"></Label>
+                <StackLayout row="0" col="1" orientation="horizontal" horizontalAlignment="center">
+                    <Label [text]="weatherIcon" class="fas weather-value orangeColor"></Label>
+                    <Label [text]="temperature" class="fas temperature-value orangeColor"></Label>
+                </StackLayout>
+                <Label row="1" col="1" text="{{'METEO'|L}}" textWrap=false class="label orangeColor"></Label>
+                <Label row="0" col="2" [text]="time" textWrap="false" class="value orangeColor"></Label>
+                <Label row="1" col="2" text="{{'TIME'|L}}" textWrap=false class="label orangeColor"></Label>
             </GridLayout>
         </GridLayout>
     </GridLayout>

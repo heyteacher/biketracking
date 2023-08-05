@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { GeolocationService } from "../geolocation.service";
+import { GeoLocation } from "../models/GeoLocation";
 import { formatNumberValue, formatDurationValue, formatTimeValue } from "../utils/format";
 import { TabsService } from "../tabs.service";
-import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue } from "../models/types";
+import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue, InfoMeteo } from "../models/types";
 import { HeartrateService } from "../heartrate.service";
 import { CadenceService } from "../cadence.service";
 import { TextToSpeechService } from '../text-to-speech.service'
 import * as moment from 'moment'
 import * as appSettings from 'tns-core-modules/application-settings'
 import { localize } from "nativescript-localize/angular";
+import { BehaviorSubject, Observable, interval} from 'rxjs'
 
 const trace = require("trace");
 
@@ -34,11 +36,17 @@ export class LiveComponent implements OnInit {
     bpm: string
     rpm: string
     startingCountdown: number;
+    temperature: string;
+    weatherIcon: string;
 
     restoreDialogOpen: boolean = false
     stopDialogOpen: boolean = false
 
     private _starting: boolean = false
+
+    //update meteo every 5 minutes 
+    private meteoIntervalObservable: Observable<number> = interval(60 * 1 * 1000)
+
 
     constructor(
         private geolocationService: GeolocationService,
@@ -67,6 +75,16 @@ export class LiveComponent implements OnInit {
         this.geolocationService.getTimeObservable().subscribe(() => this._updateTime())
         this.geolocationService.getDemObservable().subscribe((demInfo: [number, number]) => this._updateDem(demInfo))
         //this.geolocationService.getStartStopObservable().subscribe((liveStatus: LiveStatus) => this._startStop(liveStatus))
+        this.meteoIntervalObservable.subscribe(
+            () => {
+              this.geolocationService.updateMeteo((infoMeteo) => {
+                this._updateMeteo(infoMeteo)
+              })
+            }
+        )
+        this.geolocationService.updateMeteo((infoMeteo) => {
+            this._updateMeteo(infoMeteo)
+        })
         this.tabsService.getAppStatusObserver().subscribe(async () => {
             if (this.tabsService.isStarted() && await this.geolocationService.existsLiveTrack()) {
                 this.showRestoreDialogOpen()
@@ -180,10 +198,41 @@ export class LiveComponent implements OnInit {
         if (this.tabsService.isAppOpen() &&
             this.tabsService.getSelectedTab() == Tab.TRACK &&
             this.isStarted()) {
+
             this.time = formatTimeValue(moment())
             this.duration = formatDurationValue(this.geolocationService.getLiveTrack().duration)
             trace.write('live._updateTime: time ' + this.time + ',duration ' + this.duration, trace.categories.Debug)
         }
+    }
+
+    private _updateMeteo(infoMeteo: InfoMeteo) {
+        if (!infoMeteo.weathercode) {
+            this.temperature = `${formatNumberValue(infoMeteo.temperature_2m, '1.0-0')}°`
+        }
+        let weather:String = ''
+        if (infoMeteo.weathercode == 0) {
+            weather = 'SUN'
+            this.weatherIcon = String.fromCharCode(parseInt('f185', 16))
+        } else if ((infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) || (infoMeteo.weathercode >= 11 && infoMeteo.weathercode <=19)) {
+            weather = 'CLOUDLY'
+            this.weatherIcon = String.fromCharCode(parseInt('f0c2', 16))
+        } else if ((infoMeteo.weathercode >= 4 && infoMeteo.weathercode >=11) || (infoMeteo.weathercode >= 40 && infoMeteo.weathercode <=49)) {
+            weather = 'FOG'
+            this.weatherIcon = String.fromCharCode(parseInt('f75f'))
+        } else if (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29) {
+            weather = 'SUNNY CLOUDLY'
+            this.weatherIcon = String.fromCharCode(parseInt('f743'))
+        } else if (infoMeteo.weathercode >= 50 && infoMeteo.weathercode <=69) {
+            weather = 'RAIN'
+            this.weatherIcon = String.fromCharCode(parseInt('f73d'))
+        } else if (infoMeteo.weathercode >= 70 && infoMeteo.weathercode <=79) {
+            weather = 'HEAVY RAIN'
+            this.weatherIcon = String.fromCharCode(parseInt('f740'))
+        } else if (infoMeteo.weathercode >= 80 && infoMeteo.weathercode <=99) {
+            weather = 'STORM'
+            this.weatherIcon = String.fromCharCode(parseInt('f75a'))
+        } 
+        trace.write(`live._updateMeteo: temperature ${this.temperature} weather ${weather}`, trace.categories.Debug)
     }
 
     private _updateDem(demInfo: [number, number]) {
