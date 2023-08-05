@@ -141,4 +141,4 @@ publish via __Microsoft Visual Studio App Center__, after release the first appl
 1. publish on google store 
    ```
    gulp publish
-   ```g
+   ```

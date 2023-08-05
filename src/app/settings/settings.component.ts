@@ -184,14 +184,6 @@ export class SettingsComponent implements OnInit {
         let textField = <TextField>args.object; 
         appSettings.setString(AppSettingsKey.AWS_BACKUP_RESTORE_REGION,textField.text);
     }
-
-    get AWS_BUCKET_NAME(): string {
-        return appSettings.getString(AppSettingsKey.AWS_BUCKET_NAME,AppSettingsDefaultValue.AWS_BUCKET_NAME);
-    }
-    onAWS_BUCKET_NAMEReturnPress(args) {
-        let textField = <TextField>args.object; 
-        appSettings.setString(AppSettingsKey.AWS_BUCKET_NAME,textField.text);
-    }
     
     backup() {
         this.busy = true; 
