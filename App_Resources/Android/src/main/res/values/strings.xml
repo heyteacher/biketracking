@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_error_on_tracks_restore___s_Zo2Ev0">"error on tracks restore: %1$s"</string>
+  <string name="_error_on_tracks_backup___s_Z183TAQ">"error on tracks backup: %1$s"</string>
+  <string name="__s_tracks_restored_ZqnfWu">"%1$s tracks restored"</string>
+  <string name="_no_tracks_restored_Z1tELk4">"no tracks restored"</string>
+  <string name="__s_tracks_backuped_2tbhPF">"%1$s tracks backuped"</string>
+  <string name="_no_tracks_backuped_1pSLt6">"no tracks backuped"</string>
   <string name="__s_minutes_IN5vs">"%1$s minutes"</string>
   <string name="_one_minute_Z7rAKq">"one minute"</string>
   <string name="__s_hours_4eXDR">"%1$s hours"</string>
@@ -26,6 +32,11 @@
   <string name="LICENSE">"LICENSE"</string>
   <string name="SITE">"SITE"</string>
   <string name="CREDITS">"CREDITS"</string>
+  <string name="RESTORE">"RESTORE"</string>
+  <string name="BACKUP">"BACKUP"</string>
+  <string name="_WS_Backup_Restore_Endpoint_Region_1GBPBD">"WS Backup Restore Endpoint Region"</string>
+  <string name="_AWS_Backup_Restore_Endpoint_API_KEY_ZXeRA3">"AWS Backup Restore Endpoint API KEY"</string>
+  <string name="_AWS_Backup_Restore_Endpoint_Prefix_ZMBrdX">"AWS Backup Restore Endpoint Prefix"</string>
   <string name="_Application_Version_Code_Z2mSFqq">"Application Version Code"</string>
   <string name="_Application_Version_Name_Z2mRhTg">"Application Version Name"</string>
   <string name="_Voice_Summary_Interval__min__1xfOR7">"Voice Summary Interval [min]"</string>

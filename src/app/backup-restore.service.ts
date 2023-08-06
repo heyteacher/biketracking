@@ -7,6 +7,7 @@ import { AppSettingsKey, AppSettingsDefaultValue, AWSListResponse } from "./mode
 import { StoreService } from './store.service'
 import { forkJoin} from 'rxjs';
 import * as moment from 'moment'
+import { localize } from 'nativescript-localize/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +56,13 @@ export class BackupRestoreService{
       }
 
       if (observables.length == 0)   {
-        callback(`no tracks backuped`)
+        callback(localize(`no tracks backuped`))
         return
       }
 
       forkJoin(observables).subscribe({
         next: async data => {
-          callback(`${data.length} tracks backuped`)
+          callback(localize('%s tracks backuped',`${data.length}`))
         },
         complete: () => {
           trace.write(`BackupRestoreService.backup: backups queued`, trace.categories.Debug)
@@ -70,7 +71,7 @@ export class BackupRestoreService{
 
     } catch (err) {
       trace.write(`BackupRestoreService.backup: There was an error o ${err.nessage}`, trace.categories.Error)   
-      callback(`error on tracks backup:${err.nessage}`)
+      callback(localize('error on tracks backup: %s',err.message))
       throw err
      }
   }
@@ -91,7 +92,7 @@ export class BackupRestoreService{
         }
         
         if (observables.length == 0)   {
-          callback(`no tracks restored`)
+          callback(localize(`no tracks restored`))
           return
         }
   
@@ -108,7 +109,7 @@ export class BackupRestoreService{
                   await this.storeService.addTrack(trackObj)
                 }
               }
-              callback(`${data.length} tracks restored`)
+              callback(localize('%s tracks restored',`${data.length}`))
             },
             complete: () => {
               trace.write(`BackupRestoreService.restore: restores queued`, trace.categories.Debug)
@@ -117,7 +118,7 @@ export class BackupRestoreService{
       })
     } catch (err) {
       trace.write(`BackupRestoreService.restore: There was an error o ${err.nessage}`, trace.categories.Error)   
-      callback(`errore on tracks restore:${err.nessage}`)
+      callback(localize('error on tracks restore: %s',err.message))
       throw err
     }
   }

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="_error_on_tracks_restore___s_Zo2Ev0">"errore durante il ripristino delle tracce: $s"</string>
+  <string name="_error_on_tracks_backup___s_Z183TAQ">"errore durante il backup delle tracce: $s"</string>
+  <string name="__s_tracks_restored_ZqnfWu">"%1$s tracce ripristinate"</string>
+  <string name="_no_tracks_restored_Z1tELk4">"nessuna traccia ripristinata"</string>
+  <string name="__s_tracks_backuped_2tbhPF">"%1$s tracce backuppate"</string>
+  <string name="_no_tracks_backuped_1pSLt6">"nessuna traccia backuppata"</string>
   <string name="__s_minutes_IN5vs">"%1$s minuti"</string>
   <string name="_one_minute_Z7rAKq">"un minuto"</string>
   <string name="__s_hours_4eXDR">"%1$s ore"</string>
@@ -26,6 +32,11 @@
   <string name="LICENSE">"LICENZA"</string>
   <string name="SITE">"SITO"</string>
   <string name="CREDITS">"CREDITI"</string>
+  <string name="RESTORE">"RIPRISTINO"</string>
+  <string name="BACKUP">"BACKUP"</string>
+  <string name="_WS_Backup_Restore_Endpoint_Region_1GBPBD">"Regione AWS Backup e Ripristino"</string>
+  <string name="_AWS_Backup_Restore_Endpoint_API_KEY_ZXeRA3">"API KEY AWS Backup e Ripristino"</string>
+  <string name="_AWS_Backup_Restore_Endpoint_Prefix_ZMBrdX">"Prefisso indirizzo AWS Backup e Ripristino"</string>
   <string name="_Application_Version_Code_Z2mSFqq">"Codice Versione Applicazione"</string>
   <string name="_Application_Version_Name_Z2mRhTg">"Nome Versione Applicazione"</string>
   <string name="_Voice_Summary_Interval__min__1xfOR7">"Intervallo Sommario Vocale [min]"</string>

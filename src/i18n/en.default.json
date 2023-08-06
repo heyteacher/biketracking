@@ -56,6 +56,11 @@
     "Voice Summary Interval [min]": "Voice Summary Interval [min]",
     "Application Version Name": "Application Version Name",
     "Application Version Code": "Application Version Code",
+    "AWS Backup Restore Endpoint Prefix": "AWS Backup Restore Endpoint Prefix",
+    "AWS Backup Restore Endpoint API KEY": "AWS Backup Restore Endpoint API KEY",
+    "WS Backup Restore Endpoint Region": "WS Backup Restore Endpoint Region",
+    "BACKUP": "BACKUP",
+    "RESTORE": "RESTORE",
     "CREDITS": "CREDITS",
     "SITE": "SITE",
     "LICENSE": "LICENSE",
@@ -81,5 +86,11 @@
     "one hour": "one hour",
     "%s hours": "%s hours",
     "one minute": "one minute",
-    "%s minutes": "%s minutes"
+    "%s minutes": "%s minutes",
+    "no tracks backuped": "no tracks backuped",
+    "%s tracks backuped": "%s tracks backuped",
+    "no tracks restored": "no tracks restored",
+    "%s tracks restored": "%s tracks restored",
+    "error on tracks backup: %s": "error on tracks backup: %s",
+    "error on tracks restore: %s": "error on tracks restore: %s"
 }
