@@ -206,7 +206,7 @@ export class LiveComponent implements OnInit {
     }
 
     private _updateMeteo(infoMeteo: InfoMeteo) {
-        if (!infoMeteo.weathercode) {
+        if (infoMeteo.weathercode != null) {
             this.temperature = `${formatNumberValue(infoMeteo.temperature_2m, '1.0-0')}°`
         }
         let weather:String = ''
@@ -232,7 +232,7 @@ export class LiveComponent implements OnInit {
             weather = 'STORM'
             this.weatherIcon = String.fromCharCode(parseInt('f75a'))
         } 
-        trace.write(`live._updateMeteo: temperature ${this.temperature} weather ${weather}`, trace.categories.Debug)
+        trace.write(`live._updateMeteo: ${this.temperature} temperature weather ${weather} `, trace.categories.Debug)
     }
 
     private _updateDem(demInfo: [number, number]) {
