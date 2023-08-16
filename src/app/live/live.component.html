@@ -37,11 +37,12 @@
             <GridLayout row="2" columns="*,*,*" rows="*,*">
                 <Label #durationLabel row="0" col="0" [text]="duration" textWrap="false" class="value orangeColor"></Label>
                 <Label row="1" col="0" text="{{'DURATION'|L}}" textWrap=false class="label  orangeColor"></Label>
-                <StackLayout row="0" col="1" orientation="vertical" horizontalAlignment="center">
-                    <Label [text]="weatherIcon" class="fas weather-value orangeColor"></Label>
-                    <Label [text]="temperature" class="fas temperature-value orangeColor"></Label>
-                </StackLayout>
-                <Label row="1" col="1" text="{{'METEO'|L}}" textWrap=false class="label orangeColor"></Label>
+                <GridLayout row="0" col="1"  columns="*,*" rows="*,*" verticalAlignment="bottom" marginLeft="5" marginRight="5">
+                    <Label row="0" col="0" colSpan="2" [text]="weatherIcon" class="fas weather-value orangeColor"></Label>
+                    <Label row="1" col="0" [text]="temperature" class="fas temperature-value orangeColor" textAlignment="left" ></Label>
+                    <Label row="1" col="1" [text]="humidity" class="fas humidity-value orangeColor" textAlignment="right"></Label>
+                </GridLayout>
+                <Label row="1" col="1" text="{{'OPEN-METEO.COM'|L}}" textWrap=false class="label orangeColor"></Label>
                 <Label row="0" col="2" [text]="time" textWrap="false" class="value orangeColor"></Label>
                 <Label row="1" col="2" text="{{'TIME'|L}}" textWrap=false class="label orangeColor"></Label>
             </GridLayout>
@@ -50,7 +51,7 @@
 
     <AbsoluteLayout class="restore-dialog-wrapper">
         <StackLayout class="dialog">
-            <Label textWrap="true" text="{{'Do You Want Restore Pending Track?'|L}}"></Label>
+            <Label textWrap="true" textAlignment="center" text="{{'Do You Want Restore Pending Track?'|L}}"></Label>
             <Button class="btn btn-primary" text="{{'YES: Restore'|L}}" (tap)="restorePendingTrack()"></Button>
             <Button class="btn btn-danger" text="{{'NO: Remove Pending Track'|L}}" (tap)="removePendingTrack()"></Button>
             <Button class="btn" text="{{'CANCEL'|L}}" (tap)="closeRestoreDialogOpen()"></Button>
@@ -59,7 +60,7 @@
 
     <AbsoluteLayout class="stop-dialog-wrapper">
         <StackLayout class="dialog">
-            <Label textWrap="true" text="{{'Are You Sure to Stop Tracking?'|L}}"></Label>
+            <Label textWrap="true" textAlignment="center" text="{{'Are You Sure to Stop Tracking?'|L}}"></Label>
             <Button class="btn btn-primary" text="{{'YES, STOP and Save the Track'|L}}" (tap)="stop(true)"></Button>
             <Button class="btn btn-danger" text="{{'YES, STOP but Don\'t Save the Track'|L}}" (tap)="stop(false)"></Button>
             <Button class="btn" text="{{'NO'|L}}" (tap)="closeStopDialogOpen()"></Button>

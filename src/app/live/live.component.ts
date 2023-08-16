@@ -1,16 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { GeolocationService } from "../geolocation.service";
-import { GeoLocation } from "../models/GeoLocation";
 import { formatNumberValue, formatDurationValue, formatTimeValue } from "../utils/format";
 import { TabsService } from "../tabs.service";
-import { Tab, LiveStatus, AppSettingsKey, AppSettingsDefaultValue, InfoMeteo } from "../models/types";
+import { Tab, AppSettingsKey, AppSettingsDefaultValue, InfoMeteo } from "../models/types";
 import { HeartrateService } from "../heartrate.service";
 import { CadenceService } from "../cadence.service";
 import { TextToSpeechService } from '../text-to-speech.service'
 import * as moment from 'moment'
 import * as appSettings from 'tns-core-modules/application-settings'
 import { localize } from "nativescript-localize/angular";
-import { BehaviorSubject, Observable, interval} from 'rxjs'
+import { Observable, interval} from 'rxjs'
 
 const trace = require("trace");
 
@@ -37,6 +36,7 @@ export class LiveComponent implements OnInit {
     rpm: string
     startingCountdown: number;
     temperature: string;
+    humidity: string;
     weatherIcon: string;
 
     restoreDialogOpen: boolean = false
@@ -68,8 +68,8 @@ export class LiveComponent implements OnInit {
 
     ngOnInit() {
  
-        this.heartrateService.getBpmObservable().subscribe(bpm => this._updateBpm(bpm))
-        this.cadenceService.getRpmObservable().subscribe(rpm => this._updateRpm(rpm))
+        this.heartrateService.getBpmObservable().subscribe(bpm => this.bpm = bpm != null? formatNumberValue(bpm, '1.0-0'): "-")
+        this.cadenceService.getRpmObservable().subscribe(rpm => this.rpm = rpm != null? formatNumberValue(rpm, '1.0-0'): "-")
 
         this.geolocationService.getLocationObservable().subscribe(location => this._updateLocation(location))
         this.geolocationService.getTimeObservable().subscribe(() => this._updateTime())
@@ -206,33 +206,39 @@ export class LiveComponent implements OnInit {
     }
 
     private _updateMeteo(infoMeteo: InfoMeteo) {
-        if (infoMeteo.weathercode != null) {
+        if (infoMeteo.temperature_2m != null) {
             this.temperature = `${formatNumberValue(infoMeteo.temperature_2m, '1.0-0')}°`
         }
+        if (infoMeteo.relativehumidity_2m != null) {            this.humidity = `${formatNumberValue(infoMeteo.relativehumidity_2m, '1.0-0')}%`
+        }
+        
         let weather:String = ''
         if (infoMeteo.weathercode == 0) {
             weather = 'SUN'
             this.weatherIcon = String.fromCharCode(parseInt('f185', 16))
-        } else if ((infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) || (infoMeteo.weathercode >= 11 && infoMeteo.weathercode <=19)) {
+        } else if ((infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) || (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29)) {
+            weather = 'SUNNY CLOUDLY'
+            this.weatherIcon = String.fromCharCode(parseInt('f743', 16))
+        } else if ((infoMeteo.weathercode >= 4 && infoMeteo.weathercode <=10) || (infoMeteo.weathercode >= 30 && infoMeteo.weathercode <=49)) {
+            weather = 'FOG'
+            this.weatherIcon = String.fromCharCode(parseInt('f75f', 16))
+        } else if (infoMeteo.weathercode >= 11 && infoMeteo.weathercode <=19) {
             weather = 'CLOUDLY'
             this.weatherIcon = String.fromCharCode(parseInt('f0c2', 16))
-        } else if ((infoMeteo.weathercode >= 4 && infoMeteo.weathercode >=11) || (infoMeteo.weathercode >= 40 && infoMeteo.weathercode <=49)) {
-            weather = 'FOG'
-            this.weatherIcon = String.fromCharCode(parseInt('f75f'))
-        } else if (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29) {
-            weather = 'SUNNY CLOUDLY'
-            this.weatherIcon = String.fromCharCode(parseInt('f743'))
         } else if (infoMeteo.weathercode >= 50 && infoMeteo.weathercode <=69) {
             weather = 'RAIN'
-            this.weatherIcon = String.fromCharCode(parseInt('f73d'))
+            this.weatherIcon = String.fromCharCode(parseInt('f73d', 16))
         } else if (infoMeteo.weathercode >= 70 && infoMeteo.weathercode <=79) {
+            weather = 'SNOW'
+            this.weatherIcon = String.fromCharCode(parseInt('f2dc', 16))
+        } else if (infoMeteo.weathercode >= 80 && infoMeteo.weathercode <=90) {
             weather = 'HEAVY RAIN'
-            this.weatherIcon = String.fromCharCode(parseInt('f740'))
-        } else if (infoMeteo.weathercode >= 80 && infoMeteo.weathercode <=99) {
+            this.weatherIcon = String.fromCharCode(parseInt('f740', 16))
+        } else if (infoMeteo.weathercode >= 91 && infoMeteo.weathercode <=99) {
             weather = 'STORM'
-            this.weatherIcon = String.fromCharCode(parseInt('f75a'))
+            this.weatherIcon = String.fromCharCode(parseInt('f75a', 16))
         } 
-        trace.write(`live._updateMeteo: ${this.temperature} temperature weather ${weather} `, trace.categories.Debug)
+        trace.write(`live._updateMeteo: temperature ${this.temperature}, humidity ${this.humidity}, weather ${weather} `, trace.categories.Debug)
     }
 
     private _updateDem(demInfo: [number, number]) {
@@ -243,14 +249,6 @@ export class LiveComponent implements OnInit {
             this.gradient = formatNumberValue(demInfo[1], '1.1-1')
             trace.write('live._updateDem: dem ' + this.dem + ' gradient ' + this.gradient, trace.categories.Debug)
         }
-    }
-
-    private _updateBpm(bpm: number) {
-        this.bpm = bpm != null ? formatNumberValue(bpm, '1.0-0') : "-"
-    }
-
-    private _updateRpm(rpm: number) {
-        this.rpm = rpm != null ? formatNumberValue(rpm, '1.0-0') : "-"
     }
 
     private _updateLocation(location) {

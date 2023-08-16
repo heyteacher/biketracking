@@ -1,53 +1,5 @@
 import { GeoLocation } from "./GeoLocation";
 
-export interface AWSDemResponse {
-    status:boolean
-    dem?:number
-    message?: string
-}
-
-export interface AWSResponse {
-    status:boolean
-    message?: string
-}
-
-export interface AWSListResponse {
-    status:boolean
-    tracks: any[]
-    message?: string
-}
-
-export interface AWSRestoreResponse {
-    status:boolean
-    track: any
-    message?: string
-}
-
-export interface Point {
-    lat: number
-    lng: number
-}
-
-export interface InfoMeteo {
-    temperature_2m: number
-    weathercode: number
-
-}
-
-
-export interface OpenMeteoHourly {
-    time: string[],
-    temperature_2m: number[]
-    weathercode: number[]
-
-}
-
-export interface OpenMeteoResponse {
-    latitude:number
-    longitude:number
-    hourly?: OpenMeteoHourly
-}
-
 export enum AppSettingsKey {
     MAPBOX_ACCESS_TOKEN = 'MAPBOX_ACCESS_TOKEN',
     MAPBOX_STYLE = 'MAPBOX_STYLE',
@@ -90,25 +42,6 @@ export enum AppSettingsDefaultValue {
     AWS_BACKUP_RESTORE_REGION = "",
 }
 
-
-export interface Credits {
-    text: string
-    site: string
-    license: string
-}
-
-export interface CountryAmzLinks {
-    [Key: string]: AmzLink[]
-}
-
-
-export interface AmzLink {
-    text: string
-    image: string
-    url: string
-    heartrate?: boolean
-}
-
 export enum Tab {
     TRACK,
     MAP,
@@ -136,4 +69,90 @@ export interface ClimbDownHillAccumulator {
     climb: number, 
     downhill: number
     lastDem: number
+}
+
+// geo location
+export interface Point {
+    lat: number
+    lng: number
+}
+
+// Biketracking Backend
+export interface AWSDemResponse {
+    status:boolean
+    dem?:number
+    message?: string
+}
+
+export interface AWSResponse {
+    status:boolean
+    message?: string
+}
+
+export interface AWSListResponse {
+    status:boolean
+    tracks: any[]
+    message?: string
+}
+
+export interface AWSRestoreResponse {
+    status:boolean
+    track: any
+    message?: string
+}
+
+// meteo
+export interface InfoMeteo {
+    temperature_2m: number
+    weathercode: number
+    relativehumidity_2m:number
+
+}
+
+export interface OpenMeteoHourly {
+    time: string[],
+    temperature_2m: number[]
+    weathercode: number[]
+
+}
+
+export interface OpenMeteoResponse {
+    latitude:number
+    longitude:number
+    hourly?: OpenMeteoHourly
+}
+
+// cadence device
+export interface CrankRevolutions {
+    timestamp: number,
+    counter: number
+}
+
+
+
+
+export enum CadenceDeviceStatus {
+  CONNECTED = "CONNECTED",
+  DISCONNECTED = "DICONNECTED",
+  ERROR = "ERROR",
+  NOTIFYING = "NOTIFYING"
+}
+
+// Credits
+export interface Credits {
+    text: string
+    site: string
+    license: string
+}
+
+export interface CountryAmzLinks {
+    [Key: string]: AmzLink[]
+}
+
+
+export interface AmzLink {
+    text: string
+    image: string
+    url: string
+    heartrate?: boolean
 }
