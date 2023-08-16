@@ -15,14 +15,14 @@ export class ExternalStorageStore extends Store {
     FileTraceWriter.prototype.write = async (message, category, type) => {
       const traceMessage = moment().format('YYYY-MM-DD HH:mm:ss') + ' - ' + category + ' - ' + message;
       console.log(traceMessage);
-      // const filePromise = ExternalStorageStore._getFile(moment().format('YYYY-MM-DD'), 'txt', 'logs')
-      // if (filePromise) {
-      //   filePromise.then(file => {
-      //     if (file) {
-      //       file.readText().then(text => file.writeText(`${text}\n${traceMessage}`))
-      //     }
-      //   })
-      // }
+      const filePromise = ExternalStorageStore._getFile(moment().format('YYYY-MM-DD'), 'txt', 'logs')
+      if (filePromise) {
+         filePromise.then(file => {
+           if (file) {
+             file.readText().then(text => file.writeText(`${text}\n${traceMessage}`))
+           }
+         })
+      }
     };
     return FileTraceWriter;
   })();
@@ -42,7 +42,7 @@ export class ExternalStorageStore extends Store {
   protected async existsValue(key: string): Promise<boolean> {
     const filename = await ExternalStorageStore._getFileName(key)
     const exists =  filename && fs.File.exists(filename)
-    trace.write('ExternalStorageStore._getFileName: filename ' + filename +' exists ' + exists, trace.categories.Debug)
+    trace.write('ExternalStorageStore.existsValue: filename ' + filename +' exists ' + exists, trace.categories.Debug)
     return exists
   }
 
@@ -113,28 +113,17 @@ export class ExternalStorageStore extends Store {
   //   }
   // }
 
-  private static async _getFile(key: string, extension: string = 'json', folderName = ExternalStorageStore.TRACKS_FOLDER) {
-    let folderPath,folder:fs.Folder, fileName, file: fs.File
+  protected static async _getFile(key: string, extension: string = 'json', folderName = ExternalStorageStore.TRACKS_FOLDER): Promise<fs.File> {
+    let folder:fs.Folder, fileName, file: fs.File
     try {
-      trace.write('ExternalStorageStore._getFile key ' + key + ' extension '+ extension + ' subpath ' + ExternalStorageStore.TRACKS_FOLDER, trace.categories.Debug)        
-      //if (!await ExternalStorageStore._checkPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-      //  return null
-      //}
-      //if (!await ExternalStorageStore._checkPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-      //  return null
-      //}
-      //folderPath = fs.path.join(android.os.Environment.getExternalStorageDirectory().getAbsolutePath().toString())
-      //folder = fs.Folder.fromPath(`${folderPath}/${AndroidApplication.packageName}/${subpath}`)
-
       const documents: fs.Folder = <fs.Folder>fs.knownFolders.documents();
       const folder: fs.Folder = <fs.Folder>documents.getFolder(folderName);
-
       fileName = `${key}.${extension}`
       file = folder.getFile(fileName)
       return file;
   } catch (error) {
-    trace.write('ExternalStorageStore._getFile: error folder ' + folder.path + ' filename ' + fileName, trace.categories.Debug)
-    trace.write('ExternalStorageStore._getFile: error folder ' + error, trace.categories.Debug)
+    console.error('ExternalStorageStore._getFile: error folder ' + folder.path + ' filename ' + fileName)
+    console.error('ExternalStorageStore._getFile: error folder ' + error)
     return null
   }
 }
