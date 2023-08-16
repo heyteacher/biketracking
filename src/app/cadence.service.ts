@@ -120,7 +120,7 @@ export class CadenceService {
           
               // keep only last minute record
               this._crank_revolutions = this._crank_revolutions.filter(
-                (crank_revolutions: CrankRevolutions) => moment(crank_revolutions.timestamp).isAfter(moment().add(-1,'minutes')) 
+                (crank_revolutions: CrankRevolutions) => moment(crank_revolutions.timestamp).isAfter(moment().subtract(1,'minutes')) 
               )
           
               // calculate RPM 
