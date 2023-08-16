@@ -76,6 +76,15 @@
     "START SCAN": "AVVIO RICERCA",
     "STOP SCAN": "TERMINA RICERCA",
 
+    "CONNECTED": "CONNESSO",
+    "DICONNECTED": "DISCONNESSO",
+    "NOTIFYING": "TRASMETTENDO",
+    "ERROR": "ERROR",
+
+    "CADENCE COUNTER": "Conteggio Pedalate",
+
+    "DEVICE STATUS": "STATO DISPOSITIVO",
+
     "HEART RATE DEVICE": "CARDIOFREQUENZIMETRO",
     "CADENCE DEVICE": "CADENZIMETRO",
     "SCAN": "RICERCA",
@@ -99,7 +108,7 @@
     "%s minutes": "%s minuti",
 
     "no tracks backuped": "nessuna traccia backuppata",
-    "%s tracks backuped": "%s tracce backuppate",
+    "%s tracks backuped, %s skipped": "%s tracce salvate, %s ignorate",
     "no tracks restored": "nessuna traccia ripristinata",
     "%s tracks restored": "%s tracce ripristinate",
     "error on tracks backup: %s": "errore durante il backup delle tracce: $s",

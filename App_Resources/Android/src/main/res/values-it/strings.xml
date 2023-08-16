@@ -4,7 +4,7 @@
   <string name="_error_on_tracks_backup___s_Z183TAQ">"errore durante il backup delle tracce: $s"</string>
   <string name="__s_tracks_restored_ZqnfWu">"%1$s tracce ripristinate"</string>
   <string name="_no_tracks_restored_Z1tELk4">"nessuna traccia ripristinata"</string>
-  <string name="__s_tracks_backuped_2tbhPF">"%1$s tracce backuppate"</string>
+  <string name="__s_tracks_backuped___s_skipped_2k16HN">"%1$s tracce salvate, %2$s ignorate"</string>
   <string name="_no_tracks_backuped_1pSLt6">"nessuna traccia backuppata"</string>
   <string name="__s_minutes_IN5vs">"%1$s minuti"</string>
   <string name="_one_minute_Z7rAKq">"un minuto"</string>
@@ -25,6 +25,12 @@
   <string name="SCAN">"RICERCA"</string>
   <string name="_CADENCE_DEVICE_OKuYj">"CADENZIMETRO"</string>
   <string name="_HEART_RATE_DEVICE_1CbL8z">"CARDIOFREQUENZIMETRO"</string>
+  <string name="_DEVICE_STATUS_tkNnT">"STATO DISPOSITIVO"</string>
+  <string name="_CADENCE_COUNTER_ZkP2US">"Conteggio Pedalate"</string>
+  <string name="ERROR">"ERROR"</string>
+  <string name="NOTIFYING">"TRASMETTENDO"</string>
+  <string name="DICONNECTED">"DISCONNESSO"</string>
+  <string name="CONNECTED">"CONNESSO"</string>
   <string name="_STOP_SCAN_6I6ip">"TERMINA RICERCA"</string>
   <string name="_START_SCAN_Z1jDRnq">"AVVIO RICERCA"</string>
   <string name="_SCAN_CADENCE_DEVICES_Z1Bpx7y">"CERCA CADENZIMETRI"</string>
@@ -96,4 +102,5 @@
   <string name="_app_name_1k3Sbz">"Bike Tracking"</string>
   <string name="app_name">"Bike Tracking"</string>
   <string name="title_activity_kimera">"Bike Tracking"</string>
+  <string name="__s_tracks_backuped_2tbhPF">"%1$s tracks backuped"</string>
 </resources>
