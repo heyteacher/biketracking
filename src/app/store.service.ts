@@ -4,6 +4,7 @@ import { BaseTrack } from "./models/BaseTrack";
 import { LiveTrack } from "./models/LiveTrack";
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ExternalStorageStore } from './store/external-storage-store'
+import * as fs from 'tns-core-modules/file-system';
 import * as moment from 'moment'
 const trace = require("trace");
 
@@ -66,6 +67,17 @@ export class StoreService extends ExternalStorageStore {
       }
     }
   }
+
+  async getTodayLogsBody() {
+    const key = moment().format('YYYY-MM-DD')
+    const todayLogFile:fs.File = await ExternalStorageStore._getFile(key, 'txt', 'logs')
+    if (todayLogFile != null)
+      return {
+        name: `logs/${key}.txt`,
+        content: await todayLogFile.readText()
+      }
+  }
+
 
   async getTrack(key: string): Promise<Track> {
     return this.getValue<Track>(key)
