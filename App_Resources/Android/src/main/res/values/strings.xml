@@ -4,7 +4,7 @@
   <string name="_error_on_tracks_backup___s_Z183TAQ">"error on tracks backup: %1$s"</string>
   <string name="__s_tracks_restored_ZqnfWu">"%1$s tracks restored"</string>
   <string name="_no_tracks_restored_Z1tELk4">"no tracks restored"</string>
-  <string name="__s_tracks_backuped_2tbhPF">"%1$s tracks backuped"</string>
+  <string name="__s_tracks_backuped___s_skipped_2k16HN">"%1$s tracks backuped, %2$s skipped"</string>
   <string name="_no_tracks_backuped_1pSLt6">"no tracks backuped"</string>
   <string name="__s_minutes_IN5vs">"%1$s minutes"</string>
   <string name="_one_minute_Z7rAKq">"one minute"</string>
@@ -25,6 +25,12 @@
   <string name="SCAN">"SCAN"</string>
   <string name="_CADENCE_DEVICE_OKuYj">"CADENCE DEVICE"</string>
   <string name="_HEART_RATE_DEVICE_1CbL8z">"HEART RATE DEVICE"</string>
+  <string name="_DEVICE_STATUS_tkNnT">"DEVICE STATUS"</string>
+  <string name="_CADENCE_COUNTER_ZkP2US">"CADENCE COUNTER"</string>
+  <string name="ERROR">"ERROR"</string>
+  <string name="NOTIFYING">"NOTIFYING"</string>
+  <string name="DICONNECTED">"DICONNECTED"</string>
+  <string name="CONNECTED">"CONNECTED"</string>
   <string name="_STOP_SCAN_6I6ip">"STOP SCAN"</string>
   <string name="_START_SCAN_Z1jDRnq">"START SCAN"</string>
   <string name="_SCAN_CADENCE_DEVICES_Z1Bpx7y">"SCAN CADENCE DEVICES"</string>
@@ -96,11 +102,4 @@
   <string name="_app_name_1k3Sbz">"Bike Tracking"</string>
   <string name="app_name">"Bike Tracking"</string>
   <string name="title_activity_kimera">"Bike Tracking"</string>
-  <string name="__s_tracks_backuped___s_skipped_2k16HN">"%1$s tracks backuped, %2$s skipped"</string>
-  <string name="_DEVICE_STATUS_tkNnT">"DEVICE STATUS"</string>
-  <string name="_CADENCE_COUNTER_ZkP2US">"CADENCE COUNTER"</string>
-  <string name="ERROR">"ERROR"</string>
-  <string name="NOTIFYING">"NOTIFYING"</string>
-  <string name="DICONNECTED">"DICONNECTED"</string>
-  <string name="CONNECTED">"CONNECTED"</string>
 </resources>
