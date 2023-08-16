@@ -3,10 +3,9 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { registerElement } from "nativescript-angular/element-registry";
 import { CadenceService } from "~/app/cadence.service";
 import { TabsService } from "~/app/tabs.service";
-import { Tab, AmzLink, CountryAmzLinks } from "~/app/models/types";
+import { CadenceDeviceStatus } from "~/app/models/types";
 import { formatNumberValue } from "~/app/utils/format";
 import { localize } from "nativescript-localize/angular";
-//import { AmzLinksService } from "~/app/amz-links.service";
 
 const mapbox = require("nativescript-mapbox")
 registerElement("Mapbox", () => mapbox.MapboxView);
@@ -19,8 +18,6 @@ registerElement("Mapbox", () => mapbox.MapboxView);
 })
 export class CadenceComponent implements OnInit {
 
-    //countryAmzLinks: CountryAmzLinks = this.amzLinksService.countryAmzLinks
-
     get peripheral(): string {
         if (this.cadenceService.periphericalUUID) {
             return this.cadenceService.periphericalName? 
@@ -31,7 +28,8 @@ export class CadenceComponent implements OnInit {
     }
  
     rpm = "-"
-
+    cadenceCounter = "-"
+    status = "-"
 
     constructor(
         private cadenceService: CadenceService,
@@ -42,11 +40,8 @@ export class CadenceComponent implements OnInit {
 
     async ngOnInit() {
         this.cadenceService.getRpmObservable().subscribe(rpm => this.rpm = rpm != null? formatNumberValue(rpm, '1.0-0'): "-")
-        // this.tabsService.getSelectedTabObserver().subscribe( (tab) => {
-        //     if (tab != Tab.SETTINGS) {
-        //         this.heartrateService.stop()
-        //     }
-        // })   
+        this.cadenceService.getCrankRevolutionsCounterObservable().subscribe(cadenceCounter => this.cadenceCounter = cadenceCounter != null? formatNumberValue(cadenceCounter, '1.0-0'): "-")
+        this.cadenceService.getDeviceStatusObservable().subscribe(status => this.status = localize(status))
     } 
 
     onBackTap(): void {
@@ -61,12 +56,16 @@ export class CadenceComponent implements OnInit {
     startScanning(): void {
         this.cadenceService.startScanning()
     }
+
+    restart(): void {
+        this.cadenceService.restart()
+    }
     
     visibleIfConnected() {
-        return this.cadenceService.periphericalUUID ? 'visible' : 'collapse'        
+        return this.cadenceService.periphericalUUID ? 'visible' : 'collapse'
     }
 
     visibleIfNotConnected() {
-        return !this.cadenceService.periphericalUUID ? 'visible' : 'collapse'        
+        return !this.cadenceService.periphericalUUID ? 'visible' : 'collapse'
     }
 }

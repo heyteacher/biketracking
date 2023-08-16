@@ -1,37 +1,57 @@
 import { Injectable } from '@angular/core';
-import { Bluetooth, Peripheral, Service } from 'nativescript-bluetooth';
+import { Bluetooth, Peripheral } from 'nativescript-bluetooth';
 import * as permissions from 'nativescript-permissions'
 import { BehaviorSubject, Observable } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 import * as appSettings from 'tns-core-modules/application-settings'
-import { AppSettingsKey } from './models/types';
+import { AppSettingsKey, CrankRevolutions, CadenceDeviceStatus } from './models/types';
 import * as moment from 'moment'
-
 const trace = require("trace");
 
 @Injectable({
   providedIn: 'root'
 })
 export class CadenceService {
-  
-  private SERVICE_UUID: string = '1816';
-  private CHARACTERISTIC_UUID: string = '2a5b';
 
-  private readonly THROTTLE_TIME: number = 5000
+  // crank revolutions upper limit before reset 
+  private static readonly _CRANK_REVOLUTIONS_BUFFER: number = 256;
+
+  // bluetooth cadence service and characteristic constants
+  private static  readonly _SERVICE_UUID: string = '1816';
+  private static  readonly _CHARACTERISTIC_UUID: string = '2a5b';
+
+  // skip data received within 10 seconds
+  private static  readonly _THROTTLE_TIME_MS: number = 10000
 
   private _bluetooth: Bluetooth = new Bluetooth();
   private _started: boolean = false;
   private _scanning: boolean = false;
+
   private _rpmSubject = new BehaviorSubject<number>(null)
+  private _crankRevolutionsCounterSubject = new BehaviorSubject<number>(null)
+  private _deviceStatusSubject = new BehaviorSubject<CadenceDeviceStatus>(null)
 
   private _periphericalSubject = new BehaviorSubject<Peripheral>(null)
   private _scannedPeripherals = {}
 
-  private _cumulative_crank_revolutions: number
-  private _crank_revolutions_timestamp: number
+  private _crank_revolutions: CrankRevolutions[] = []
+
+  private _last_crank_revolutions_counter: number = 0
+  private _crank_revolutions_cycles: number = 0
 
   constructor() {
-    this.getRpmObservable().subscribe(rpm => trace.write(`rpm ${rpm}`, trace.categories.Debug))
+    this.getRpmObservable().subscribe(rpm => trace.write(
+      `CadenceService: rpm ${rpm}`, 
+      trace.categories.Debug
+    ))
+    this.getCrankRevolutionsCounterObservable().subscribe(counter => trace.write(
+      `CadenceService: crank revolutions counter: ${counter}`, 
+      trace.categories.Debug
+    ))
+    this.getDeviceStatusObservable().subscribe(status => trace.write(
+      `CadenceService: cadence device status: ${status}`, 
+      trace.categories.Debug
+    ))
   }
 
   get periphericalUUID(): string {
@@ -43,7 +63,15 @@ export class CadenceService {
   }
 
   getRpmObservable(): Observable<number> {
-    return this._rpmSubject.pipe(throttleTime(this.THROTTLE_TIME))
+    return this._rpmSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+  }
+
+  getCrankRevolutionsCounterObservable(): Observable<number> {
+    return this._crankRevolutionsCounterSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+  }
+
+  getDeviceStatusObservable(): Observable<CadenceDeviceStatus> {
+    return this._deviceStatusSubject.asObservable()
   }
 
   getPeripheralObservable(): Observable<Peripheral> {
@@ -52,6 +80,8 @@ export class CadenceService {
 
   async start() {
     try {
+      this._crank_revolutions_cycles = 0
+      this._last_crank_revolutions_counter = 0
       if (!this.periphericalUUID || this.isStarted()) {
         return
       }
@@ -61,51 +91,65 @@ export class CadenceService {
         UUID: this.periphericalUUID,
         onConnected: peripheral => {
           this._started = true
-          //for (let index = 0; index < peripheral.services.length; index++) {
-          //  const service = peripheral.services[index];
-          //  trace.write(`CadenceRateService.onConnected(): ${JSON.stringify(service)}`, trace.categories.Debug)            
-          //}
+          this._deviceStatusSubject.next(CadenceDeviceStatus.CONNECTED);
           this._bluetooth.startNotifying({
-            characteristicUUID: this.CHARACTERISTIC_UUID,
-            serviceUUID: this.SERVICE_UUID,
+            characteristicUUID: CadenceService._CHARACTERISTIC_UUID,
+            serviceUUID: CadenceService._SERVICE_UUID,
             peripheralUUID: this.periphericalUUID,
-            onNotify: (result) => {
+            onNotify: result => {
+              this._deviceStatusSubject.next(CadenceDeviceStatus.NOTIFYING)
+
               const data = new Uint8Array(result.value);
-              //trace.write(`CadenceRateService.onNotify(): data  ${JSON.stringify(data)}`, trace.categories.Debug)            
-              const cumulative_crank_revolutions = data[1] >= 0 ? data[1] : 0
+              //trace.write(`CadenceRateService.onNotify(): data  ${JSON.stringify(data)}`, trace.categories.Debug)
+              let crank_revolutions_counter = data[1] >= 0 ? data[1] : 0
               const crank_revolutions_timestamp = moment().unix()
-
-
-              if (
-                this._cumulative_crank_revolutions > 0 &&
-                this._crank_revolutions_timestamp > 0 &&
-                cumulative_crank_revolutions >= 0 && 
-                cumulative_crank_revolutions > this._cumulative_crank_revolutions &&
-                crank_revolutions_timestamp > this._crank_revolutions_timestamp + 15 
-              ) {
-                this._rpmSubject.next(
-                    Math.round(
-                      (cumulative_crank_revolutions - this._cumulative_crank_revolutions) / 
-                      (crank_revolutions_timestamp - this._crank_revolutions_timestamp) 
-                      * 60
-                    )
+          
+              // there is a cycle reset 
+              if (this._last_crank_revolutions_counter >  crank_revolutions_counter) {
+                this._crank_revolutions_cycles = this._crank_revolutions_cycles + 1 
+                crank_revolutions_counter = crank_revolutions_counter + (this._crank_revolutions_cycles * CadenceService._CRANK_REVOLUTIONS_BUFFER)
+              }
+              
+              // publish the total counter
+              this._crankRevolutionsCounterSubject.next(crank_revolutions_counter)
+          
+              this._crank_revolutions.push({
+                timestamp: crank_revolutions_timestamp,
+                counter: crank_revolutions_counter
+              })
+          
+              // keep only last minute record
+              this._crank_revolutions = this._crank_revolutions.filter(
+                (crank_revolutions: CrankRevolutions) => moment(crank_revolutions.timestamp).isAfter(moment().add(-1,'minutes')) 
+              )
+          
+              // calculate RPM 
+              if (this._crank_revolutions.length > 1) {
+                const first = this._crank_revolutions[0]
+                const last = this._crank_revolutions[this._crank_revolutions.length -1]
+                const rpm = Math.round(
+                  (last.counter - first.counter) / 
+                  (last.timestamp - first.timestamp) 
+                  * 60
                 )
+                trace.write(`CadenceService.onNotify(): rpm ${rpm}`, trace.categories.Debug)
+                this._rpmSubject.next(rpm)
               }
-              if (!this._crank_revolutions_timestamp || crank_revolutions_timestamp > this._crank_revolutions_timestamp + 15) {
-                
-                trace.write(`CadenceRateService.onNotify(): cumulative_crank_revolutions  ${cumulative_crank_revolutions} _cumulative_crank_revolutions  ${this._cumulative_crank_revolutions}   crank_revolutions_timestamp  ${crank_revolutions_timestamp} _crank_revolutions_timestamp  ${this._crank_revolutions_timestamp}`, trace.categories.Debug)                            
-                
-                this._cumulative_crank_revolutions = cumulative_crank_revolutions
-                this._crank_revolutions_timestamp = crank_revolutions_timestamp
+              else {
+                trace.write(`CadenceService.onNotify(): rpm not calculated and notified. this._crank_revolutions.length: ${this._crank_revolutions.length}`, trace.categories.Debug)
               }
+          
+              trace.write(`CadenceService.onNotify(): crank_revolutions_counter ${crank_revolutions_counter} _last_crank_revolutions_counter  ${this._last_crank_revolutions_counter}   crank_revolutions_timestamp  ${crank_revolutions_timestamp}`, trace.categories.Debug)
+          
+              this._last_crank_revolutions_counter = crank_revolutions_counter          
             }
           })
         },
-        onDisconnected: peripheral => { }
+        onDisconnected: peripheral => this._deviceStatusSubject.next(CadenceDeviceStatus.DISCONNECTED)
       })
-      trace.write(`CadenceRateService.start(): connected`, trace.categories.Debug)
     } catch (error) {
-      trace.write(`CadenceRateService.start(): error ${error}`, trace.categories.Error)
+      trace.write(`CadenceService.start(): error ${error}`, trace.categories.Error)
+      this._deviceStatusSubject.next(CadenceDeviceStatus.ERROR)
     }
   }
 
@@ -120,11 +164,15 @@ export class CadenceService {
         await this._bluetooth.disconnect({
           UUID: this.periphericalUUID
         })
-        trace.write(`CadenceRateService.stop(): disconnected`, trace.categories.Debug)
+        trace.write(`CadenceService.stop(): disconnected`, trace.categories.Debug)
+        this._deviceStatusSubject.next(CadenceDeviceStatus.DISCONNECTED)
       }
       this._started = false
+      this._crank_revolutions_cycles = 0
+      this._last_crank_revolutions_counter = 0
     } catch (error) {
-      trace.write(`CadenceRateService.stop(): error ${JSON.stringify(error)}`, trace.categories.Error)
+      trace.write(`CadenceService.stop(): error ${JSON.stringify(error)}`, trace.categories.Error)
+      this._deviceStatusSubject.next(CadenceDeviceStatus.ERROR)
     }
   }
 
@@ -147,15 +195,14 @@ export class CadenceService {
       this._scannedPeripherals = {}
       this._bluetooth = new Bluetooth()
       await this._bluetooth.startScanning({
-        //filters: [{serviceUUID: this.SERVICE_UUID}],
         seconds: 20,
         onDiscovered: (peripheral: Peripheral) => this._addPeripherical(peripheral),
         skipPermissionCheck: true
       })
       this._scanning = false
-      trace.write(`CadenceRateService.scartScanning(): finished`, trace.categories.Debug)
+      trace.write(`CadenceService.scartScanning(): finished`, trace.categories.Debug)
     } catch (error) {
-      trace.write(`CadenceRateService.startScanning(): error ${error}`, trace.categories.Error)
+      trace.write(`CadenceService.startScanning(): error ${error}`, trace.categories.Error)
     }
   }
 
@@ -174,9 +221,9 @@ export class CadenceService {
       }
       await this._bluetooth.stopScanning()
       this._scanning = false
-      trace.write(`CadenceRateService.stopScanning(): stopped`, trace.categories.Debug)
+      trace.write(`CadenceService.stopScanning(): stopped`, trace.categories.Debug)
     } catch (error) {
-      trace.write(`CadenceRateService.stopScanning(): error ${error}`, trace.categories.Error)
+      trace.write(`CadenceService.stopScanning(): error ${error}`, trace.categories.Error)
     }
   }
 

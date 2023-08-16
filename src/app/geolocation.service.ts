@@ -126,6 +126,7 @@ export class GeolocationService implements OnDestroy {
         await keepAwake()
       }
       this.heartrateService.start()
+      this.cadenceService.start()
       this.liveStatusSubject.next(LiveStatus.STARTED)
       this.startVoiceSummaryTimer()
     } catch (ex) {
@@ -175,6 +176,7 @@ export class GeolocationService implements OnDestroy {
     this._stopWatch()
     this.storeService.removeLiveTrack()
     await this.heartrateService.stop()
+    await this.cadenceService.stop()
     let trackKey = null
     trace.write('geolocation.stop: isToSave ' + isToSave, trace.categories.Debug)
     if (isToSave) {
