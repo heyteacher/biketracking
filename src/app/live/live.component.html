@@ -38,9 +38,9 @@
                 <Label #durationLabel row="0" col="0" [text]="duration" textWrap="false" class="value orangeColor"></Label>
                 <Label row="1" col="0" text="{{'DURATION'|L}}" textWrap=false class="label  orangeColor"></Label>
                 <GridLayout row="0" col="1"  columns="*,*" rows="*,*" verticalAlignment="bottom" marginLeft="5" marginRight="5">
-                    <Label row="0" col="0" colSpan="2" [text]="weatherIcon" class="fas weather-value orangeColor"></Label>
-                    <Label row="1" col="0" [text]="temperature" class="fas temperature-value orangeColor" textAlignment="left" ></Label>
-                    <Label row="1" col="1" [text]="humidity" class="fas humidity-value orangeColor" textAlignment="right"></Label>
+                    <Label row="0" col="0" colSpan="2" [text]="infoMeteo.icon" class="fas weather-value orangeColor"></Label>
+                    <Label row="1" col="0" [text]="infoMeteo.temperature" class="fas temperature-value orangeColor" textAlignment="left" ></Label>
+                    <Label row="1" col="1" [text]="infoMeteo.humidity" class="fas humidity-value orangeColor" textAlignment="right"></Label>
                 </GridLayout>
                 <Label row="1" col="1" text="{{'OPEN-METEO.COM'|L}}" textWrap=false class="label orangeColor"></Label>
                 <Label row="0" col="2" [text]="time" textWrap="false" class="value orangeColor"></Label>

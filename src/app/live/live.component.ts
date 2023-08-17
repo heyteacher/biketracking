@@ -10,6 +10,7 @@ import * as moment from 'moment'
 import * as appSettings from 'tns-core-modules/application-settings'
 import { localize } from "nativescript-localize/angular";
 import { Observable, interval} from 'rxjs'
+import { MeteoService } from "../meteo.service";
 
 const trace = require("trace");
 
@@ -35,9 +36,15 @@ export class LiveComponent implements OnInit {
     bpm: string
     rpm: string
     startingCountdown: number;
-    temperature: string;
-    humidity: string;
-    weatherIcon: string;
+    infoMeteo: InfoMeteo = {
+        time: null,
+        temperature: null,
+        weathercode: null,
+        humidity: null,
+        icon: null,
+        weather:null
+    }
+
 
     restoreDialogOpen: boolean = false
     stopDialogOpen: boolean = false
@@ -53,7 +60,8 @@ export class LiveComponent implements OnInit {
         private tabsService: TabsService,
         private heartrateService: HeartrateService,
         private cadenceService: CadenceService,
-        private textToSpeechService: TextToSpeechService) {
+        private textToSpeechService: TextToSpeechService,
+        private meteoService: MeteoService) {
     }
 
     restorePendingTrack() {
@@ -77,12 +85,12 @@ export class LiveComponent implements OnInit {
         //this.geolocationService.getStartStopObservable().subscribe((liveStatus: LiveStatus) => this._startStop(liveStatus))
         this.meteoIntervalObservable.subscribe(
             () => {
-              this.geolocationService.updateMeteo((infoMeteo) => {
+              this.meteoService.updateMeteo((infoMeteo) => {
                 this._updateMeteo(infoMeteo)
               })
             }
         )
-        this.geolocationService.updateMeteo((infoMeteo) => {
+        this.meteoService.updateMeteo((infoMeteo) => {
             this._updateMeteo(infoMeteo)
         })
         this.tabsService.getAppStatusObserver().subscribe(async () => {
@@ -206,39 +214,7 @@ export class LiveComponent implements OnInit {
     }
 
     private _updateMeteo(infoMeteo: InfoMeteo) {
-        if (infoMeteo.temperature_2m != null) {
-            this.temperature = `${formatNumberValue(infoMeteo.temperature_2m, '1.0-0')}°`
-        }
-        if (infoMeteo.relativehumidity_2m != null) {            this.humidity = `${formatNumberValue(infoMeteo.relativehumidity_2m, '1.0-0')}%`
-        }
-        
-        let weather:String = ''
-        if (infoMeteo.weathercode == 0) {
-            weather = 'SUN'
-            this.weatherIcon = String.fromCharCode(parseInt('f185', 16))
-        } else if ((infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) || (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29)) {
-            weather = 'SUNNY CLOUDLY'
-            this.weatherIcon = String.fromCharCode(parseInt('f743', 16))
-        } else if ((infoMeteo.weathercode >= 4 && infoMeteo.weathercode <=10) || (infoMeteo.weathercode >= 30 && infoMeteo.weathercode <=49)) {
-            weather = 'FOG'
-            this.weatherIcon = String.fromCharCode(parseInt('f75f', 16))
-        } else if (infoMeteo.weathercode >= 11 && infoMeteo.weathercode <=19) {
-            weather = 'CLOUDLY'
-            this.weatherIcon = String.fromCharCode(parseInt('f0c2', 16))
-        } else if (infoMeteo.weathercode >= 50 && infoMeteo.weathercode <=69) {
-            weather = 'RAIN'
-            this.weatherIcon = String.fromCharCode(parseInt('f73d', 16))
-        } else if (infoMeteo.weathercode >= 70 && infoMeteo.weathercode <=79) {
-            weather = 'SNOW'
-            this.weatherIcon = String.fromCharCode(parseInt('f2dc', 16))
-        } else if (infoMeteo.weathercode >= 80 && infoMeteo.weathercode <=90) {
-            weather = 'HEAVY RAIN'
-            this.weatherIcon = String.fromCharCode(parseInt('f740', 16))
-        } else if (infoMeteo.weathercode >= 91 && infoMeteo.weathercode <=99) {
-            weather = 'STORM'
-            this.weatherIcon = String.fromCharCode(parseInt('f75a', 16))
-        } 
-        trace.write(`live._updateMeteo: temperature ${this.temperature}, humidity ${this.humidity}, weather ${weather} `, trace.categories.Debug)
+        this.infoMeteo = infoMeteo
     }
 
     private _updateDem(demInfo: [number, number]) {

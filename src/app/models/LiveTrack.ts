@@ -4,9 +4,8 @@ import * as moment from 'moment'
 import { GeoLocation } from "./GeoLocation";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as appSettings from "tns-core-modules/application-settings";
-import { AppSettingsKey, InfoMeteo, AWSDemResponse, AppSettingsDefaultValue, ClimbDownHillAccumulator,OpenMeteoResponse} from "~/app/models/types"
+import { AppSettingsKey, AWSDemResponse, AppSettingsDefaultValue, ClimbDownHillAccumulator} from "~/app/models/types"
 import { BehaviorSubject } from 'rxjs';
-import * as geolocation from "nativescript-geolocation"
 
 const timeseries = require("timeseries-analysis");
 const trace = require("trace");
@@ -188,42 +187,6 @@ export class LiveTrack {
         }
     }
 
-    updateMeteo(httpClient: HttpClient, location:GeoLocation, callback) {
-        if (!location) {
-            trace.write(`liveTrack.updateMeteo: no location`, trace)
-            callback({temperature_2m: null, weathercode: null})
-            return
-        }
-        const url: string = `https://api.open-meteo.com/v1/forecast?latitude=${location.latitude}&longitude=${location.longitude}&hourly=temperature_2m,relativehumidity_2m,weathercode&timezone=Europe%2FBerlin&forecast_days=2`
-
-        httpClient.get(url).subscribe((data: OpenMeteoResponse) => {
-            if (data && data.hourly) {
-                const twoHourForecast:string = moment().add(2, 'hours').format("YYYY-MM-DDTHH:00")
-                const twoHourForecastIdx = data.hourly['time'].indexOf(twoHourForecast)
-
-                const now:string = moment().format("YYYY-MM-DDTHH:00")
-                const nowIdx = data.hourly['time'].indexOf(now)
-
-                let infoMeteo:InfoMeteo = {
-                        temperature_2m: null,
-                        weathercode: null,
-                        relativehumidity_2m: null
-                }
-
-                if (nowIdx >= 0) {
-                    infoMeteo.temperature_2m = data.hourly['temperature_2m'][nowIdx]
-                    infoMeteo.relativehumidity_2m = data.hourly['relativehumidity_2m'][nowIdx]
-                }
-
-                if (twoHourForecastIdx >= 0) {
-                    infoMeteo.weathercode = data.hourly['weathercode'][twoHourForecastIdx]    
-                } 
-
-                trace.write(`liveTrack.updateMeteo: temperature ${infoMeteo.temperature_2m}, humidity ${infoMeteo.relativehumidity_2m}, weathercode ${infoMeteo.weathercode}`, trace.categories.Debug)
-                callback(infoMeteo)
-            }
-        })
-    }
 
     updateBpm(bpm: number) {
         if (this.isStarted()) {

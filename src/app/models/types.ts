@@ -103,17 +103,19 @@ export interface AWSRestoreResponse {
 
 // meteo
 export interface InfoMeteo {
-    temperature_2m: number
+    time: string,
+    temperature: string
     weathercode: number
-    relativehumidity_2m:number
-
+    humidity:string
+    icon: string
+    weather: string
 }
 
 export interface OpenMeteoHourly {
     time: string[],
     temperature_2m: number[]
     weathercode: number[]
-
+    relativehumidity_2m: number[]
 }
 
 export interface OpenMeteoResponse {

@@ -252,14 +252,6 @@ export class GeolocationService implements OnDestroy {
         this.liveTrack.updateDem(this.httpClient, this.demSubject)
       }
     )
-
-    //this.getMeteoObservable().subscribe((infoMeteo:InfoMeteo) => {
-    //  trace.write('geolocation.getMeteoObservable().subscribe: InfoMeteo ' + infoMeteo, trace.categories.Debug)
-    //})
-  }
-
-  async updateMeteo(callback) {
-    this.liveTrack.updateMeteo(this.httpClient, await this.getCurrentLocation(), callback)
   }
 
   private _stopWatch() {
