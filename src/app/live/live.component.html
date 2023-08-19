@@ -11,10 +11,10 @@
             <ListView row="0" [items]="infoMeteoData">
                 <ng-template let-item="item">
                     <GridLayout rows="*" columns="*,*,*,*" [visibility]="visibleIfStopped()">
-                        <Label row="0" col="0" horizontalAlignment="left" [text]="item.time"  class="fas temperature-value cyanColor"></Label>
-                        <Label row="0" col="1" horizontalAlignment="center" [text]="item.temperature" class="fas temperature-value orangeColor"></Label>
-                        <Label row="0" col="2" horizontalAlignment="center" [text]="item.humidity" class="fas humidity-value orangeColor"></Label>
-                        <Label row="0" col="3" horizontalAlignment="right" [text]="item.icon" class="fas weather-value orangeColor"></Label>
+                        <Label row="0" col="0" horizontalAlignment="left" [text]="item.time"  class="fas temperature-value "></Label>
+                        <Label row="0" col="1" horizontalAlignment="center" [text]="item.temperature" class="fas temperature-value cyanColor"></Label>
+                        <Label row="0" col="2" horizontalAlignment="center" [text]="item.humidity" class="fas humidity-value cyanColor"></Label>
+                        <Label row="0" col="3" horizontalAlignment="center" [text]="item.icon" class="fas weather-value orangeColor"></Label>
                     </GridLayout>
                 </ng-template>
             </ListView>

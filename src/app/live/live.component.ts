@@ -90,14 +90,14 @@ export class LiveComponent implements OnInit {
               this.meteoService.updateMeteo((infoMeteo) => {
                 this.infoMeteo = infoMeteo
                 this.infoMeteoData = this.meteoService.infoMeteoData
-                trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
+                //trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
             })
             }
         )
         this.meteoService.updateMeteo((infoMeteo) => {
             this.infoMeteo = infoMeteo
             this.infoMeteoData = this.meteoService.infoMeteoData
-            trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
+            //trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
         })
         this.tabsService.getAppStatusObserver().subscribe(async () => {
             if (this.tabsService.isStarted() && await this.geolocationService.existsLiveTrack()) {
