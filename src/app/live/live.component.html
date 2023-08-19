@@ -7,8 +7,18 @@
 <GridLayout class="page" [class.restoreDialogOpen]="restoreDialogOpen" [class.stopDialogOpen]="stopDialogOpen">
     <GridLayout class="content">
 
-        <GridLayout rows="*" columns="*" [visibility]="visibleIfStopped()">
-            <Label (tap)="start()" class="page__content-icon fas blueColor" text="&#xf144;"></Label>
+        <GridLayout rows="*,160" columns="*" [visibility]="visibleIfStopped()">
+            <ListView row="0" [items]="infoMeteoData">
+                <ng-template let-item="item">
+                    <GridLayout rows="*" columns="*,*,*,*" [visibility]="visibleIfStopped()">
+                        <Label row="0" col="0" horizontalAlignment="left" [text]="item.time"  class="fas temperature-value cyanColor"></Label>
+                        <Label row="0" col="1" horizontalAlignment="center" [text]="item.temperature" class="fas temperature-value orangeColor"></Label>
+                        <Label row="0" col="2" horizontalAlignment="center" [text]="item.humidity" class="fas humidity-value orangeColor"></Label>
+                        <Label row="0" col="3" horizontalAlignment="right" [text]="item.icon" class="fas weather-value orangeColor"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+            <Label row="1" (tap)="start()" class="page__content-icon fas blueColor" text="&#xf144;"></Label>
         </GridLayout>
 
         <GridLayout rows="*" columns="*" [visibility]="visibleIfStarting()">

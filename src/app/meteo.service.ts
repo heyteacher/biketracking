@@ -74,17 +74,18 @@ export class MeteoService implements OnDestroy {
   private _populateInfoMeteoData(hourly: OpenMeteoHourly) {
     for (let index = 0; index < hourly.time.length; index++) {
       const time:string = hourly.time[index];
-      if (moment(time).subtract(1, 'hours').isAfter(moment())) {
+
+      if (moment(time).add(1, 'hours').isAfter(moment())) {
           const infoMeteo:InfoMeteo = {
             time: moment(time).format('HH:00'),
-            humidity: `${formatNumberValue(hourly.relativehumidity_2m[index], '1.0-0')}°`,
+            humidity: `${formatNumberValue(hourly.relativehumidity_2m[index], '1.0-0')}%`,
             temperature: `${formatNumberValue(hourly.temperature_2m[index], '1.0-0')}°`,
             weathercode: hourly.weathercode[index],
             icon: '',
             weather: ''
           }
           this._setIconAndWeather(infoMeteo)
-          this._infoMeteoData.push()
+          this._infoMeteoData.push(infoMeteo)
       }    
     }
   }

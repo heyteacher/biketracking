@@ -45,14 +45,16 @@ export class LiveComponent implements OnInit {
         weather:null
     }
 
-
     restoreDialogOpen: boolean = false
     stopDialogOpen: boolean = false
 
+    infoMeteoData:InfoMeteo[]
+
+
     private _starting: boolean = false
 
-    //update meteo every 5 minutes 
-    private meteoIntervalObservable: Observable<number> = interval(60 * 1 * 1000)
+    //update meteo every 10 minutes 
+    private meteoIntervalObservable: Observable<number> = interval(10 * 60 * 1 * 1000)
 
 
     constructor(
@@ -86,12 +88,16 @@ export class LiveComponent implements OnInit {
         this.meteoIntervalObservable.subscribe(
             () => {
               this.meteoService.updateMeteo((infoMeteo) => {
-                this._updateMeteo(infoMeteo)
-              })
+                this.infoMeteo = infoMeteo
+                this.infoMeteoData = this.meteoService.infoMeteoData
+                trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
+            })
             }
         )
         this.meteoService.updateMeteo((infoMeteo) => {
-            this._updateMeteo(infoMeteo)
+            this.infoMeteo = infoMeteo
+            this.infoMeteoData = this.meteoService.infoMeteoData
+            trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
         })
         this.tabsService.getAppStatusObserver().subscribe(async () => {
             if (this.tabsService.isStarted() && await this.geolocationService.existsLiveTrack()) {
@@ -119,7 +125,6 @@ export class LiveComponent implements OnInit {
     restartCadence() {
         this.cadenceService.restart()
     }
-
 
     pause() {
         this.geolocationService.pause()
@@ -211,10 +216,6 @@ export class LiveComponent implements OnInit {
             this.duration = formatDurationValue(this.geolocationService.getLiveTrack().duration)
             trace.write('live._updateTime: time ' + this.time + ',duration ' + this.duration, trace.categories.Debug)
         }
-    }
-
-    private _updateMeteo(infoMeteo: InfoMeteo) {
-        this.infoMeteo = infoMeteo
     }
 
     private _updateDem(demInfo: [number, number]) {
