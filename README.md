@@ -15,8 +15,8 @@ As for the online altitude calculation, for Europe I use a service I created tha
 * measure realtime __distance__, __duration__, __speed__, __average__
 * measure __altitude__ online via __DEM__ (Digital Elevation Measuring). For Europe best precision: 25m resolution with vertical accuracy: +/- 7 meters [Copernicus EU-DEM](https://land.copernicus.eu/imagery-in-situ/eu-dem)
 * realtime __routing 3D__ on map
-* __heartrate__ 
-* __cadence sensor__
+* __heartrate__ and __cadence sensor__ via BLE (Bluethoot Low Energy)
+* meteo forecast via https://open-meteo.com 
 * __voice track summary__
 * history of tracks with statistical data, __charts__ and map
 

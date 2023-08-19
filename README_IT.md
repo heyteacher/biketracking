@@ -17,9 +17,9 @@ Per quanto riguarda il calcolo online dell' altitudine, per l' Europa utilizzo u
 
 - rotta su __mappa realtime in 3D__ 
 
-- integrazione con __cardiofrequenzimetro__ via BLE (Bluethoot Low Energy)
+- integrazione con __cardiofrequenzimetri__ e __cadenzimetri__ via BLE (Bluethoot Low Energy)
 
-- start-stop automatico
+- previsioni meteo via https://open-meteo.com
 
 - riepilogo dati traccia via voce 
 
@@ -29,5 +29,5 @@ Per quanto riguarda il calcolo online dell' altitudine, per l' Europa utilizzo u
 
 * abbonati ad una sottoscrizione in [github sponsors](https://github.com/sponsors/heyteacher)
 * fai una donazione [liberapay](https://liberapay.com/heyteacher)
-* usa [github issues](https://github.com/heyteacher/biketracking/issues) for __segnalare malfunzionamenti__ o __richieste nuove funzionalità__
+* usa [github issues](https://github.com/heyteacher/biketracking/issues) per __segnalare malfunzionamenti__ o __richieste nuove funzionalità__
 
