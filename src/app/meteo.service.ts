@@ -96,15 +96,18 @@ export class MeteoService implements OnDestroy {
         if (infoMeteo.weathercode == 0) {
             weather = 'SUN'
             icon = String.fromCharCode(parseInt('f185', 16))
-        } else if ((infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) || (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29)) {
+        } else if (infoMeteo.weathercode >= 1 && infoMeteo.weathercode <=3) {
             weather = 'SUNNY CLOUDLY'
-            icon = String.fromCharCode(parseInt('f743', 16))
+            icon = String.fromCharCode(parseInt('f6c4', 16))
         } else if ((infoMeteo.weathercode >= 4 && infoMeteo.weathercode <=10) || (infoMeteo.weathercode >= 30 && infoMeteo.weathercode <=49)) {
             weather = 'FOG'
             icon = String.fromCharCode(parseInt('f75f', 16))
         } else if (infoMeteo.weathercode >= 11 && infoMeteo.weathercode <=19) {
             weather = 'CLOUDLY'
             icon = String.fromCharCode(parseInt('f0c2', 16))
+        } else if (infoMeteo.weathercode >= 20 && infoMeteo.weathercode <=29) {
+            weather = 'SUNNY CLOUDLY RAIN'
+            icon = String.fromCharCode(parseInt('f743', 16))
         } else if (infoMeteo.weathercode >= 50 && infoMeteo.weathercode <=69) {
             weather = 'RAIN'
             icon = String.fromCharCode(parseInt('f73d', 16))
