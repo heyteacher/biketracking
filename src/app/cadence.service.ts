@@ -35,7 +35,6 @@ export class CadenceService {
   private _scannedPeripherals = {}
 
   private _crank_revolutions: CrankRevolutions[] = []
-
   private _last_crank_revolutions_counter: number = 0
   private _crank_revolutions_cycles: number = 0
 
@@ -63,11 +62,13 @@ export class CadenceService {
   }
 
   getRpmObservable(): Observable<number> {
-    return this._rpmSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+    //return this._rpmSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+    return this._rpmSubject.asObservable()
   }
 
   getCrankRevolutionsCounterObservable(): Observable<number> {
-    return this._crankRevolutionsCounterSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+    //return this._crankRevolutionsCounterSubject.pipe(throttleTime(CadenceService._THROTTLE_TIME_MS))
+    return this._crankRevolutionsCounterSubject.asObservable()
   }
 
   getDeviceStatusObservable(): Observable<CadenceDeviceStatus> {
@@ -78,10 +79,32 @@ export class CadenceService {
     return this._periphericalSubject.asObservable()
   }
 
+  private _reset() {
+    this._started = false
+    this._crank_revolutions_cycles = 0
+    this._last_crank_revolutions_counter = 0
+    this._crank_revolutions= []
+  }
+
+  async stop() {
+    try {
+      this._reset()
+      if (this.periphericalUUID) {
+        await this._bluetooth.disconnect({
+          UUID: this.periphericalUUID
+        })
+        trace.write(`CadenceService.stop(): disconnected`, trace.categories.Debug)
+        this._deviceStatusSubject.next(CadenceDeviceStatus.DISCONNECTED)
+      }
+    } catch (error) {
+      trace.write(`CadenceService.stop(): error ${JSON.stringify(error)}`, trace.categories.Error)
+      this._deviceStatusSubject.next(CadenceDeviceStatus.ERROR)
+    }
+  }
+
   async start() {
     try {
-      this._crank_revolutions_cycles = 0
-      this._last_crank_revolutions_counter = 0
+      this._reset()
       if (!this.periphericalUUID || this.isStarted()) {
         return
       }
@@ -102,12 +125,16 @@ export class CadenceService {
               const data = new Uint8Array(result.value);
               //trace.write(`CadenceRateService.onNotify(): data  ${JSON.stringify(data)}`, trace.categories.Debug)
               let crank_revolutions_counter = data[1] >= 0 ? data[1] : 0
-              const crank_revolutions_timestamp = moment().unix()
+              crank_revolutions_counter = crank_revolutions_counter + (this._crank_revolutions_cycles * CadenceService._CRANK_REVOLUTIONS_BUFFER)
+              const crank_revolutions_timestamp = moment()
           
+              //trace.write(`CadenceRateService.onNotify(): crank_revolutions_counter ${crank_revolutions_counter} _last_crank_revolutions_counter ${this._last_crank_revolutions_counter}`, trace.categories.Debug)
+              
               // there is a cycle reset 
               if (this._last_crank_revolutions_counter >  crank_revolutions_counter) {
                 this._crank_revolutions_cycles = this._crank_revolutions_cycles + 1 
-                crank_revolutions_counter = crank_revolutions_counter + (this._crank_revolutions_cycles * CadenceService._CRANK_REVOLUTIONS_BUFFER)
+                crank_revolutions_counter = crank_revolutions_counter + CadenceService._CRANK_REVOLUTIONS_BUFFER
+                trace.write(`CadenceRateService.onNotify(): new cycle ${this._crank_revolutions_cycles} crank_revolutions_counter  ${crank_revolutions_counter}`, trace.categories.Debug)
               }
               
               // publish the total counter
@@ -120,19 +147,22 @@ export class CadenceService {
           
               // keep only last minute record
               this._crank_revolutions = this._crank_revolutions.filter(
-                (crank_revolutions: CrankRevolutions) => moment(crank_revolutions.timestamp).isAfter(moment().subtract(1,'minutes')) 
+                (crank_revolutions) => {
+                  return moment(crank_revolutions.timestamp).isAfter(moment().subtract(1,'minutes'))
+                } 
               )
-          
+
               // calculate RPM 
               if (this._crank_revolutions.length > 1) {
                 const first = this._crank_revolutions[0]
                 const last = this._crank_revolutions[this._crank_revolutions.length -1]
+                trace.write(`CadenceRateService.onNotify(): _crank_revolutions first ${JSON.stringify(first)} last ${JSON.stringify(last)}`, trace.categories.Debug)
                 const rpm = Math.round(
                   (last.counter - first.counter) / 
-                  (last.timestamp - first.timestamp) 
+                  last.timestamp.diff(first.timestamp,'seconds') 
                   * 60
                 )
-                trace.write(`CadenceService.onNotify(): rpm ${rpm}`, trace.categories.Debug)
+                trace.write(`CadenceService.onNotify(): rpm ${rpm}  seconds ${last.timestamp.diff(first.timestamp,'seconds')}`, trace.categories.Debug)
                 this._rpmSubject.next(rpm)
               }
               else {
@@ -156,24 +186,6 @@ export class CadenceService {
   async restart() {
     await this.stop()
     this.start()
-  }
-
-  async stop() {
-    try {
-      if (this.periphericalUUID) {
-        await this._bluetooth.disconnect({
-          UUID: this.periphericalUUID
-        })
-        trace.write(`CadenceService.stop(): disconnected`, trace.categories.Debug)
-        this._deviceStatusSubject.next(CadenceDeviceStatus.DISCONNECTED)
-      }
-      this._started = false
-      this._crank_revolutions_cycles = 0
-      this._last_crank_revolutions_counter = 0
-    } catch (error) {
-      trace.write(`CadenceService.stop(): error ${JSON.stringify(error)}`, trace.categories.Error)
-      this._deviceStatusSubject.next(CadenceDeviceStatus.ERROR)
-    }
   }
 
   isStarted() {

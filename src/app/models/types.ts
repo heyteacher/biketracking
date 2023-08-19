@@ -126,7 +126,7 @@ export interface OpenMeteoResponse {
 
 // cadence device
 export interface CrankRevolutions {
-    timestamp: number,
+    timestamp: any,
     counter: number
 }
 
