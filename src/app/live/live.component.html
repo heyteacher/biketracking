@@ -2,6 +2,7 @@
     <ActionItem (tap)="pause()" icon="font://&#xf28b;" class="fas blueColor" [visibility]="visibleIfStartedNotPaused()"></ActionItem>
     <ActionItem (tap)="resume()" icon="font://&#xf144;" class="fas blueColor" [visibility]="visibleIfPaused()"></ActionItem>
     <ActionItem (tap)="stop()" icon="font://&#xf28d;" class="fas blueColor" [visibility]="visibleIfStarted()"></ActionItem>
+    <ActionItem (tap)="refreshMeteo()" icon="font://&#xf2f1;" class="fas blueColor" [visibility]="visibleIfStopped()"></ActionItem>
 </ActionBar>
 
 <GridLayout class="page" [class.restoreDialogOpen]="restoreDialogOpen" [class.stopDialogOpen]="stopDialogOpen">

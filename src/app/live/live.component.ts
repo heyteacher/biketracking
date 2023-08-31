@@ -94,11 +94,7 @@ export class LiveComponent implements OnInit {
             })
             }
         )
-        this.meteoService.updateMeteo((infoMeteo) => {
-            this.infoMeteo = infoMeteo
-            this.infoMeteoData = this.meteoService.infoMeteoData
-            //trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
-        })
+        this.refreshMeteo()
         this.tabsService.getAppStatusObserver().subscribe(async () => {
             if (this.tabsService.isStarted() && await this.geolocationService.existsLiveTrack()) {
                 this.showRestoreDialogOpen()
@@ -106,6 +102,15 @@ export class LiveComponent implements OnInit {
             }
         })
     }
+
+    refreshMeteo() {
+        this.meteoService.updateMeteo((infoMeteo) => {
+            this.infoMeteo = infoMeteo
+            this.infoMeteoData = this.meteoService.infoMeteoData
+            //trace.write(`live: infoMeteoData ${JSON.stringify(this.infoMeteoData)}`, trace.categories.Debug)
+        })
+    }
+
 
     async start() {
         if (appSettings.getBoolean(AppSettingsKey.COUNTDOWN,JSON.parse(AppSettingsDefaultValue.COUNTDOWN))) {
@@ -155,6 +160,10 @@ export class LiveComponent implements OnInit {
         return this.geolocationService.getLiveTrack().isStarted()
     }
 
+    isStopped() {
+        return !this.isStarted() && !this.isPaused()
+    }
+
     isPaused() {
         return this.geolocationService.getLiveTrack().isPaused()
     }
@@ -172,7 +181,7 @@ export class LiveComponent implements OnInit {
     }
 
     visibleIfStopped() {
-        return this.isStarted() || this._starting ? 'collapse' : 'visible'
+        return this.isStopped() && !this._starting ? 'visible' : 'collapse'
     }
 
     visibleIfStarting() {
