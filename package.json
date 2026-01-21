@@ -63,7 +63,7 @@
         "nativescript-dev-webpack": "~1.5.1",
         "node-sass": "^9.0.0",
         "tns-platform-declarations": "^6.5.15",
-        "tslint": "~5.19.0",
+        "tslint": "~5.20.1",
         "typescript": "~3.5.3"
     },
     "gitHead": "2250137db8c1e0bd0eb543e8e4563cb71480c00d",
